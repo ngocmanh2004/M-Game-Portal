@@ -1,14 +1,15 @@
 import { useEffect, useState } from 'react';
-import { getDatabase, ref, onValue, push, set, get, child, update } from 'firebase/database';
+import { getDatabase, ref, onValue, push, set, get, update } from 'firebase/database';
+import { getFirestore, doc, getDoc, onSnapshot } from 'firebase/firestore'; 
 import { generateRoomCode } from '../utils/tienlen/roomCodeGenerator';
 
 const db = getDatabase();
+const firestore = getFirestore();
 
 export function useTienLenLobby() {
   const [lobbies, setLobbies] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
-  // Lắng nghe danh sách phòng realtime
   useEffect(() => {
     const lobbiesRef = ref(db, 'tienlen/lobbies');
     const unsubscribe = onValue(lobbiesRef, (snapshot) => {
@@ -22,48 +23,92 @@ export function useTienLenLobby() {
     return () => unsubscribe();
   }, []);
 
-  // Tạo phòng mới
+  const getRealMoney = async (uid: string) => {
+      try {
+        const userDoc = await getDoc(doc(firestore, 'users', uid));
+        if (userDoc.exists()) {
+            return userDoc.data().money || 0;
+        }
+      } catch (e) { console.error("Lỗi lấy tiền:", e); }
+      return 0;
+  };
+
+  // --- ĐỒNG BỘ TIỀN REALTIME (MỚI) ---
+  // Hàm này sẽ được gọi ở TienLen.tsx hoặc WaitingRoom để giữ tiền luôn đúng
+  const syncMoneyToLobby = (lobbyId: string, userUid: string) => {
+      // Lắng nghe tiền thật thay đổi ở Firestore
+      const userRef = doc(firestore, 'users', userUid);
+      return onSnapshot(userRef, async (docSnap) => {
+          if (docSnap.exists()) {
+              const realMoney = docSnap.data().money;
+              
+              // Tìm xem mình đang ở vị trí nào trong phòng để update
+              const lobbyRef = ref(db, `tienlen/lobbies/${lobbyId}`);
+              const snapshot = await get(lobbyRef);
+              if (snapshot.exists()) {
+                  const players = snapshot.val().players || {};
+                  const myPos = Object.keys(players).find(key => players[key]?.uid === userUid);
+                  
+                  if (myPos) {
+                      // Cập nhật tiền mới lên phòng chờ
+                      update(ref(db, `tienlen/lobbies/${lobbyId}/players/${myPos}`), { 
+                          money: realMoney,
+                          balance: realMoney 
+                      });
+                  }
+              }
+              
+              // Nếu game đang diễn ra, cập nhật cả trong node game
+              const gameRef = ref(db, `tienlen/games/${lobbyId}`); // gameId thường trùng lobbyId
+              const gameSnap = await get(gameRef);
+              if (gameSnap.exists()) {
+                  const players = gameSnap.val().players || {};
+                  const myPos = Object.keys(players).find(key => players[key]?.uid === userUid);
+                  if (myPos) {
+                      update(ref(db, `tienlen/games/${lobbyId}/players/${myPos}`), { 
+                          money: realMoney 
+                      });
+                  }
+              }
+          }
+      });
+  };
+
   const createLobby = async (user: any, roomType: string, betAmount: number, maxPlayers: number, toiTrangRule: string) => {
+    const realMoney = await getRealMoney(user.uid);
+    if (realMoney < betAmount) throw new Error(`Cần tối thiểu ${betAmount.toLocaleString()}đ!`);
+
     let roomCode = '';
     let unique = false;
-    // Tìm mã phòng 5 số duy nhất
     while (!unique) {
       roomCode = generateRoomCode();
       const codeSnap = await get(ref(db, `tienlen/roomCodes/${roomCode}`));
       if (!codeSnap.exists()) unique = true;
     }
+    
     const lobbiesRef = ref(db, 'tienlen/lobbies');
     const newLobbyRef = push(lobbiesRef);
     const lobbyId = newLobbyRef.key!;
     const now = Date.now();
+    
     const lobbyData = {
-      roomCode,
-      hostUid: user.uid,
-      roomType,
-      betAmount,
-      maxPlayers,
-      toiTrangRule,
-      status: 'waiting',
-      createdAt: now,
+      roomCode, hostUid: user.uid, roomType, betAmount, maxPlayers, toiTrangRule, status: 'waiting', createdAt: now,
       players: {
         0: {
-          uid: user.uid,
-          displayName: user.username,
-          email: user.email,
-          photoURL: user.avatar || '',
-          balance: user.balance,
-          ready: false,
-          position: 0,
-          joinedAt: now,
+          uid: user.uid, displayName: user.username, email: user.email, photoURL: user.avatar || '',
+          money: realMoney, 
+          balance: realMoney,
+          ready: false, position: 0, joinedAt: now,
         }
       }
     };
     await set(newLobbyRef, lobbyData);
     await set(ref(db, `tienlen/roomCodes/${roomCode}`), { lobbyId });
+    window.localStorage.setItem('tienlen_position', '0');
+    window.localStorage.setItem('uid', user.uid);
     return lobbyId;
   };
 
-  // Vào phòng bằng mã
   const joinLobbyByCode = async (user: any, code: string) => {
     const codeSnap = await get(ref(db, `tienlen/roomCodes/${code}`));
     if (!codeSnap.exists()) throw new Error('Mã phòng không tồn tại!');
@@ -73,34 +118,23 @@ export function useTienLenLobby() {
     if (!lobbySnap.exists()) throw new Error('Phòng không tồn tại!');
     const lobby = lobbySnap.val();
 
-    // Đảm bảo players luôn là object
-    const players = lobby.players || {};
+    const realMoney = await getRealMoney(user.uid);
+    if (realMoney < lobby.betAmount) throw new Error(`Cần tối thiểu ${lobby.betAmount.toLocaleString()}đ!`);
 
-    // Kiểm tra user đã có trong phòng chưa (chỉ kiểm tra player còn tồn tại)
+    const players = lobby.players || {};
     const existed = Object.values(players).filter(Boolean).find((p: any) => p.uid === user.uid);
     if (existed) throw new Error('Bạn đã ở trong phòng này!');
 
-    // Tìm vị trí trống
     let pos = -1;
-    for (let i = 0; i < lobby.maxPlayers; i++) {
-      if (!players[i]) {
-        pos = i;
-        break;
-      }
-    }
+    for (let i = 0; i < lobby.maxPlayers; i++) { if (!players[i]) { pos = i; break; } }
     if (pos === -1) throw new Error('Phòng đã đầy!');
 
-    // Thêm user vào phòng
     await update(lobbyRef, {
       [`players/${pos}`]: {
-        uid: user.uid,
-        displayName: user.username,
-        email: user.email,
-        photoURL: user.avatar || '',
-        balance: user.balance,
-        ready: false,
-        position: pos,
-        joinedAt: Date.now(),
+        uid: user.uid, displayName: user.username, email: user.email, photoURL: user.avatar || '',
+        money: realMoney,
+        balance: realMoney,
+        ready: false, position: pos, joinedAt: Date.now(),
       }
     });
     window.localStorage.setItem('tienlen_position', pos.toString());
@@ -108,10 +142,5 @@ export function useTienLenLobby() {
     return lobbyId;
   };
 
-  return {
-    lobbies,
-    loading,
-    createLobby,
-    joinLobbyByCode,
-  };
+  return { lobbies, loading, createLobby, joinLobbyByCode, syncMoneyToLobby };
 }

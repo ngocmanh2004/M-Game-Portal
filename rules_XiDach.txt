@@ -1,0 +1,85 @@
+DOCUMENTATION: LUẬT CHƠI XÌ DÁCH VIỆT NAM
+
+1. Thành phần và Mục tiêu
+
+Bộ bài: Sử dụng bộ bài Tây chuẩn 52 lá.
+
+Người chơi: * Nhà cái (Dealer): 1 người (thường có quyền lợi và trách nhiệm cao hơn).
+
+Nhà con (Player): Từ 1 đến 4 người.
+
+Mục tiêu: Đạt tổng điểm các lá bài trên tay càng gần $21$ càng tốt, nhưng không được vượt quá $21$.
+
+2. Cách tính điểm
+
+Lá 2 đến 10: Điểm tương ứng với con số trên lá bài.
+
+Lá J, Q, K: Mỗi lá tính $10$ điểm.
+
+Lá A (Xì): Có thể tính linh hoạt là $1, 10,$ hoặc $11$ điểm tùy có lợi nhất cho người chơi (thường tính là $1$ khi tổng bài đã lớn).
+
+Điểm tổng: Là tổng điểm của tất cả các lá bài trên tay.
+
+3. Các giai đoạn chơi
+
+Giai đoạn 1: Chia bài và Kiểm tra bài đặc biệt
+
+Mỗi người chơi và Nhà cái được chia $2$ lá bài (úp hoặc mở tùy cài đặt).
+
+Ưu tiên thắng ngay (Instant Win): Nếu $2$ lá đầu tiên thuộc các trường hợp sau, người chơi dừng luôn:
+
+Xì Bàng: 2 lá A.
+
+Xì Dách: 1 lá A và 1 lá (10, J, Q, hoặc K).
+
+Lưu ý: Nếu Nhà cái có Xì Bàng hoặc Xì Dách, Nhà cái thắng tất cả Nhà con (trừ ai có bài bằng hoặc cao hơn Nhà cái).
+
+Giai đoạn 2: Bốc thêm bài (Bốc bài)
+
+Sau khi kiểm tra Xì Dách/Xì Bàng, người chơi tiến hành bốc thêm bài để tối ưu điểm.
+
+Thứ tự: Nhà con bốc trước theo chiều kim đồng hồ, Nhà cái bốc sau cùng.
+
+Điều kiện điểm:
+
+Non: Tổng điểm $< 16$.
+
+Đủ: Tổng điểm từ $16$ đến $21$ (điểm lý tưởng).
+
+Quắc (Bust): Tổng điểm $> 21$.
+
+Số lượng lá bài: Mỗi người được bốc tối đa thêm $3$ lá (tổng cộng tối đa $5$ lá trên tay).
+
+Giai đoạn 3: Nhà cái xét bài
+
+Sau khi các Nhà con hoàn tất lượt bốc, đến lượt Nhà cái.
+
+Nhà cái phải có tối thiểu $15$ điểm (Xì dằn) mới được quyền xét bài Nhà con.
+
+Nhà cái có quyền xét bài bất kỳ Nhà con nào tại bất kỳ thời điểm nào sau khi họ đã bốc xong và Nhà cái đã đủ điểm "dằn".
+
+4. Các trường hợp đặc biệt (Thứ tự ưu tiên)
+
+Khi so bài, thứ tự mạnh yếu như sau (từ mạnh đến yếu):
+
+Xì Bàng (Mạnh nhất).
+
+Xì Dách.
+
+Ngũ Linh: Tổng 5 lá bài $\le 21$. (Nếu cả hai cùng Ngũ Linh, ai ít điểm hơn thắng).
+
+Điểm thường: Từ $21$ xuống $16$.
+
+Quắc: $> 21$. (Nếu cả hai cùng Quắc, coi như hòa hoặc theo luật bàn: ai ít điểm hơn thắng).
+
+5. Logic xử lý cho AI Agent (Backend Logic)
+
+Trạng thái bài (States)
+
+Trạng tháiĐiều kiệnHành độngXì Bàng/Dách2 lá đầu tiênThắng ngay, dừng bốc.Dưới 16Điểm $< 16$Bắt buộc bốc thêm (tùy luật bàn).Đủ điểm$16 \le \text{điểm} \le 21$Có thể dừng hoặc bốc tiếp.QuắcĐiểm $> 21$Ngừng bốc, thua (trừ khi đối phương cũng Quắc/Non).Ngũ Linh5 lá và điểm $\le 21$Thắng hầu hết các hạng bài khác.
+
+Quy tắc "Đền bài" (Penalty)
+
+Nếu người chơi đã có $21$ điểm mà vẫn bốc tiếp dẫn đến Quắc, có thể bị xử thua ngay lập tức hoặc đền tiền cho cả bàn (tùy cấu hình game).
+
+Nhà cái chưa đủ $15$ điểm mà đã xét bài là phạm luật.

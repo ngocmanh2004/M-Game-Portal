@@ -20,12 +20,15 @@ import { GameType, SoundType } from './types';
 import { SOUNDS, BACKGROUNDS_DESKTOP, BACKGROUNDS_MOBILE } from './constants';
 import './App.css';
 import { UserProfileModal } from './components/UserProfileModal';
-import { TienLen } from './components/TienLen/TienLen'; 
+import { TienLen } from './components/TienLen/TienLen';
+import { XiDach } from './components/XiDach/lobby/XiDach';
+import { CaCaNgu } from './components/CaCaNgu/CaCaNgu';
+import { AiThongMinhHon } from './components/SieuTriTue/AiThongMinhHon/AiThongMinhHon';
 
 function App() {
   const { user, loading: authLoading, logout } = useAuth();
   const { userData, loading: userLoading, updateMoney, updateTask, checkin } = useUserData(user?.uid);
-  
+
   const [currentGame, setCurrentGame] = useState<GameType>(GameType.HOME);
   const [isMuted, setIsMuted] = useState(false);
   const [bgIndex, setBgIndex] = useState(0);
@@ -80,7 +83,7 @@ function App() {
   };
 
   const handleGoHome = () => setCurrentGame(GameType.HOME);
-  
+
   // ⭐ THÊM handleLogout
   const handleLogout = async () => {
     try {
@@ -135,7 +138,7 @@ function App() {
     };
 
     window.addEventListener('background-updated', handleBackgroundUpdate);
-    
+
     return () => {
       window.removeEventListener('background-updated', handleBackgroundUpdate);
     };
@@ -172,22 +175,22 @@ function App() {
     switch (currentGame) {
       case GameType.HOME:
         return <Home onSelectGame={setCurrentGame} />;
-      
+
       case GameType.DASHBOARD:
         return <Dashboard playSound={playSound} />;
-      
+
       case GameType.BAU_CUA:
         return <BauCua {...commonProps} />;
-      
+
       case GameType.TAI_XIU:
         return <TaiXiu {...commonProps} />;
-      
+
       case GameType.XOC_DIA:
         return <XocDia {...commonProps} />;
-      
+
       case GameType.DAP_HEO:
         return <DapHeo {...commonProps} />;
-      
+
       case GameType.SHOP:
         return (
           <Shop
@@ -197,10 +200,10 @@ function App() {
             playSound={playSound}
           />
         );
-      
+
       case GameType.PROFILE:
         return <Profile />;
-      
+
       case GameType.INVENTORY:
         return (
           <Inventory
@@ -210,26 +213,26 @@ function App() {
             updateMoney={updateMoney}
           />
         );
-      
+
       case GameType.LEADERBOARD:
         return <Leaderboard />;
-      
+
       case GameType.ADMIN_PANEL:
         return (
           <AdminPanel
             onShowNotification={handleShowNotification}
           />
         );
-      
+
       case GameType.FRIENDS:
         return <Friends />;
-      
+
       case GameType.TIEN_LEN:
         return (
           <TienLen
             user={{
               uid: user.uid,
-              username: userData.email || user.email || "", // ép về string
+              username: userData.nickname || (userData.email || user.email || '').split('@')[0], // ép về string
               email: userData.email || user.email || "",
               balance: userData.money,
               avatar: userData.avatar,
@@ -237,7 +240,49 @@ function App() {
             }}
           />
         );
-      
+
+      case GameType.XI_DACH:
+        return (
+          <XiDach
+            user={{
+              uid: user.uid,
+              username: userData.nickname || (userData.email || user.email || '').split('@')[0],
+              email: userData.email || user.email || "",
+              balance: userData.money,
+              avatar: userData.avatar,
+              background: userData.background,
+            }}
+          />
+        );
+
+      case GameType.CO_CA_NGU:
+        return (
+          <CaCaNgu
+            user={{
+              uid: user.uid,
+              username: userData.nickname || (userData.email || user.email || '').split('@')[0],
+              email: userData.email || user.email || "",
+              balance: userData.money,
+              avatar: userData.avatar,
+              background: userData.background,
+            }}
+          />
+        );
+
+      case GameType.SIEU_TRI_TUE:
+        return (
+          <AiThongMinhHon
+            user={{
+              uid: user.uid,
+              username: userData.nickname || (userData.email || user.email || '').split('@')[0],
+              email: userData.email || user.email || "",
+              balance: userData.money,
+              avatar: userData.avatar,
+              background: userData.background,
+            }}
+          />
+        );
+
       default:
         return <Home onSelectGame={setCurrentGame} />;
     }
@@ -255,14 +300,83 @@ function App() {
       case GameType.PROFILE: return 'Hồ Sơ';
       case GameType.INVENTORY: return 'Túi Đồ';
       case GameType.LEADERBOARD: return 'Bảng Xếp Hạng';
+      case GameType.TIEN_LEN: return 'Tiến Lên';
+      case GameType.XI_DACH: return 'Xì Dách';
+      case GameType.CO_CA_NGU: return 'Cờ Cá Ngựa';
       default: return 'Game Tết';
     }
   };
 
+  // TienLen tự quản lý UI toàn màn hình, không cần header/footer của Layout
+  if (currentGame === GameType.TIEN_LEN) {
+    return (
+      <TienLen
+        user={{
+          uid: user.uid,
+          username: userData.nickname || (userData.email || user.email || '').split('@')[0],
+          email: userData.email || user.email || "",
+          balance: userData.money,
+          avatar: userData.avatar,
+          background: userData.background,
+        }}
+        onGoHome={() => setCurrentGame(GameType.HOME)}
+      />
+    );
+  }
+
+  // XiDach tự quản lý UI toàn màn hình, không cần header/footer của Layout
+  if (currentGame === GameType.XI_DACH) {
+    return (
+      <XiDach
+        user={{
+          uid: user.uid,
+          username: userData.nickname || (userData.email || user.email || '').split('@')[0],
+          email: userData.email || user.email || "",
+          balance: userData.money,
+          avatar: userData.avatar,
+          background: userData.background,
+        }}
+        onGoHome={() => setCurrentGame(GameType.HOME)}
+      />
+    );
+  }
+
+  if (currentGame === GameType.CO_CA_NGU) {
+    return (
+      <CaCaNgu
+        user={{
+          uid: user.uid,
+          username: userData.nickname || (userData.email || user.email || '').split('@')[0],
+          email: userData.email || user.email || "",
+          balance: userData.money,
+          avatar: userData.avatar,
+          background: userData.background,
+        }}
+        onGoHome={() => setCurrentGame(GameType.HOME)}
+      />
+    );
+  }
+
+  if (currentGame === GameType.SIEU_TRI_TUE) {
+    return (
+      <AiThongMinhHon
+        user={{
+          uid: user.uid,
+          username: userData.nickname || (userData.email || user.email || '').split('@')[0],
+          email: userData.email || user.email || "",
+          balance: userData.money,
+          avatar: userData.avatar,
+          background: userData.background,
+        }}
+        onGoHome={() => setCurrentGame(GameType.HOME)}
+      />
+    );
+  }
+
   return (
     <Layout
       user={{
-        username: userData.email,
+        username: userData.nickname || (userData.email || "").split('@')[0],
         balance: userData.money,
         email: userData.email,
         uid: user.uid,

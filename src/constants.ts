@@ -3,6 +3,14 @@ import { BauCuaItem, ChipInfo, PigType, ShopItem, ItemType, TetItemAction } from
 export const INITIAL_BALANCE = 500000;
 
 export const BAU_CUA_ITEMS: BauCuaItem[] = [
+    { 
+    id: 'ga', 
+    name: 'Gà', 
+    image: '/assets/image/items/ga.jpg', 
+    boardImage: '/assets/image/items/ga.png',
+    color: 'bg-yellow-600' 
+  },
+
   { 
     id: 'bau', 
     name: 'Bầu', 
@@ -10,6 +18,22 @@ export const BAU_CUA_ITEMS: BauCuaItem[] = [
     boardImage: '/assets/image/items/bau.jpg',   // ⭐ Ảnh ô đặt cược (có background)
     color: 'bg-green-600' 
   },
+  
+  { 
+    id: 'nai', 
+    name: 'Nai', 
+    image: '/assets/image/items/nai.jpg', 
+    boardImage: '/assets/image/items/nai.png',
+    color: 'bg-orange-600' 
+  },
+    { 
+    id: 'tom', 
+    name: 'Tôm', 
+    image: '/assets/image/items/tom.jpg',        // ⭐ Trong bát
+    boardImage: '/assets/image/items/tom.png',   // ⭐ Ô cược
+    color: 'bg-pink-600' 
+  },
+  
   { 
     id: 'cua', 
     name: 'Cua', 
@@ -17,33 +41,13 @@ export const BAU_CUA_ITEMS: BauCuaItem[] = [
     boardImage: '/assets/image/items/cua.jpg',
     color: 'bg-red-600' 
   },
-  { 
-    id: 'tom', 
-    name: 'Tôm', 
-    image: '/assets/image/items/tom.jpg',        // ⭐ Trong bát
-    boardImage: '/assets/image/items/tom.png',   // ⭐ Ô cược
-    color: 'bg-pink-600' 
-  },
+
   { 
     id: 'ca', 
     name: 'Cá', 
     image: '/assets/image/items/ca.jpg', 
     boardImage: '/assets/image/items/ca.png',
     color: 'bg-blue-600' 
-  },
-  { 
-    id: 'ga', 
-    name: 'Gà', 
-    image: '/assets/image/items/ga.jpg', 
-    boardImage: '/assets/image/items/ga.png',
-    color: 'bg-yellow-600' 
-  },
-  { 
-    id: 'nai', 
-    name: 'Nai', 
-    image: '/assets/image/items/nai.jpg', 
-    boardImage: '/assets/image/items/nai.png',
-    color: 'bg-orange-600' 
   }
 ];
 
@@ -200,7 +204,7 @@ export const SOUNDS = {
   loss: '/assets/audio/lose.mp3',
   lucky: '/assets/audio/lucky.mp3',
   boom: '/assets/audio/boom.mp3',
-  bgMusic: '/assets/audio/noel.mp3'
+  bgMusic: '/assets/audio/tet-music.mp3'
 };
 
 export const ASSETS = {
@@ -500,5 +504,5 @@ export const SHOP_ITEMS: ShopItem[] = [
 ];
 
 // ⭐ Avatar & Background mặc định
-export const DEFAULT_AVATAR = 'https://api.dicebear.com/7.x/avataaars/svg?seed=default';
+export const DEFAULT_AVATAR = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNq2dnEsfUtG9oo4bSvx2TNBGlfrOm1olCPQ&s';
 export const DEFAULT_BACKGROUND = '/assets/image/background/bg1.png';

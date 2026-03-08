@@ -1,0 +1,2326 @@
+export const quizQuestions = [
+
+  // EASY QUESTIONS
+  {
+    id: 8,
+    question: "Con vật nào được gọi là 'bạn thân của con người'?",
+    options: ["Ngựa", "Thỏ", "Mèo", "Chó"],
+    correctIndex: 3,
+    category: "sinh học",
+    difficulty: "easy"
+  },
+  {
+    id: 9,
+    question: "Sông dài nhất thế giới là sông nào?",
+    options: ["Nile", "Mississippi", "Dương Tử", "Amazon"],
+    correctIndex: 0,
+    category: "địa lý",
+    difficulty: "easy"
+  },
+  {
+    id: 13,
+    question: "Đỉnh núi cao nhất thế giới là gì?",
+    options: ["Everest", "Fuji", "Kilimanjaro", "K2"],
+    correctIndex: 0,
+    category: "địa lý",
+    difficulty: "easy"
+  },
+  {
+    id: 15,
+    question: "Quốc kỳ Nhật Bản có hình gì?",
+    options: ["Con rồng", "Hoa", "Mặt trời đỏ", "Ngôi sao"],
+    correctIndex: 2,
+    category: "địa lý",
+    difficulty: "easy"
+  },
+  {
+    id: 17,
+    question: "Con gì ngủ đứng?",
+    options: ["Ngựa", "Mèo", "Bò", "Chó"],
+    correctIndex: 0,
+    category: "sinh học",
+    difficulty: "easy"
+  },
+  {
+    id: 19,
+    question: "Màu nào được tạo từ đỏ và vàng?",
+    options: ["Tím", "Nâu", "Cam", "Xanh"],
+    correctIndex: 2,
+    category: "đời sống",
+    difficulty: "easy"
+  },
+  {
+    id: 20,
+    question: "Người Việt Nam ăn gì vào Tết Trung Thu?",
+    options: ["Bánh mì", "Bánh cuốn", "Bánh chưng", "Bánh trung thu"],
+    correctIndex: 3,
+    category: "đời sống",
+    difficulty: "easy"
+  },
+  {
+    id: 21,
+    question: "Thành phố nào được gọi là 'Thành phố không ngủ'?",
+    options: ["New York", "Tokyo", "Bangkok", "Paris"],
+    correctIndex: 0,
+    category: "địa lý",
+    difficulty: "easy"
+  },
+  {
+    id: 22,
+    question: "Con vật nào lớn nhất trên Trái Đất?",
+    options: ["Cá mập", "Cá voi xanh", "Hà mã", "Voi"],
+    correctIndex: 1,
+    category: "sinh học",
+    difficulty: "easy"
+  },
+  {
+    id: 24,
+    question: "Quốc gia nào nổi tiếng với tháp Eiffel?",
+    options: ["Tây Ban Nha", "Đức", "Ý", "Pháp"],
+    correctIndex: 3,
+    category: "địa lý",
+    difficulty: "easy"
+  },
+  {
+    id: 26,
+    question: "Biển nào gần Việt Nam nhất?",
+    options: ["Biển Địa Trung Hải", "Biển Đông", "Biển Đỏ", "Biển Nhật Bản"],
+    correctIndex: 1,
+    category: "địa lý",
+    difficulty: "easy"
+  },
+  {
+    id: 28,
+    question: "Nước nào có dân số đông nhất thế giới?",
+    options: ["Mỹ", "Indonesia", "Trung Quốc", "Ấn Độ"],
+    correctIndex: 3,
+    category: "địa lý",
+    difficulty: "easy"
+  },
+  {
+    id: 29,
+    question: "Chữ cái đầu tiên trong bảng chữ cái là gì?",
+    options: ["A", "C", "D", "B"],
+    correctIndex: 0,
+    category: "đời sống",
+    difficulty: "easy"
+  },
+  {
+    id: 31,
+    question: "Động vật nào sống dưới nước?",
+    options: ["Mèo", "Gà", "Cá", "Chó"],
+    correctIndex: 2,
+    category: "sinh học",
+    difficulty: "easy"
+  },
+  {
+    id: 32,
+    question: "Trái cây nào có màu vàng?",
+    options: ["Nho", "Dâu", "Táo", "Chuối"],
+    correctIndex: 3,
+    category: "đời sống",
+    difficulty: "easy"
+  },
+  {
+    id: 34,
+    question: "Nước nào nổi tiếng với pizza?",
+    options: ["Đức", "Ý", "Hà Lan", "Pháp"],
+    correctIndex: 1,
+    category: "địa lý",
+    difficulty: "easy"
+  },
+  {
+    id: 35,
+    question: "Bộ phận nào dùng để nhìn?",
+    options: ["Mũi", "Miệng", "Mắt", "Tai"],
+    correctIndex: 2,
+    category: "sinh học",
+    difficulty: "easy"
+  },
+  {
+    id: 36,
+    question: "Con vật nào kêu 'gâu gâu'?",
+    options: ["Vịt", "Gà", "Mèo", "Chó"],
+    correctIndex: 3,
+    category: "sinh học",
+    difficulty: "easy"
+  },
+  {
+    id: 38,
+    question: "Nước nào có kim tự tháp nổi tiếng?",
+    options: ["Ấn Độ", "Ai Cập", "Peru", "Mexico"],
+    correctIndex: 1,
+    category: "địa lý",
+    difficulty: "easy"
+  },
+  {
+    id: 45,
+    question: "Cầu thủ bóng đá nào được mệnh danh là 'Vua bóng đá'?",
+    options: ["Pele", "Ronaldo", "Maradona", "Messi"],
+    correctIndex: 0,
+    category: "thể thao",
+    difficulty: "easy"
+  },
+  {
+    id: 49,
+    question: "Con vật nào có cổ dài nhất?",
+    options: ["Hươu cao cổ", "Ngựa", "Voi", "Lạc đà"],
+    correctIndex: 0,
+    category: "sinh học",
+    difficulty: "easy"
+  },
+  {
+    id: 50,
+    question: "Trong bàn cờ vua có bao nhiêu quân mỗi bên lúc bắt đầu?",
+    options: ["20", "16", "24", "12"],
+    correctIndex: 1,
+    category: "đời sống",
+    difficulty: "easy"
+  },
+  {
+    id: 51,
+    question: "Động vật nào được gọi là 'tàu ngầm của đại dương'?",
+    options: ["Cá voi", "Bạch tuộc", "Cá mập", "Cá heo"],
+    correctIndex: 2,
+    category: "sinh học",
+    difficulty: "easy"
+  },
+  {
+    id: 53,
+    question: "Thành phố nào nổi tiếng với tượng Nữ thần Tự Do?",
+    options: ["New York", "Chicago", "Boston", "Los Angeles"],
+    correctIndex: 0,
+    category: "địa lý",
+    difficulty: "easy"
+  },
+  {
+    id: 54,
+    question: "Màu nào là kết quả khi trộn xanh dương và vàng?",
+    options: ["Tím", "Xanh lá", "Nâu", "Cam"],
+    correctIndex: 1,
+    category: "đời sống",
+    difficulty: "easy"
+  },
+  {
+    id: 55,
+    question: "Bộ phận nào của cây thực hiện quang hợp?",
+    options: ["Thân", "Hoa", "Lá", "Rễ"],
+    correctIndex: 2,
+    category: "sinh học",
+    difficulty: "easy"
+  },
+  {
+    id: 57,
+    question: "Nước nào nổi tiếng với Vạn Lý Trường Thành?",
+    options: ["Trung Quốc", "Hàn Quốc", "Mông Cổ", "Nhật Bản"],
+    correctIndex: 0,
+    category: "địa lý",
+    difficulty: "easy"
+  },
+  {
+    id: 60,
+    question: "Một tuần có bao nhiêu ngày?",
+    options: ["6", "8", "5", "7"],
+    correctIndex: 3,
+    category: "đời sống",
+    difficulty: "easy"
+  },
+  {
+    id: 61,
+    question: "Động vật nào đẻ trứng?",
+    options: ["Gà", "Chó", "Bò", "Mèo"],
+    correctIndex: 0,
+    category: "sinh học",
+    difficulty: "easy"
+  },
+  {
+    id: 62,
+    question: "Đồng hồ dùng để đo gì?",
+    options: ["Khối lượng", "Thời gian", "Nhiệt độ", "Chiều dài"],
+    correctIndex: 1,
+    category: "đời sống",
+    difficulty: "easy"
+  },
+  {
+    id: 63,
+    question: "Nước nào có tháp nghiêng Pisa?",
+    options: ["Tây Ban Nha", "Bồ Đào Nha", "Ý", "Pháp"],
+    correctIndex: 2,
+    category: "địa lý",
+    difficulty: "easy"
+  },
+  {
+    id: 65,
+    question: "Con vật nào có thể bay?",
+    options: ["Chim", "Cá voi", "Chó", "Cá"],
+    correctIndex: 0,
+    category: "sinh học",
+    difficulty: "easy"
+  },
+  {
+    id: 68,
+    question: "Quả nào thường có màu tím?",
+    options: ["Chuối", "Dưa", "Cam", "Nho"],
+    correctIndex: 3,
+    category: "đời sống",
+    difficulty: "easy"
+  },
+  {
+    id: 72,
+    question: "Trái cây nào có nhiều múi?",
+    options: ["Chuối", "Dưa hấu", "Táo", "Cam"],
+    correctIndex: 3,
+    category: "đời sống",
+    difficulty: "easy"
+  },
+  {
+    id: 73,
+    question: "Quốc gia nào có hình chiếc ủng trên bản đồ?",
+    options: ["Ý", "Thổ Nhĩ Kỳ", "Pháp", "Hy Lạp"],
+    correctIndex: 0,
+    category: "địa lý",
+    difficulty: "easy"
+  },
+  {
+    id: 76,
+    question: "Một ngày có bao nhiêu giờ?",
+    options: ["18", "30", "12", "24"],
+    correctIndex: 3,
+    category: "đời sống",
+    difficulty: "easy"
+  },
+  {
+    id: 77,
+    question: "Cây nào thường dùng để làm giấy?",
+    options: ["Tất cả các loại trên", "Thông", "Keo", "Tre"],
+    correctIndex: 0,
+    category: "đời sống",
+    difficulty: "easy"
+  },
+  {
+    id: 79,
+    question: "Chữ cái nào đứng cuối bảng chữ cái?",
+    options: ["Y", "W", "Z", "X"],
+    correctIndex: 2,
+    category: "đời sống",
+    difficulty: "easy"
+  },
+  {
+    id: 81,
+    question: "Con vật nào chạy nhanh nhất trên cạn?",
+    options: ["Báo", "Hươu", "Sư tử", "Ngựa"],
+    correctIndex: 0,
+    category: "sinh học",
+    difficulty: "easy"
+  },
+  {
+    id: 82,
+    question: "Quốc gia nào có nhiều đảo nhất thế giới?",
+    options: ["Philippines", "Na Uy", "Nhật Bản", "Indonesia"],
+    correctIndex: 1,
+    category: "địa lý",
+    difficulty: "easy"
+  },
+  {
+    id: 83,
+    question: "Châu lục nào có sa mạc Sahara?",
+    options: ["Châu Mỹ", "Châu Úc", "Châu Phi", "Châu Á"],
+    correctIndex: 2,
+    category: "địa lý",
+    difficulty: "easy"
+  },
+  {
+    id: 84,
+    question: "Môn thể thao nào sử dụng vợt?",
+    options: ["Bơi", "Bóng chuyền", "Bóng đá", "Tennis"],
+    correctIndex: 3,
+    category: "thể thao",
+    difficulty: "easy"
+  },
+  {
+    id: 85,
+    question: "Thành phố nào nổi tiếng với kênh đào và gondola?",
+    options: ["Venice", "Paris", "Berlin", "Rome"],
+    correctIndex: 0,
+    category: "địa lý",
+    difficulty: "easy"
+  },
+  {
+    id: 86,
+    question: "Động vật nào có mai cứng?",
+    options: ["Mèo", "Rùa", "Cá", "Thỏ"],
+    correctIndex: 1,
+    category: "sinh học",
+    difficulty: "easy"
+  },
+  {
+    id: 87,
+    question: "Quốc gia nào có Kim Tự Tháp Giza?",
+    options: ["Hy Lạp", "Jordan", "Ai Cập", "Sudan"],
+    correctIndex: 2,
+    category: "địa lý",
+    difficulty: "easy"
+  },
+  {
+    id: 89,
+    question: "Nước nào nổi tiếng với sushi?",
+    options: ["Nhật Bản", "Trung Quốc", "Thái Lan", "Hàn Quốc"],
+    correctIndex: 0,
+    category: "địa lý",
+    difficulty: "easy"
+  },
+  {
+    id: 90,
+    question: "Trái cây nào có nhiều nước nhất?",
+    options: ["Chuối", "Dưa hấu", "Xoài", "Táo"],
+    correctIndex: 1,
+    category: "đời sống",
+    difficulty: "easy"
+  },
+  {
+    id: 91,
+    question: "Động vật nào sống cả trên cạn và dưới nước?",
+    options: ["Chó", "Bò", "Ếch", "Hổ"],
+    correctIndex: 2,
+    category: "sinh học",
+    difficulty: "easy"
+  },
+  {
+    id: 93,
+    question: "Nước nào có tháp đồng hồ Big Ben?",
+    options: ["Anh", "Đức", "Hà Lan", "Pháp"],
+    correctIndex: 0,
+    category: "địa lý",
+    difficulty: "easy"
+  },
+  {
+    id: 94,
+    question: "Động vật nào có 8 chân?",
+    options: ["Bọ", "Nhện", "Ong", "Kiến"],
+    correctIndex: 1,
+    category: "sinh học",
+    difficulty: "easy"
+  },
+  {
+    id: 96,
+    question: "Đơn vị tiền tệ của Nhật Bản là gì?",
+    options: ["Yuan", "Dollar", "Won", "Yen"],
+    correctIndex: 3,
+    category: "địa lý",
+    difficulty: "easy"
+  },
+  {
+    id: 97,
+    question: "Loài chim nào được coi là biểu tượng của hòa bình?",
+    options: ["Bồ câu", "Chim sẻ", "Chim công", "Đại bàng"],
+    correctIndex: 0,
+    category: "đời sống",
+    difficulty: "easy"
+  },
+  {
+    id: 102,
+    question: "Trái cây nào thường dùng để làm rượu vang?",
+    options: ["Dứa", "Nho", "Xoài", "Táo"],
+    correctIndex: 1,
+    category: "đời sống",
+    difficulty: "easy"
+  },
+  {
+    id: 103,
+    question: "Quốc gia nào nổi tiếng với lễ hội Oktoberfest?",
+    options: ["Thụy Sĩ", "Ba Lan", "Đức", "Áo"],
+    correctIndex: 2,
+    category: "địa lý",
+    difficulty: "easy"
+  },
+  {
+    id: 104,
+    question: "Con vật nào có thể sống lâu nhất?",
+    options: ["Mèo", "Thỏ", "Chó", "Rùa"],
+    correctIndex: 3,
+    category: "sinh học",
+    difficulty: "easy"
+  },
+  {
+    id: 105,
+    question: "Môn thể thao nào sử dụng quả bóng hình bầu dục?",
+    options: ["Rugby", "Bóng chuyền", "Tennis", "Bóng đá"],
+    correctIndex: 0,
+    category: "thể thao",
+    difficulty: "easy"
+  },
+  {
+    id: 106,
+    question: "Động vật nào có túi ở bụng để nuôi con?",
+    options: ["Voi", "Kangaroo", "Hươu", "Gấu"],
+    correctIndex: 1,
+    category: "sinh học",
+    difficulty: "easy"
+  },
+  {
+    id: 107,
+    question: "Quốc gia nào nổi tiếng với tháp Burj Khalifa?",
+    options: ["Saudi Arabia", "Kuwait", "UAE", "Qatar"],
+    correctIndex: 2,
+    category: "địa lý",
+    difficulty: "easy"
+  },
+  {
+    id: 111,
+    question: "Quốc gia nào có hình lá phong trên quốc kỳ?",
+    options: ["Anh", "Úc", "Canada", "Mỹ"],
+    correctIndex: 2,
+    category: "địa lý",
+    difficulty: "easy"
+  },
+  {
+    id: 112,
+    question: "Động vật nào được nuôi để lấy mật?",
+    options: ["Bướm", "Ruồi", "Kiến", "Ong"],
+    correctIndex: 3,
+    category: "sinh học",
+    difficulty: "easy"
+  },
+  {
+    id: 114,
+    question: "Thành phố nào được gọi là 'Thành phố ánh sáng'?",
+    options: ["Rome", "Paris", "Madrid", "London"],
+    correctIndex: 1,
+    category: "địa lý",
+    difficulty: "easy"
+  },
+  {
+    id: 116,
+    question: "Quốc gia nào nổi tiếng với kimchi?",
+    options: ["Trung Quốc", "Thái Lan", "Nhật Bản", "Hàn Quốc"],
+    correctIndex: 3,
+    category: "địa lý",
+    difficulty: "easy"
+  },
+  {
+    id: 117,
+    question: "Động vật nào có thể bay lượn vào ban đêm?",
+    options: ["Dơi", "Đại bàng", "Công", "Chim sẻ"],
+    correctIndex: 0,
+    category: "sinh học",
+    difficulty: "easy"
+  },
+  {
+    id: 119,
+    question: "Trái cây nào có nhiều mắt?",
+    options: ["Chuối", "Cam", "Dứa", "Táo"],
+    correctIndex: 2,
+    category: "đời sống",
+    difficulty: "easy"
+  },
+  {
+    id: 121,
+    question: "Quốc gia nào có nhiều đảo nhất thế giới?",
+    options: ["Thụy Điển", "Phần Lan", "Philippines", "Indonesia"],
+    correctIndex: 0,
+    category: "địa lý",
+    difficulty: "easy"
+  },
+  {
+    id: 126,
+    question: "Người sáng lập Apple cùng Steve Jobs là ai?",
+    options: ["Tim Cook", "Steve Wozniak", "Larry Page", "Bill Gates"],
+    correctIndex: 1,
+    category: "đời sống",
+    difficulty: "easy"
+  },
+  {
+    id: 127,
+    question: "Biển nào lớn nhất thế giới?",
+    options: ["Biển Caribe", "Biển San Hô", "Biển Philippines", "Biển Đông"],
+    correctIndex: 2,
+    category: "địa lý",
+    difficulty: "easy"
+  },
+  {
+    id: 128,
+    question: "Trong bóng đá, World Cup diễn ra bao nhiêu năm một lần?",
+    options: ["2 năm", "5 năm", "3 năm", "4 năm"],
+    correctIndex: 3,
+    category: "thể thao",
+    difficulty: "easy"
+  },
+  {
+    id: 132,
+    question: "Nước nào tổ chức World Cup 2018?",
+    options: ["Pháp", "Qatar", "Brazil", "Nga"],
+    correctIndex: 3,
+    category: "thể thao",
+    difficulty: "easy"
+  },
+  {
+    id: 133,
+    question: "Thành phố nào được gọi là 'Thành phố tình yêu'?",
+    options: ["Paris", "Venice", "Vienna", "Rome"],
+    correctIndex: 0,
+    category: "đời sống",
+    difficulty: "easy"
+  },
+  {
+    id: 135,
+    question: "Động vật nào có trí nhớ tốt nhất?",
+    options: ["Cá heo", "Tinh tinh", "Voi", "Chó"],
+    correctIndex: 2,
+    category: "sinh học",
+    difficulty: "easy"
+  },
+  {
+    id: 136,
+    question: "Trong cờ vua có bao nhiêu quân mỗi bên lúc bắt đầu?",
+    options: ["18", "20", "14", "16"],
+    correctIndex: 3,
+    category: "thể thao",
+    difficulty: "easy"
+  },
+  {
+    id: 144,
+    question: "Trong âm nhạc có bao nhiêu nốt cơ bản?",
+    options: ["6", "8", "5", "7"],
+    correctIndex: 3,
+    category: "văn hóa",
+    difficulty: "easy"
+  },
+  {
+    id: 147,
+    question: "Ai là người sáng lập Facebook?",
+    options: ["Larry Page", "Elon Musk", "Mark Zuckerberg", "Bill Gates"],
+    correctIndex: 2,
+    category: "đời sống",
+    difficulty: "easy"
+  },
+  {
+    id: 149,
+    question: "Trong cơ thể người có bao nhiêu lá phổi?",
+    options: ["2", "3", "4", "1"],
+    correctIndex: 0,
+    category: "sinh học",
+    difficulty: "easy"
+  },
+  {
+    id: 155,
+    question: "Trong bóng đá, thẻ đỏ có ý nghĩa gì?",
+    options: ["Thay người", "Phạt góc", "Truất quyền thi đấu", "Cảnh cáo"],
+    correctIndex: 2,
+    category: "thể thao",
+    difficulty: "easy"
+  },
+  {
+    id: 166,
+    question: "Môn thể thao nào sử dụng vợt và cầu lông?",
+    options: ["Bóng bàn", "Cầu lông", "Squash", "Tennis"],
+    correctIndex: 1,
+    category: "thể thao",
+    difficulty: "easy"
+  },
+  {
+    id: 167,
+    question: "Con vật nào được mệnh danh là 'bạn thân của con người'?",
+    options: ["Ngựa", "Cá heo", "Chó", "Mèo"],
+    correctIndex: 2,
+    category: "đời sống",
+    difficulty: "easy"
+  },
+  {
+    id: 169,
+    question: "Nước nào nổi tiếng với tháp Eiffel?",
+    options: ["Pháp", "Đức", "Tây Ban Nha", "Ý"],
+    correctIndex: 0,
+    category: "địa lý",
+    difficulty: "easy"
+  },
+  {
+    id: 172,
+    question: "Nước nào đăng cai World Cup 2022?",
+    options: ["Brazil", "Anh", "Nga", "Qatar"],
+    correctIndex: 3,
+    category: "thể thao",
+    difficulty: "easy"
+  },
+  {
+    id: 174,
+    question: "Động vật nào có cổ dài nhất?",
+    options: ["Ngựa", "Hươu cao cổ", "Đà điểu", "Lạc đà"],
+    correctIndex: 1,
+    category: "sinh học",
+    difficulty: "easy"
+  },
+  {
+    id: 177,
+    question: "Ai là người vẽ bức tranh 'Đêm đầy sao'?",
+    options: ["Van Gogh", "Da Vinci", "Monet", "Picasso"],
+    correctIndex: 0,
+    category: "văn hóa",
+    difficulty: "easy"
+  },
+  {
+    id: 201,
+    question: "10 + 5 bằng bao nhiêu?",
+    options: ["10", "15", "20", "25"],
+    correctIndex: 1,
+    category: "toán học",
+    difficulty: "easy"
+  },
+  {
+    id: 202,
+    question: "Loài chim nào thường hay nhại giọng con người?",
+    options: ["Vẹt", "Họa mi", "Sáo", "Bồ câu"],
+    correctIndex: 0,
+    category: "sinh học",
+    difficulty: "easy"
+  },
+  {
+    id: 203,
+    question: "Phương tiện nào sau đây đi trên mặt nước?",
+    options: ["Xe máy", "Máy bay", "Tàu thủy", "Xe tăng"],
+    correctIndex: 2,
+    category: "đời sống",
+    difficulty: "easy"
+  },
+  {
+    id: 204,
+    question: "Bao nhiêu phút bằng một giờ?",
+    options: ["30", "45", "60", "90"],
+    correctIndex: 2,
+    category: "toán học",
+    difficulty: "easy"
+  },
+  {
+    id: 205,
+    question: "Trái cây nào chứa nhiều vitamin C nhất trong các lựa chọn sau?",
+    options: ["Táo", "Cam", "Dưa hấu", "Chuối"],
+    correctIndex: 1,
+    category: "đời sống",
+    difficulty: "easy"
+  },
+  {
+    id: 206,
+    question: "Mùa nào trong năm thường có lá rụng nhiều nhất?",
+    options: ["Mùa xuân", "Mùa hạ", "Mùa thu", "Mùa đông"],
+    correctIndex: 2,
+    category: "đời sống",
+    difficulty: "easy"
+  },
+  {
+    id: 207,
+    question: "Hình tròn có bao nhiêu góc?",
+    options: ["0", "1", "3", "4"],
+    correctIndex: 0,
+    category: "toán học",
+    difficulty: "easy"
+  },
+  {
+    id: 208,
+    question: "Đèn tín hiệu giao thông màu gì yêu cầu dừng lại?",
+    options: ["Xanh", "Vàng", "Đỏ", "Tím"],
+    correctIndex: 2,
+    category: "đời sống",
+    difficulty: "easy"
+  },
+  {
+    id: 209,
+    question: "Cầu vồng có bao nhiêu màu sắc chính?",
+    options: ["5", "6", "7", "8"],
+    correctIndex: 2,
+    category: "khoa học",
+    difficulty: "easy"
+  },
+  {
+    id: 210,
+    question: "Động vật nào sau đây đẻ trứng?",
+    options: ["Chó", "Mèo", "Gà", "Heo"],
+    correctIndex: 2,
+    category: "sinh học",
+    difficulty: "easy"
+  },
+  {
+    id: 211,
+    question: "Môn thể thao nào được mệnh danh là 'Môn thể thao vua'?",
+    options: ["Bóng chuyền", "Bóng đá", "Bơi lội", "Cầu lông"],
+    correctIndex: 1,
+    category: "thể thao",
+    difficulty: "easy"
+  },
+  {
+    id: 212,
+    question: "Bộ phận nào trên cơ thể dùng để nghe?",
+    options: ["Mắt", "Mũi", "Tai", "Miệng"],
+    correctIndex: 2,
+    category: "sinh học",
+    difficulty: "easy"
+  },
+  {
+    id: 213,
+    question: "Loài vật nào di chuyển chậm nhất trong các con sau?",
+    options: ["Thỏ", "Rùa", "Ốc sên", "Táo"],
+    correctIndex: 2,
+    category: "sinh học",
+    difficulty: "easy"
+  },
+  {
+    id: 214,
+    question: "Quốc gia nào có hình dạng chữ S?",
+    options: ["Lào", "Campuchia", "Thái Lan", "Việt Nam"],
+    correctIndex: 3,
+    category: "địa lý",
+    difficulty: "easy"
+  },
+  {
+    id: 215,
+    question: "Con vật nào thường bắt chuột?",
+    options: ["Mèo", "Chó", "Heo", "Gà"],
+    correctIndex: 0,
+    category: "đời sống",
+    difficulty: "easy"
+  },
+  {
+    id: 216,
+    question: "Mặt trời lặn ở hướng nào?",
+    options: ["Đông", "Tây", "Nam", "Bắc"],
+    correctIndex: 1,
+    category: "địa lý",
+    difficulty: "easy"
+  },
+  {
+    id: 217,
+    question: "Sữa thường được lấy từ con vật nào?",
+    options: ["Gà", "Vịt", "Bò", "Chó"],
+    correctIndex: 2,
+    category: "đời sống",
+    difficulty: "easy"
+  },
+  {
+    id: 218,
+    question: "Trên mặt đồng hồ có bao nhiêu số cơ bản (1 đến ?)?",
+    options: ["10", "12", "24", "60"],
+    correctIndex: 1,
+    category: "toán học",
+    difficulty: "easy"
+  },
+  {
+    id: 219,
+    question: "Ở Việt Nam, mùa đông ở miền Bắc có đặc điểm gì?",
+    options: ["Nóng", "Ấm", "Mát mẻ", "Lạnh"],
+    correctIndex: 3,
+    category: "địa lý",
+    difficulty: "easy"
+  },
+  {
+    id: 220,
+    question: "Số tiếp theo của dãy 2, 4, 6 là?",
+    options: ["7", "8", "9", "10"],
+    correctIndex: 1,
+    category: "toán học",
+    difficulty: "easy"
+  },
+  {
+    id: 221,
+    question: "Ngọn núi cao nhất Việt Nam (Nóc nhà Đông Dương) tên là gì?",
+    options: ["Ba Vì", "Fansipan", "Mẫu Sơn", "Núi Bà Đen"],
+    correctIndex: 1,
+    category: "địa lý",
+    difficulty: "easy"
+  },
+  {
+    id: 222,
+    question: "Trái cam thường có màu gì lúc chín đỏ?",
+    options: ["Xanh lá", "Vàng nhạt", "Cam", "Tím"],
+    correctIndex: 2,
+    category: "đời sống",
+    difficulty: "easy"
+  },
+  {
+    id: 223,
+    question: "Ngày lễ Quốc Khánh của Việt Nam là ngày nào?",
+    options: ["30/4", "1/5", "2/9", "27/7"],
+    correctIndex: 2,
+    category: "lịch sử",
+    difficulty: "easy"
+  },
+  {
+    id: 224,
+    question: "20 - 5 bằng mấy?",
+    options: ["10", "15", "25", "5"],
+    correctIndex: 1,
+    category: "toán học",
+    difficulty: "easy"
+  },
+  {
+    id: 225,
+    question: "Tên của một loại củ màu cam mà thỏ rất thích ăn?",
+    options: ["Cà chua", "Cà rốt", "Khoai lang", "Củ dền"],
+    correctIndex: 1,
+    category: "đời sống",
+    difficulty: "easy"
+  },
+  {
+    id: 226,
+    question: "Đốm đen trên lưng con bọ rùa thường có hình gì?",
+    options: ["Hình vuông", "Hình tròn", "Hình sao", "Hình tam giác"],
+    correctIndex: 1,
+    category: "sinh học",
+    difficulty: "easy"
+  },
+  {
+    id: 227,
+    question: "Hoa sen là quốc hoa của nước nào?",
+    options: ["Thái Lan", "Ấn Độ", "Nhật Bản", "Việt Nam"],
+    correctIndex: 3,
+    category: "địa lý",
+    difficulty: "easy"
+  },
+  {
+    id: 228,
+    question: "Tết Nguyên Đán là Tết cổ truyền của nước nào?",
+    options: ["Mỹ", "Anh", "Việt Nam", "Pháp"],
+    correctIndex: 2,
+    category: "đời sống",
+    difficulty: "easy"
+  },
+  {
+    id: 229,
+    question: "Chuột túi (Kangaroo) có nguồn gốc từ châu lục nào?",
+    options: ["Châu Á", "Châu Âu", "Châu Mỹ", "Châu Úc"],
+    correctIndex: 3,
+    category: "địa lý",
+    difficulty: "easy"
+  },
+  {
+    id: 230,
+    question: "Con ong hút mật từ đâu?",
+    options: ["Lá cây", "Rễ cây", "Hoa", "Quả"],
+    correctIndex: 2,
+    category: "sinh học",
+    difficulty: "easy"
+  },
+  // MEDIUM QUESTIONS
+  {
+    id: 2,
+    question: "Thủ đô của Nhật Bản là gì?",
+    options: ["Kyoto", "Tokyo", "Nagoya", "Osaka"],
+    correctIndex: 1,
+    category: "địa lý",
+    difficulty: "medium"
+  },
+  {
+    id: 5,
+    question: "Hành tinh nào gần Mặt Trời nhất?",
+    options: ["Sao Thủy", "Sao Hỏa", "Sao Mộc", "Sao Kim"],
+    correctIndex: 0,
+    category: "khoa học",
+    difficulty: "medium"
+  },
+  {
+    id: 6,
+    question: "Một năm nhuận có bao nhiêu ngày?",
+    options: ["365", "366", "367", "364"],
+    correctIndex: 1,
+    category: "khoa học",
+    difficulty: "medium"
+  },
+  {
+    id: 7,
+    question: "Ai là người phát minh ra bóng đèn điện?",
+    options: ["Einstein", "Tesla", "Edison", "Newton"],
+    correctIndex: 2,
+    category: "lịch sử",
+    difficulty: "medium"
+  },
+  {
+    id: 10,
+    question: "0.75 km bằng bao nhiêu mét?",
+    options: ["750", "75", "7500", "705"],
+    correctIndex: 0,
+    category: "toán học",
+    difficulty: "medium"
+  },
+  {
+    id: 11,
+    question: "Châu lục nào có diện tích nhỏ nhất?",
+    options: ["Châu Nam Cực", "Châu Phi", "Châu Úc", "Châu Âu"],
+    correctIndex: 2,
+    category: "địa lý",
+    difficulty: "medium"
+  },
+  {
+    id: 14,
+    question: "Loài chim nào không biết bay?",
+    options: ["Bồ câu", "Đà điểu", "Đại bàng", "Chim sẻ"],
+    correctIndex: 1,
+    category: "sinh học",
+    difficulty: "medium"
+  },
+  {
+    id: 16,
+    question: "Tháng nào có 28 ngày?",
+    options: ["Tháng 1", "Tháng 12", "Tháng 2", "Tất cả các tháng"],
+    correctIndex: 3,
+    category: "đố mẹo",
+    difficulty: "medium"
+  },
+  {
+    id: 18,
+    question: "Trái đất quay quanh gì?",
+    options: ["Sao Hỏa", "Mặt trời", "Sao Kim", "Mặt trăng"],
+    correctIndex: 1,
+    category: "khoa học",
+    difficulty: "medium"
+  },
+  {
+    id: 23,
+    question: "Cái gì càng rửa càng bẩn?",
+    options: ["Bàn tay", "Bàn chải", "Khăn lau", "Nước"],
+    correctIndex: 2,
+    category: "đố mẹo",
+    difficulty: "medium"
+  },
+  {
+    id: 27,
+    question: "Loài động vật nào là biểu tượng của nước Úc?",
+    options: ["Sư tử", "Hổ", "Kangaroo", "Gấu trúc"],
+    correctIndex: 2,
+    category: "sinh học",
+    difficulty: "medium"
+  },
+  {
+    id: 30,
+    question: "Một hình có 3 cạnh và 3 góc được gọi là gì?",
+    options: ["Tứ giác", "Tam giác", "Ngũ giác", "Lục giác"],
+    correctIndex: 1,
+    category: "toán học",
+    difficulty: "medium"
+  },
+  {
+    id: 37,
+    question: "Ai là người vẽ bức tranh Mona Lisa?",
+    options: ["Da Vinci", "Picasso", "Michelangelo", "Van Gogh"],
+    correctIndex: 0,
+    category: "văn học",
+    difficulty: "medium"
+  },
+  {
+    id: 39,
+    question: "Mặt trời mọc ở hướng nào?",
+    options: ["Nam", "Bắc", "Đông", "Tây"],
+    correctIndex: 2,
+    category: "khoa học",
+    difficulty: "medium"
+  },
+  {
+    id: 40,
+    question: "2 + 8 × 2 - 4 = ?",
+    options: ["14", "12", "16", "10"],
+    correctIndex: 0,
+    category: "toán học",
+    difficulty: "medium"
+  },
+  {
+    id: 41,
+    question: "Hành tinh nào lớn nhất trong Hệ Mặt Trời?",
+    options: ["Sao Mộc", "Sao Hỏa", "Sao Kim", "Sao Thổ"],
+    correctIndex: 0,
+    category: "khoa học",
+    difficulty: "medium"
+  },
+  {
+    id: 42,
+    question: "Thủ đô của Hàn Quốc là gì?",
+    options: ["Incheon", "Seoul", "Daegu", "Busan"],
+    correctIndex: 1,
+    category: "địa lý",
+    difficulty: "medium"
+  },
+  {
+    id: 44,
+    question: "Loài động vật nào được mệnh danh là 'chúa sơn lâm'?",
+    options: ["Báo", "Gấu", "Hổ", "Sư tử"],
+    correctIndex: 3,
+    category: "sinh học",
+    difficulty: "medium"
+  },
+  {
+    id: 46,
+    question: "Ai là người đầu tiên đặt chân lên Mặt Trăng?",
+    options: ["Yuri Gagarin", "Neil Armstrong", "Michael Collins", "Buzz Aldrin"],
+    correctIndex: 1,
+    category: "lịch sử",
+    difficulty: "medium"
+  },
+  {
+    id: 47,
+    question: "Loại khí nào chiếm nhiều nhất trong không khí?",
+    options: ["CO2", "Hydro", "Nitơ", "Oxy"],
+    correctIndex: 2,
+    category: "khoa học",
+    difficulty: "medium"
+  },
+  {
+    id: 48,
+    question: "Thủ đô của Thái Lan là gì?",
+    options: ["Chiang Mai", "Pattaya", "Phuket", "Bangkok"],
+    correctIndex: 3,
+    category: "địa lý",
+    difficulty: "medium"
+  },
+  {
+    id: 56,
+    question: "Số La Mã XV tương ứng với số nào?",
+    options: ["10", "15", "20", "5"],
+    correctIndex: 1,
+    category: "toán học",
+    difficulty: "medium"
+  },
+  {
+    id: 58,
+    question: "Loài vật nào có thể thay đổi màu sắc để ngụy trang?",
+    options: ["Cá heo", "Tắc kè hoa", "Thỏ", "Rắn"],
+    correctIndex: 1,
+    category: "sinh học",
+    difficulty: "medium"
+  },
+  {
+    id: 66,
+    question: "Thành phố nào là thủ đô của Anh?",
+    options: ["Liverpool", "London", "Birmingham", "Manchester"],
+    correctIndex: 1,
+    category: "địa lý",
+    difficulty: "medium"
+  },
+  {
+    id: 70,
+    question: "Hành tinh nào được gọi là 'Hành tinh đỏ'?",
+    options: ["Sao Mộc", "Sao Hỏa", "Sao Thủy", "Sao Kim"],
+    correctIndex: 1,
+    category: "khoa học",
+    difficulty: "medium"
+  },
+  {
+    id: 71,
+    question: "Loài động vật nào sống ở Bắc Cực?",
+    options: ["Sư tử", "Voi", "Gấu trắng", "Hổ"],
+    correctIndex: 2,
+    category: "sinh học",
+    difficulty: "medium"
+  },
+  {
+    id: 74,
+    question: "Ai là người phát minh ra điện thoại?",
+    options: ["Newton", "Alexander Graham Bell", "Edison", "Tesla"],
+    correctIndex: 1,
+    category: "lịch sử",
+    difficulty: "medium"
+  },
+  {
+    id: 75,
+    question: "Loài động vật nào được gọi là 'vua của rừng xanh'?",
+    options: ["Báo", "Gấu", "Hổ", "Sư tử"],
+    correctIndex: 2,
+    category: "sinh học",
+    difficulty: "medium"
+  },
+  {
+    id: 78,
+    question: "Loài cá nào lớn nhất thế giới?",
+    options: ["Cá ngừ", "Cá mập voi", "Cá heo", "Cá mập trắng"],
+    correctIndex: 1,
+    category: "sinh học",
+    difficulty: "medium"
+  },
+  {
+    id: 100,
+    question: "Ai là người đầu tiên bay vào vũ trụ?",
+    options: ["Buzz Aldrin", "John Glenn", "Neil Armstrong", "Yuri Gagarin"],
+    correctIndex: 3,
+    category: "lịch sử",
+    difficulty: "medium"
+  },
+  {
+    id: 101,
+    question: "Loài động vật nào được mệnh danh là 'ông vua của biển cả'?",
+    options: ["Cá mập trắng", "Cá heo", "Bạch tuộc", "Cá voi"],
+    correctIndex: 0,
+    category: "sinh học",
+    difficulty: "medium"
+  },
+  {
+    id: 109,
+    question: "Loài động vật nào ngủ đông?",
+    options: ["Gấu", "Hổ", "Báo", "Ngựa"],
+    correctIndex: 0,
+    category: "sinh học",
+    difficulty: "medium"
+  },
+  {
+    id: 110,
+    question: "Trong các đơn vị sau, đơn vị nào dùng để đo chiều dài?",
+    options: ["Lít", "Mét", "Ampe", "Giây"],
+    correctIndex: 1,
+    category: "toán học",
+    difficulty: "medium"
+  },
+  {
+    id: 113,
+    question: "Cái gì càng đi càng nhỏ?",
+    options: ["Cây nến", "Quả bóng bay", "Quả táo", "Bóng"],
+    correctIndex: 0,
+    category: "đố mẹo",
+    difficulty: "medium"
+  },
+  {
+    id: 115,
+    question: "Loài cá nào có thể phát sáng?",
+    options: ["Cá ngừ", "Cá chép", "Cá đèn lồng", "Cá mập"],
+    correctIndex: 2,
+    category: "sinh học",
+    difficulty: "medium"
+  },
+  {
+    id: 120,
+    question: "Ai là người vẽ bức tranh 'Starry Night'?",
+    options: ["Da Vinci", "Monet", "Picasso", "Van Gogh"],
+    correctIndex: 3,
+    category: "văn học",
+    difficulty: "medium"
+  },
+  {
+    id: 124,
+    question: "Thủ đô của Canada là gì?",
+    options: ["Montreal", "Vancouver", "Toronto", "Ottawa"],
+    correctIndex: 3,
+    category: "địa lý",
+    difficulty: "medium"
+  },
+  {
+    id: 129,
+    question: "Chất nào chiếm nhiều nhất trong khí quyển Trái Đất?",
+    options: ["Nitơ", "CO2", "Hydro", "Oxy"],
+    correctIndex: 0,
+    category: "khoa học",
+    difficulty: "medium"
+  },
+  {
+    id: 130,
+    question: "Loài chim nào bay nhanh nhất thế giới?",
+    options: ["Chim én", "Chim cắt Peregrine", "Chim ưng", "Đại bàng"],
+    correctIndex: 1,
+    category: "sinh học",
+    difficulty: "medium"
+  },
+  {
+    id: 139,
+    question: "Châu lục nào có diện tích nhỏ nhất?",
+    options: ["Nam Cực", "Châu Phi", "Châu Úc", "Châu Âu"],
+    correctIndex: 2,
+    category: "địa lý",
+    difficulty: "medium"
+  },
+  {
+    id: 140,
+    question: "Một tuần có bao nhiêu giờ?",
+    options: ["144", "160", "120", "168"],
+    correctIndex: 3,
+    category: "toán học",
+    difficulty: "medium"
+  },
+  {
+    id: 141,
+    question: "Ai là người đầu tiên bay vào vũ trụ?",
+    options: ["Yuri Gagarin", "Buzz Aldrin", "John Glenn", "Neil Armstrong"],
+    correctIndex: 0,
+    category: "khoa học",
+    difficulty: "medium"
+  },
+  {
+    id: 143,
+    question: "Quốc gia nào có kim tự tháp nổi tiếng?",
+    options: ["Peru", "Ấn Độ", "Ai Cập", "Mexico"],
+    correctIndex: 2,
+    category: "lịch sử",
+    difficulty: "medium"
+  },
+  {
+    id: 145,
+    question: "Loài động vật nào lớn nhất thế giới?",
+    options: ["Cá voi xanh", "Voi châu Phi", "Khủng long", "Cá mập trắng"],
+    correctIndex: 0,
+    category: "sinh học",
+    difficulty: "medium"
+  },
+  {
+    id: 146,
+    question: "Thủ đô của Hàn Quốc là gì?",
+    options: ["Incheon", "Seoul", "Daegu", "Busan"],
+    correctIndex: 1,
+    category: "địa lý",
+    difficulty: "medium"
+  },
+  {
+    id: 150,
+    question: "Đâu là hành tinh gần Mặt Trời nhất?",
+    options: ["Sao Hỏa", "Sao Thủy", "Trái Đất", "Sao Kim"],
+    correctIndex: 1,
+    category: "khoa học",
+    difficulty: "medium"
+  },
+  {
+    id: 156,
+    question: "Thủ đô của Nhật Bản là gì?",
+    options: ["Osaka", "Nagoya", "Kyoto", "Tokyo"],
+    correctIndex: 3,
+    category: "địa lý",
+    difficulty: "medium"
+  },
+  {
+    id: 157,
+    question: "Loài cá nào lớn nhất thế giới?",
+    options: ["Cá mập voi", "Cá mập trắng", "Cá ngừ", "Cá voi xanh"],
+    correctIndex: 0,
+    category: "sinh học",
+    difficulty: "medium"
+  },
+  {
+    id: 159,
+    question: "Một ngày có bao nhiêu giây?",
+    options: ["64000", "90000", "86400", "72000"],
+    correctIndex: 2,
+    category: "toán học",
+    difficulty: "medium"
+  },
+  {
+    id: 160,
+    question: "Hành tinh nào có nhiều vành đai nổi tiếng?",
+    options: ["Sao Kim", "Sao Thủy", "Sao Hỏa", "Sao Thổ"],
+    correctIndex: 3,
+    category: "khoa học",
+    difficulty: "medium"
+  },
+  {
+    id: 161,
+    question: "Đâu là loài động vật nhanh nhất trên cạn?",
+    options: ["Báo gê-pa", "Hổ", "Sư tử", "Ngựa"],
+    correctIndex: 0,
+    category: "sinh học",
+    difficulty: "medium"
+  },
+  {
+    id: 168,
+    question: "(9 × 9) ÷ 3 = bao nhiêu?",
+    options: ["18", "27", "24", "21"],
+    correctIndex: 1,
+    category: "toán học",
+    difficulty: "medium"
+  },
+  {
+    id: 173,
+    question: "Trong hệ mặt trời có bao nhiêu hành tinh?",
+    options: ["8", "9", "10", "7"],
+    correctIndex: 0,
+    category: "khoa học",
+    difficulty: "medium"
+  },
+  {
+    id: 175,
+    question: "Cái gì càng đi càng nhỏ?",
+    options: ["Bóng", "Cái bóng", "Dấu chân", "Con đường"],
+    correctIndex: 2,
+    category: "đố mẹo",
+    difficulty: "medium"
+  },
+  {
+    id: 176,
+    question: "Thủ đô của Đức là gì?",
+    options: ["Frankfurt", "Hamburg", "Munich", "Berlin"],
+    correctIndex: 3,
+    category: "địa lý",
+    difficulty: "medium"
+  },
+  {
+    id: 179,
+    question: "Loài chim nào không biết bay?",
+    options: ["Đại bàng", "Chim én", "Đà điểu", "Chim cắt"],
+    correctIndex: 2,
+    category: "sinh học",
+    difficulty: "medium"
+  },
+  {
+    id: 183,
+    question: "Trong toán học, số nào là số chẵn?",
+    options: ["21", "19", "18", "17"],
+    correctIndex: 2,
+    category: "toán học",
+    difficulty: "medium"
+  },
+  {
+    id: 188,
+    question: "Quốc gia nào có Kim Tự Tháp Giza?",
+    options: ["Peru", "Ấn Độ", "Mexico", "Ai Cập"],
+    correctIndex: 3,
+    category: "lịch sử",
+    difficulty: "medium"
+  },
+  {
+    id: 190,
+    question: "Hành tinh nào nóng nhất hệ mặt trời?",
+    options: ["Sao Hỏa", "Sao Kim", "Sao Mộc", "Sao Thủy"],
+    correctIndex: 1,
+    category: "khoa học",
+    difficulty: "medium"
+  },
+  {
+    id: 192,
+    question: "Thủ đô của Úc là gì?",
+    options: ["Melbourne", "Perth", "Sydney", "Canberra"],
+    correctIndex: 3,
+    category: "địa lý",
+    difficulty: "medium"
+  },
+  {
+    id: 193,
+    question: "Một tam giác có tổng các góc bằng bao nhiêu?",
+    options: ["180°", "90°", "270°", "360°"],
+    correctIndex: 0,
+    category: "toán học",
+    difficulty: "medium"
+  },
+  {
+    id: 194,
+    question: "Loài động vật nào ngủ nhiều nhất?",
+    options: ["Gấu", "Koala", "Lười", "Mèo"],
+    correctIndex: 1,
+    category: "sinh học",
+    difficulty: "medium"
+  },
+  {
+    id: 200,
+    question: "Trong bóng đá, World Cup đầu tiên diễn ra năm nào?",
+    options: ["1940", "1950", "1920", "1930"],
+    correctIndex: 3,
+    category: "thể thao",
+    difficulty: "medium"
+  },
+  {
+    id: 198,
+    question: "Ngọn núi cao nhất thế giới là gì?",
+    options: ["Kangchenjunga", "Everest", "Lhotse", "K2"],
+    correctIndex: 1,
+    category: "địa lý",
+    difficulty: "medium"
+  },
+  {
+    id: 196,
+    question: "Trong cờ vua, quân nào di chuyển theo đường chéo?",
+    options: ["Mã", "Hậu", "Xe", "Tượng"],
+    correctIndex: 3,
+    category: "thể thao",
+    difficulty: "medium"
+  },
+  {
+    id: 191,
+    question: "Ai là người sáng lập Amazon?",
+    options: ["Bill Gates", "Steve Jobs", "Jeff Bezos", "Elon Musk"],
+    correctIndex: 2,
+    category: "đời sống",
+    difficulty: "medium"
+  },
+  {
+    id: 189,
+    question: "Trong cơ thể người có bao nhiêu giác quan cơ bản?",
+    options: ["5", "4", "7", "6"],
+    correctIndex: 0,
+    category: "sinh học",
+    difficulty: "medium"
+  },
+  {
+    id: 186,
+    question: "Trong bóng đá, cú sút phạt góc gọi là gì?",
+    options: ["Free kick", "Corner", "Throw in", "Penalty"],
+    correctIndex: 1,
+    category: "thể thao",
+    difficulty: "medium"
+  },
+  {
+    id: 184,
+    question: "Con vật nào sống dưới nước nhưng thở bằng phổi?",
+    options: ["Cá ngừ", "Cá chép", "Cá mập", "Cá voi"],
+    correctIndex: 3,
+    category: "sinh học",
+    difficulty: "medium"
+  },
+  {
+    id: 181,
+    question: "Ai là người sáng lập Tesla?",
+    options: ["Elon Musk", "Jeff Bezos", "Larry Page", "Bill Gates"],
+    correctIndex: 0,
+    category: "đời sống",
+    difficulty: "medium"
+  },
+  {
+    id: 180,
+    question: "Trong âm nhạc, nhạc cụ nào có dây?",
+    options: ["Sáo", "Kèn", "Trống", "Guitar"],
+    correctIndex: 3,
+    category: "văn hóa",
+    difficulty: "medium"
+  },
+  {
+    id: 178,
+    question: "Trong bóng rổ, mỗi đội có bao nhiêu cầu thủ trên sân?",
+    options: ["7", "5", "4", "6"],
+    correctIndex: 1,
+    category: "thể thao",
+    difficulty: "medium"
+  },
+  {
+    id: 231,
+    question: "Nước sôi ở điều kiện bình thường là bao nhiêu độ C?",
+    options: ["50", "90", "100", "120"],
+    correctIndex: 2,
+    category: "khoa học",
+    difficulty: "medium"
+  },
+  {
+    id: 232,
+    question: "Ai được mệnh danh là 'Bà chúa thơ Nôm'?",
+    options: ["Đoàn Thị Điểm", "Hồ Xuân Hương", "Bà Huyện Thanh Quan", "Bùi Thị Xuân"],
+    correctIndex: 1,
+    category: "văn học",
+    difficulty: "medium"
+  },
+  {
+    id: 233,
+    question: "25 + 36 bằng bao nhiêu?",
+    options: ["51", "61", "71", "41"],
+    correctIndex: 1,
+    category: "toán học",
+    difficulty: "medium"
+  },
+  {
+    id: 234,
+    question: "Vịnh Hạ Long nằm ở tỉnh nào của Việt Nam?",
+    options: ["Hải Phòng", "Quảng Ninh", "Ninh Bình", "Thái Bình"],
+    correctIndex: 1,
+    category: "địa lý",
+    difficulty: "medium"
+  },
+  {
+    id: 235,
+    question: "Ai là người phát minh thuốc nổ mìn (dynamite)?",
+    options: ["Thomas Edison", "Albert Einstein", "Alfred Nobel", "Isaac Newton"],
+    correctIndex: 2,
+    category: "khoa học",
+    difficulty: "medium"
+  },
+  {
+    id: 236,
+    question: "Đại dương nào nhỏ nhất trên Trái Đất?",
+    options: ["Bắc Băng Dương", "Đại Tây Dương", "Ấn Độ Dương", "Thái Bình Dương"],
+    correctIndex: 0,
+    category: "địa lý",
+    difficulty: "medium"
+  },
+  {
+    id: 237,
+    question: "Một năm không nhuận có bao nhiêu ngày?",
+    options: ["364", "365", "366", "360"],
+    correctIndex: 1,
+    category: "đời sống",
+    difficulty: "medium"
+  },
+  {
+    id: 238,
+    question: "Nhân vật chính trong truyện cổ tích 'Tấm Cám' là ai?",
+    options: ["Tấm", "Cám", "Dì ghẻ", "Ông Bụt"],
+    correctIndex: 0,
+    category: "văn học",
+    difficulty: "medium"
+  },
+  {
+    id: 239,
+    question: "Vệ tinh tự nhiên duy nhất của Trái Đất là?",
+    options: ["Sao Kim", "Mặt Trăng", "Mặt Trời", "Sao Hỏa"],
+    correctIndex: 1,
+    category: "khoa học",
+    difficulty: "medium"
+  },
+  {
+    id: 240,
+    question: "Quần đảo Hoàng Sa thuộc thành phố/tỉnh nào của Việt Nam?",
+    options: ["Khánh Hòa", "Bình Định", "Đà Nẵng", "Quảng Ngãi"],
+    correctIndex: 2,
+    category: "địa lý",
+    difficulty: "medium"
+  },
+  {
+    id: 241,
+    question: "Đồng tiền chính thức của Hàn Quốc là gì?",
+    options: ["Yên", "Won", "Tệ", "Đô la"],
+    correctIndex: 1,
+    category: "địa lý",
+    difficulty: "medium"
+  },
+  {
+    id: 242,
+    question: "Người có nhóm máu O có thể truyền máu cho ai?",
+    options: ["Chỉ nhóm máu O", "Nhóm máu A và B", "Chỉ nhóm máu AB", "Tất cả các nhóm máu"],
+    correctIndex: 3,
+    category: "sinh học",
+    difficulty: "medium"
+  },
+  {
+    id: 243,
+    question: "Hành tinh nào có vành đai rõ nét và đẹp nhất Hệ Mặt Trời?",
+    options: ["Sao Mộc", "Sao Kim", "Sao Thổ", "Sao Thiên Vương"],
+    correctIndex: 2,
+    category: "khoa học",
+    difficulty: "medium"
+  },
+  {
+    id: 244,
+    question: "Quê hương của nhà soạn nhạc thiên tài Mozart là nước nào?",
+    options: ["Pháp", "Đức", "Áo", "Ý"],
+    correctIndex: 2,
+    category: "âm nhạc",
+    difficulty: "medium"
+  },
+  {
+    id: 245,
+    question: "Thủ đô của nước Úc là thành phố nào?",
+    options: ["Sydney", "Melbourne", "Canberra", "Brisbane"],
+    correctIndex: 2,
+    category: "địa lý",
+    difficulty: "medium"
+  },
+  {
+    id: 246,
+    question: "Bộ phim hoạt hình 'Đi tìm Nemo' nói về loài cá gì?",
+    options: ["Cá bơn", "Cá đuối", "Cá mập", "Cá hề"],
+    correctIndex: 3,
+    category: "đời sống",
+    difficulty: "medium"
+  },
+  {
+    id: 247,
+    question: "Bao nhiêu mét thì bằng 1 kilomet?",
+    options: ["100", "10", "1000", "10000"],
+    correctIndex: 2,
+    category: "toán học",
+    difficulty: "medium"
+  },
+  {
+    id: 248,
+    question: "Khí nào chiếm tỷ lệ lớn nhất trong không khí?",
+    options: ["Oxy", "Nitơ", "CO2", "Hydro"],
+    correctIndex: 1,
+    category: "khoa học",
+    difficulty: "medium"
+  },
+  {
+    id: 249,
+    question: "Chữ 'H' trong H2O là nguyên tố gì?",
+    options: ["Heli", "Hydro", "Oxy", "Nito"],
+    correctIndex: 1,
+    category: "khoa học",
+    difficulty: "medium"
+  },
+  {
+    id: 250,
+    question: "Lễ hội Cố đô Hoa Lư được diễn ra ở tỉnh nào?",
+    options: ["Ninh Bình", "Thanh Hóa", "Hà Nam", "Nam Định"],
+    correctIndex: 0,
+    category: "lịch sử",
+    difficulty: "medium"
+  },
+  // HARD QUESTIONS
+  {
+    id: 1,
+    question: "Quốc gia nào có diện tích lớn nhất thế giới?",
+    options: ["Nga", "Mỹ", "Canada", "Trung Quốc"],
+    correctIndex: 0,
+    category: "địa lý",
+    difficulty: "hard"
+  },
+  {
+    id: 3,
+    question: "Tác giả của 'Truyện Kiều' là ai?",
+    options: ["Hồ Xuân Hương", "Tố Hữu", "Nguyễn Du", "Nguyễn Trãi"],
+    correctIndex: 2,
+    category: "văn học",
+    difficulty: "hard"
+  },
+  {
+    id: 4,
+    question: "Kim loại nào dẫn điện tốt nhất?",
+    options: ["Sắt", "Nhôm", "Đồng", "Bạc"],
+    correctIndex: 3,
+    category: "khoa học",
+    difficulty: "hard"
+  },
+  {
+    id: 12,
+    question: "Nước đóng băng ở nhiệt độ bao nhiêu độ C?",
+    options: ["10", "-5", "5", "0"],
+    correctIndex: 3,
+    category: "khoa học",
+    difficulty: "hard"
+  },
+  {
+    id: 25,
+    question: "Số nào là số nguyên tố?",
+    options: ["17", "15", "21", "9"],
+    correctIndex: 0,
+    category: "toán học",
+    difficulty: "hard"
+  },
+  {
+    id: 33,
+    question: "Ai là tổng thống đầu tiên của Mỹ?",
+    options: ["George Washington", "Obama", "Trump", "Lincoln"],
+    correctIndex: 0,
+    category: "lịch sử",
+    difficulty: "hard"
+  },
+  {
+    id: 43,
+    question: "Ngôn ngữ chính của Brazil là gì?",
+    options: ["Anh", "Pháp", "Bồ Đào Nha", "Tây Ban Nha"],
+    correctIndex: 2,
+    category: "địa lý",
+    difficulty: "hard"
+  },
+  {
+    id: 52,
+    question: "Châu lục nào đông dân nhất?",
+    options: ["Châu Phi", "Châu Mỹ", "Châu Âu", "Châu Á"],
+    correctIndex: 3,
+    category: "địa lý",
+    difficulty: "hard"
+  },
+  {
+    id: 59,
+    question: "Cơ quan nào trong cơ thể giúp chúng ta hô hấp?",
+    options: ["Gan", "Dạ dày", "Phổi", "Tim"],
+    correctIndex: 2,
+    category: "sinh học",
+    difficulty: "hard"
+  },
+  {
+    id: 64,
+    question: "Cái gì có nhiều răng nhưng không cắn?",
+    options: ["Cưa", "Dao", "Bàn chải", "Lược"],
+    correctIndex: 3,
+    category: "đố mẹo",
+    difficulty: "hard"
+  },
+  {
+    id: 67,
+    question: "Người ta thường dùng đơn vị nào để đo nhiệt độ?",
+    options: ["Kg", "Lít", "Độ C", "Mét"],
+    correctIndex: 2,
+    category: "khoa học",
+    difficulty: "hard"
+  },
+  {
+    id: 69,
+    question: "Ai là tác giả của 'Harry Potter'?",
+    options: ["J.K. Rowling", "Dan Brown", "Tolkien", "Stephen King"],
+    correctIndex: 0,
+    category: "văn học",
+    difficulty: "hard"
+  },
+  {
+    id: 80,
+    question: "Cái gì có cổ nhưng không có đầu?",
+    options: ["Ghế", "Bàn", "Áo", "Chai"],
+    correctIndex: 3,
+    category: "đố mẹo",
+    difficulty: "hard"
+  },
+  {
+    id: 88,
+    question: "Cái gì có chân nhưng không biết đi?",
+    options: ["Mèo", "Người", "Chó", "Bàn"],
+    correctIndex: 3,
+    category: "đố mẹo",
+    difficulty: "hard"
+  },
+  {
+    id: 92,
+    question: "Ai là nhà khoa học nổi tiếng với thuyết tương đối?",
+    options: ["Galileo", "Tesla", "Newton", "Einstein"],
+    correctIndex: 3,
+    category: "khoa học",
+    difficulty: "hard"
+  },
+  {
+    id: 95,
+    question: "Trái đất có bao nhiêu đại dương?",
+    options: ["4", "6", "5", "3"],
+    correctIndex: 2,
+    category: "địa lý",
+    difficulty: "hard"
+  },
+  {
+    id: 98,
+    question: "Cái gì có mặt nhưng không có miệng?",
+    options: ["Bàn", "Đồng hồ", "Cửa", "Gương"],
+    correctIndex: 1,
+    category: "đố mẹo",
+    difficulty: "hard"
+  },
+  {
+    id: 99,
+    question: "Ngôn ngữ nào được nói nhiều nhất thế giới?",
+    options: ["Tây Ban Nha", "Hindi", "Trung Quốc", "Anh"],
+    correctIndex: 2,
+    category: "địa lý",
+    difficulty: "hard"
+  },
+  {
+    id: 108,
+    question: "Cái gì có mắt nhưng không thấy?",
+    options: ["Ghế", "Cửa", "Bàn", "Kim"],
+    correctIndex: 3,
+    category: "đố mẹo",
+    difficulty: "hard"
+  },
+  {
+    id: 118,
+    question: "Cái gì có nhiều trang nhưng không phải sách?",
+    options: ["Ghế", "Lịch", "Tivi", "Bàn"],
+    correctIndex: 1,
+    category: "đố mẹo",
+    difficulty: "hard"
+  },
+  {
+    id: 122,
+    question: "Trong cơ thể người, xương nào dài nhất?",
+    options: ["Xương tay", "Xương đùi", "Xương sườn", "Xương cột sống"],
+    correctIndex: 1,
+    category: "sinh học",
+    difficulty: "hard"
+  },
+  {
+    id: 123,
+    question: "Ai là tác giả 'Tắt đèn'?",
+    options: ["Kim Lân", "Tô Hoài", "Ngô Tất Tố", "Nam Cao"],
+    correctIndex: 2,
+    category: "văn học",
+    difficulty: "hard"
+  },
+  {
+    id: 125,
+    question: "Trong toán học, căn bậc hai của 144 là bao nhiêu?",
+    options: ["12", "11", "14", "10"],
+    correctIndex: 0,
+    category: "toán học",
+    difficulty: "hard"
+  },
+  {
+    id: 131,
+    question: "Ai là người phát minh ra bóng đèn điện?",
+    options: ["Alexander Bell", "James Watt", "Thomas Edison", "Nikola Tesla"],
+    correctIndex: 2,
+    category: "khoa học",
+    difficulty: "hard"
+  },
+  {
+    id: 134,
+    question: "Ai viết bài thơ 'Tây Tiến'?",
+    options: ["Xuân Diệu", "Quang Dũng", "Hàn Mặc Tử", "Tố Hữu"],
+    correctIndex: 1,
+    category: "văn học",
+    difficulty: "hard"
+  },
+  {
+    id: 137,
+    question: "Kim loại nào nhẹ nhất?",
+    options: ["Lithium", "Magie", "Titan", "Nhôm"],
+    correctIndex: 0,
+    category: "khoa học",
+    difficulty: "hard"
+  },
+  {
+    id: 138,
+    question: "Ai là tác giả 'Cho tôi xin một vé đi tuổi thơ'?",
+    options: ["Kim Lân", "Nguyễn Nhật Ánh", "Nguyễn Huy Thiệp", "Nam Cao"],
+    correctIndex: 1,
+    category: "văn học",
+    difficulty: "hard"
+  },
+  {
+    id: 142,
+    question: "Cái gì có răng nhưng không ăn?",
+    options: ["Cái cưa", "Lược", "Cái khóa", "Cưa"],
+    correctIndex: 1,
+    category: "đố mẹo",
+    difficulty: "hard"
+  },
+  {
+    id: 148,
+    question: "Cái gì càng dùng càng ngắn?",
+    options: ["Cây bút", "Cục tẩy", "Sợi dây", "Cây nến"],
+    correctIndex: 3,
+    category: "đố mẹo",
+    difficulty: "hard"
+  },
+  {
+    id: 151,
+    question: "Quốc gia nào có diện tích lớn thứ 2 thế giới?",
+    options: ["Mỹ", "Brazil", "Canada", "Trung Quốc"],
+    correctIndex: 2,
+    category: "địa lý",
+    difficulty: "hard"
+  },
+  {
+    id: 152,
+    question: "Trong cơ thể người, cơ quan nào lọc máu?",
+    options: ["Tim", "Phổi", "Gan", "Thận"],
+    correctIndex: 3,
+    category: "sinh học",
+    difficulty: "hard"
+  },
+  {
+    id: 153,
+    question: "Ai là tác giả 'Đất rừng phương Nam'?",
+    options: ["Đoàn Giỏi", "Tô Hoài", "Kim Lân", "Nguyễn Nhật Ánh"],
+    correctIndex: 0,
+    category: "văn học",
+    difficulty: "hard"
+  },
+  {
+    id: 154,
+    question: "Kim loại nào được sử dụng nhiều trong dây điện?",
+    options: ["Sắt", "Đồng", "Kẽm", "Nhôm"],
+    correctIndex: 1,
+    category: "khoa học",
+    difficulty: "hard"
+  },
+  {
+    id: 158,
+    question: "Ai là tác giả 'Những đứa con trong gia đình'?",
+    options: ["Nguyễn Tuân", "Nguyễn Thi", "Ngô Tất Tố", "Nam Cao"],
+    correctIndex: 1,
+    category: "văn học",
+    difficulty: "hard"
+  },
+  {
+    id: 162,
+    question: "Ai là người phát minh ra điện thoại?",
+    options: ["Nikola Tesla", "Alexander Graham Bell", "Albert Einstein", "Thomas Edison"],
+    correctIndex: 1,
+    category: "khoa học",
+    difficulty: "hard"
+  },
+  {
+    id: 163,
+    question: "Châu lục nào đông dân nhất thế giới?",
+    options: ["Châu Âu", "Châu Mỹ", "Châu Á", "Châu Phi"],
+    correctIndex: 2,
+    category: "địa lý",
+    difficulty: "hard"
+  },
+  {
+    id: 164,
+    question: "Cái gì có mắt nhưng không nhìn thấy?",
+    options: ["Bão", "Củ khoai", "Kim khâu", "Cái kim"],
+    correctIndex: 3,
+    category: "đố mẹo",
+    difficulty: "hard"
+  },
+  {
+    id: 165,
+    question: "Ai là tác giả bài thơ 'Đồng chí'?",
+    options: ["Chính Hữu", "Xuân Diệu", "Hàn Mặc Tử", "Tố Hữu"],
+    correctIndex: 0,
+    category: "văn học",
+    difficulty: "hard"
+  },
+  {
+    id: 170,
+    question: "Cơ quan nào trong cơ thể giúp chúng ta hô hấp?",
+    options: ["Gan", "Phổi", "Dạ dày", "Tim"],
+    correctIndex: 1,
+    category: "sinh học",
+    difficulty: "hard"
+  },
+  {
+    id: 171,
+    question: "Ai là tác giả 'Chiếc lược ngà'?",
+    options: ["Nam Cao", "Tô Hoài", "Nguyễn Quang Sáng", "Nguyễn Thi"],
+    correctIndex: 2,
+    category: "văn học",
+    difficulty: "hard"
+  },
+  {
+    id: 182,
+    question: "Đâu là đại dương sâu nhất thế giới?",
+    options: ["Ấn Độ Dương", "Thái Bình Dương", "Bắc Băng Dương", "Đại Tây Dương"],
+    correctIndex: 1,
+    category: "địa lý",
+    difficulty: "hard"
+  },
+  {
+    id: 185,
+    question: "Ai là tác giả 'Vợ nhặt'?",
+    options: ["Kim Lân", "Ngô Tất Tố", "Tô Hoài", "Nam Cao"],
+    correctIndex: 0,
+    category: "văn học",
+    difficulty: "hard"
+  },
+  {
+    id: 187,
+    question: "Cái gì có nhiều răng nhưng không cắn?",
+    options: ["Cái khóa", "Bàn chải", "Cái cưa", "Cái lược"],
+    correctIndex: 2,
+    category: "đố mẹo",
+    difficulty: "hard"
+  },
+  {
+    id: 195,
+    question: "Ai là tác giả 'Dế Mèn phiêu lưu ký'?",
+    options: ["Kim Lân", "Nguyễn Nhật Ánh", "Tô Hoài", "Nam Cao"],
+    correctIndex: 2,
+    category: "văn học",
+    difficulty: "hard"
+  },
+  {
+    id: 197,
+    question: "Cái gì càng kéo càng ngắn?",
+    options: ["Thuốc lá", "Dây thun", "Sợi chỉ", "Sợi dây"],
+    correctIndex: 0,
+    category: "đố mẹo",
+    difficulty: "hard"
+  },
+  {
+    id: 199,
+    question: "Cơ quan nào trong cơ thể sản xuất insulin?",
+    options: ["Thận", "Tim", "Tuyến tụy", "Gan"],
+    correctIndex: 2,
+    category: "sinh học",
+    difficulty: "hard"
+  },
+  {
+    id: 251,
+    question: "Triều đại nào có thời gian trị vì dài nhất trong lịch sử phong kiến Việt Nam?",
+    options: ["Nhà Lý", "Nhà Trần", "Nhà Hậu Lê", "Nhà Nguyễn"],
+    correctIndex: 2,
+    category: "lịch sử",
+    difficulty: "hard"
+  },
+  {
+    id: 252,
+    question: "Nguyên tố hóa học nào có ký hiệu là Fe?",
+    options: ["Đồng", "Kẽm", "Bạc", "Sắt"],
+    correctIndex: 3,
+    category: "khoa học",
+    difficulty: "hard"
+  },
+  {
+    id: 253,
+    question: "Hợp kim đồng thau là hợp kim của đồng và kim loại nào?",
+    options: ["Kẽm", "Thiếc", "Nhôm", "Chì"],
+    correctIndex: 0,
+    category: "khoa học",
+    difficulty: "hard"
+  },
+  {
+    id: 254,
+    question: "Nền văn minh Lưỡng Hà nằm giữa hai con sông nào?",
+    options: ["Hoàng Hà và Ấn Độ", "Tigris và Euphrates", "Sông Nile và Sông Congo", "Amazon và Mississippi"],
+    correctIndex: 1,
+    category: "lịch sử",
+    difficulty: "hard"
+  },
+  {
+    id: 255,
+    question: "Ai là người đầu tiên chứng minh được Trái Đất có hình cầu bằng thực nghiệm?",
+    options: ["Columbus", "Magellan", "Galileo", "Ptolemy"],
+    correctIndex: 1,
+    category: "khoa học",
+    difficulty: "hard"
+  },
+  {
+    id: 256,
+    question: "Định lý Pitago thường được áp dụng cho loại hình nào?",
+    options: ["Tam giác đều", "Tam giác vuông", "Hình vuông", "Hình chữ nhật"],
+    correctIndex: 1,
+    category: "toán học",
+    difficulty: "hard"
+  },
+  {
+    id: 257,
+    question: "Tổng thống thứ 16 của Hoa Kỳ, người đã bãi bỏ chế độ nô lệ là ai?",
+    options: ["George Washington", "Thomas Jefferson", "Abraham Lincoln", "Franklin D. Roosevelt"],
+    correctIndex: 2,
+    category: "lịch sử",
+    difficulty: "hard"
+  },
+  {
+    id: 258,
+    question: "Vận tốc ánh sáng xấp xỉ bao nhiêu km/s?",
+    options: ["300.000 km/s", "150.000 km/s", "3.000.000 km/s", "340 m/s"],
+    correctIndex: 0,
+    category: "khoa học",
+    difficulty: "hard"
+  },
+  {
+    id: 259,
+    question: "Ai là tác giả của tác phẩm nổi tiếng 'Ông già và biển cả'?",
+    options: ["Mark Twain", "Ernest Hemingway", "Victor Hugo", "Lev Tolstoy"],
+    correctIndex: 1,
+    category: "văn học",
+    difficulty: "hard"
+  },
+  {
+    id: 260,
+    question: "Sợi dây thần kinh dài nhất trong cơ thể con người là gì?",
+    options: ["Thần kinh thị giác", "Thần kinh não", "Thần kinh tọa", "Thần kinh tủy"],
+    correctIndex: 2,
+    category: "sinh học",
+    difficulty: "hard"
+  },
+  {
+    id: 261,
+    question: "Git là gì?",
+    options: ["Một ngôn ngữ lập trình", "Hệ thống quản lý cơ sở dữ liệu", "Hệ thống quản lý phiên bản phân tán", "Một công cụ chỉnh sửa ảnh"],
+    correctIndex: 2,
+    category: "công nghệ",
+    difficulty: "easy"
+  },
+  {
+    id: 262,
+    question: "Lệnh nào dùng để khởi tạo một kho lưu trữ Git mới trong máy tính của bạn?",
+    options: ["git start", "git init", "git new", "git create"],
+    correctIndex: 1,
+    category: "công nghệ",
+    difficulty: "easy"
+  },
+  {
+    id: 263,
+    question: "Lệnh nào dùng để tải toàn bộ mã nguồn từ một kho lưu trữ từ xa (như GitHub) về máy tính cá nhân?",
+    options: ["git copy", "git pull", "git download", "git clone"],
+    correctIndex: 3,
+    category: "công nghệ",
+    difficulty: "easy"
+  },
+  {
+    id: 264,
+    question: "Để xem trạng thái hiện tại của các file (những file bị sửa đổi, thêm mới...), bạn sử dụng lệnh nào?",
+    options: ["git log", "git show", "git status", "git check"],
+    correctIndex: 2,
+    category: "công nghệ",
+    difficulty: "easy"
+  },
+  {
+    id: 265,
+    question: "Lệnh nào đưa các tập tin đang thay đổi vào vùng Staging Area để chuẩn bị tạo commit?",
+    options: ["git stage", "git add", "git commit", "git push"],
+    correctIndex: 1,
+    category: "công nghệ",
+    difficulty: "easy"
+  },
+  {
+    id: 266,
+    question: "Làm thế nào để ghi nhớ (lưu lại) các thay đổi từ Staging Area vào lịch sử của Git cục bộ?",
+    options: ["git save", "git store", "git push", "git commit"],
+    correctIndex: 3,
+    category: "công nghệ",
+    difficulty: "easy"
+  },
+  {
+    id: 267,
+    question: "Lệnh nào dùng để đẩy các lỗi, các commit từ máy tính cá nhân lên kho lưu trữ từ xa?",
+    options: ["git upload", "git push", "git pull", "git send"],
+    correctIndex: 1,
+    category: "công nghệ",
+    difficulty: "easy"
+  },
+  {
+    id: 268,
+    question: "Lệnh nào dùng để lấy những lệnh commit mới nhất từ kho lưu trữ từ xa gộp thẳng vào nhánh hiện tại?",
+    options: ["git fetch", "git load", "git pull", "git recv"],
+    correctIndex: 2,
+    category: "công nghệ",
+    difficulty: "easy"
+  },
+  {
+    id: 269,
+    question: "Trong Git, mục đích chính của tính năng 'nhánh' (branch) là gì?",
+    options: ["Tạo một luồng phát triển độc lập cho tính năng mới", "Sao lưu mã nguồn lên mây", "Tối ưu hóa dung lượng ổ cứng", "Chạy trình gỡ lỗi tự động"],
+    correctIndex: 0,
+    category: "công nghệ",
+    difficulty: "easy"
+  },
+  {
+    id: 270,
+    question: "Lệnh nào dùng để xem lịch sử các lượt commit trước đó?",
+    options: ["git history", "git view", "git log", "git list"],
+    correctIndex: 2,
+    category: "công nghệ",
+    difficulty: "easy"
+  },
+  {
+    id: 271,
+    question: "Để thay đổi nhánh làm việc hiện tại (switch branch), ta sử dụng lệnh nào dưới đây?",
+    options: ["git move", "git checkout / git switch", "git jump", "git branch -m"],
+    correctIndex: 1,
+    category: "công nghệ",
+    difficulty: "medium"
+  },
+  {
+    id: 272,
+    question: "Lệnh nào dùng để tạo ra một nhánh mới NHƯNG KHÔNG trực tiếp chuyển sang nhánh đó ngay?",
+    options: ["git create-branch", "git branch <tên-nhánh>", "git checkout -b <tên-nhánh>", "git new-branch"],
+    correctIndex: 1,
+    category: "công nghệ",
+    difficulty: "medium"
+  },
+  {
+    id: 273,
+    question: "Để gom (merge) một nhánh có tên 'feature' vào nhánh 'master', thao tác chuẩn xác nhất là gì?",
+    options: ["Đứng ở nhánh 'feature' và chạy 'git merge master'", "Chạy 'git merge master feature' ở bất kỳ đâu", "Đứng ở nhánh 'master' và chạy 'git merge feature'", "Đứng ở nhánh 'feature' và chạy 'git pull master'"],
+    correctIndex: 2,
+    category: "công nghệ",
+    difficulty: "medium"
+  },
+  {
+    id: 274,
+    question: "Lệnh 'git fetch' khác với lệnh 'git pull' ở điểm cốt lõi nào?",
+    options: ["Fetch kéo thay đổi và tự động cập nhật code làm việc, Pull thì không", "Không có gì khác biệt, hai lệnh giống hệt nhau", "Fetch chỉ tải thông tin về, chưa gộp (merge) thẳng vào code làm việc; Pull bao gồm cả Fetch và Merge", "Pull chuyên dùng để đẩy code, Fetch chuyên dùng để kéo code"],
+    correctIndex: 2,
+    category: "công nghệ",
+    difficulty: "medium"
+  },
+  {
+    id: 275,
+    question: "Tham số (cờ) nào đi kèm lệnh 'git commit' cho phép bạn gõ trực tiếp lời nhắn mô tả (message) mà không cần mở trình soạn thảo chữ?",
+    options: ["-m", "-a", "-u", "-d"],
+    correctIndex: 0,
+    category: "công nghệ",
+    difficulty: "medium"
+  },
+  {
+    id: 276,
+    question: "Nếu đã lỡ gọi lệnh 'git add' một file, nhưng sau đó đổi ý không muốn đưa nó vào commit tới, bạn dùng lệnh gì để hoàn tác?",
+    options: ["git delete", "git unadd", "git revert --staged", "git restore --staged / git reset"],
+    correctIndex: 3,
+    category: "công nghệ",
+    difficulty: "medium"
+  },
+  {
+    id: 277,
+    question: "Tập tin nào trong dự án dùng để khái báo đường dẫn các thư mục hoặc file mà Git không nên theo dõi?",
+    options: [".gitconfig", ".gitignore", ".gitmodules", ".gitattributes"],
+    correctIndex: 1,
+    category: "công nghệ",
+    difficulty: "medium"
+  },
+  {
+    id: 278,
+    question: "Thuật ngữ 'Conflict' (Xung đột) trong Git ám chỉ điều gì?",
+    options: ["Khi hai người dùng cố gắng đổi tên cùng một nhánh", "Khi hợp nhất các nhánh có sửa đổi cùng một dòng code ở một tập tin bằng hai nội dung khác nhau", "Khi ổ cứng hết dung lượng để tạo commit", "Khi GitHub bảo trì máy chủ"],
+    correctIndex: 1,
+    category: "công nghệ",
+    difficulty: "medium"
+  },
+  {
+    id: 279,
+    question: "Lệnh nào cho phép xem chi tiết từng dòng sự khác biệt (diff) của các thay đổi chưa được staged (chưa có trong mục add)?",
+    options: ["git changes", "git log -p", "git status --detail", "git diff"],
+    correctIndex: 3,
+    category: "công nghệ",
+    difficulty: "medium"
+  },
+  {
+    id: 280,
+    question: "Trong tình huống bạn đang code dở một tính năng nhưng phải nhảy gấp qua thẻ khác để sửa lỗi, lệnh nào giúp lưu công việc tạm thời mà không cần commit?",
+    options: ["git pause", "git stash", "git save", "git hold"],
+    correctIndex: 1,
+    category: "công nghệ",
+    difficulty: "medium"
+  },
+  {
+    id: 281,
+    question: "Lệnh 'git rebase' thực hiện bản chất hành động gì?",
+    options: ["Chuyển toàn bộ commit hiện tại vào thùng rác", "Xóa kho lưu trữ từ xa", "Gộp (merge) mã nhưng không hiển thị tác giả", "Viết lại lịch sử commit bằng cách đặt các commit nhánh hiện tại lên đầu trên cùng của nhánh mục tiêu"],
+    correctIndex: 3,
+    category: "công nghệ",
+    difficulty: "hard"
+  },
+  {
+    id: 282,
+    question: "Lệnh 'git cherry-pick' xử lý nghiệp vụ gì trong quản lý mã?",
+    options: ["Chọn và áp dụng trực tiếp một commit cụ thể từ nhánh khác vào nhánh hiện tại", "Xóa các commit rác", "Kết hợp toàn bộ hai nhánh", "Chọn ngẫu nhiên một file để commit"],
+    correctIndex: 0,
+    category: "công nghệ",
+    difficulty: "hard"
+  },
+  {
+    id: 283,
+    question: "Sự khác biệt quan trọng nhất giữa 'git merge' và 'git rebase' là gì?",
+    options: ["Merge chỉ chạy được ở repo remote, rebase chạy local", "Merge bắt buộc phải có conflict, rebase tự động giải quyết", "Dùng Merge sẽ giữ nguyên lịch sử rẽ nhánh (phi tuyến tính), dùng Rebase biến lịch sử thành một đường thẳng tuyến tính", "Merge là lệnh bị loại bỏ, khuyên dùng Rebase thay thế mọi trường hợp"],
+    correctIndex: 2,
+    category: "công nghệ",
+    difficulty: "hard"
+  },
+  {
+    id: 284,
+    question: "Khống chế lệnh 'git reset --hard HEAD~1' sẽ dẫn đến điều gì?",
+    options: ["Xóa file đang sửa đổi nhưng giữ lại commit gần nhất", "Xóa hoàn toàn cả commit gần nhất trên lịch sử VÀ cả thay đổi cục bộ của các file thuộc commit đó", "Đóng băng commit không cho chỉnh sửa", "Chỉ dời HEAD xuống 1 nấc, phần nội dung đã sửa bị biến thành Trạng thái Staged"],
+    correctIndex: 1,
+    category: "công nghệ",
+    difficulty: "hard"
+  },
+  {
+    id: 285,
+    question: "Trạng thái 'Detached HEAD' xuất hiện khi nào?",
+    options: ["Khi tải git bị lỗi mất file .git", "Khi hệ thống gặp lỗi tràn bộ nhớ", "Khi chưa cấu hình Tên và Email cá nhân", "Khi người dùng checkout trực tiếp đến một commit hash / id cụ thể thay vì checkout tên nhánh"],
+    correctIndex: 3,
+    category: "công nghệ",
+    difficulty: "hard"
+  },
+  {
+    id: 286,
+    question: "Để gộp (squash) nhiều commit nhỏ thành một commit duy nhất, ta thường dùng cờ truyền nào phối hợp trong lệnh rebase?",
+    options: ["-s / --squash", "-i / --interactive", "-m / --merge", "-f / --force"],
+    correctIndex: 1,
+    category: "công nghệ",
+    difficulty: "hard"
+  },
+  {
+    id: 287,
+    question: "Thao tác nào để sửa đổi trực tiếp thông báo (message) của CÁI CHÍNH commit cuối cùng bạn vừa thực hiện?",
+    options: ["git commit --amend", "git reset --message", "git log --edit", "git update commit"],
+    correctIndex: 0,
+    category: "công nghệ",
+    difficulty: "hard"
+  },
+  {
+    id: 288,
+    question: "Lênh 'git bisect' là một công cụ cực mạnh dùng với mục đích gì?",
+    options: ["Tìm kiếm nhị phân để truy tìm chính xác đâu là commit đầu tiên gây ra lỗi (bug)", "Tự động phân nhánh các module trùng lặp", "Đồng bộ hóa 2 máy chủ git khác nhau", "Kiểm tra tính toàn vẹn của bảo mật mật khẩu"],
+    correctIndex: 0,
+    category: "công nghệ",
+    difficulty: "hard"
+  },
+  {
+    id: 289,
+    question: "Làm thế nào để truy vết mã băm (hash) và cứu sống lại một commit khi bạn đã lỡ dùng lệnh 'git reset --hard' xóa nhầm nó?",
+    options: ["Hoàn toàn không thể cứu vì --hard đã xóa vĩnh viễn", "Sử dụng lệnh 'git reflog' để tìm hash ảo và cherry-pick / reset đến nó", "Gọi điện thẳng cho đội hỗ trợ kỹ thuật của GitHub", "Dùng công cụ phục hồi Recuva trên hệ điều hành"],
+    correctIndex: 1,
+    category: "công nghệ",
+    difficulty: "hard"
+  },
+  {
+    id: 290,
+    question: "Kiểu 'Fast-forward merge' thường sẽ tự động kích hoạt khi nào?",
+    options: ["Khi đường truyền mạng nhanh hơn 100Mbps", "Khi nhánh mục tiêu không có bất kỳ dòng lệnh nào trống", "Khi nhánh cần gộp chỉ là phần mở rộng tuyến tính thẳng tiếp theo của nhánh hiện tại (nhánh hiện tại chưa có thêm commit chia rẽ nào khác)", "Chỉ xảy ra ở hệ điều hành Linux"],
+    correctIndex: 2,
+    category: "công nghệ",
+    difficulty: "hard"
+  }
+];

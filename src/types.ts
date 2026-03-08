@@ -9,6 +9,7 @@ export interface User {
 
 export interface UserData {
   email: string;
+  nickname?: string;
   money: number;
   avatar?: string;
   background?: string;
@@ -27,7 +28,7 @@ export interface BauCuaItem {
   id: string;
   name: string;
   image: string;
-  boardImage: string; 
+  boardImage: string;
   color: string;
 }
 
@@ -70,7 +71,79 @@ export enum GameType {
   LEADERBOARD = 'LEADERBOARD',
   ADMIN_PANEL = 'ADMIN_PANEL',
   FRIENDS = 'FRIENDS',
-  TIEN_LEN = 'TIEN_LEN', // ⭐ THÊM DÒNG NÀY
+  TIEN_LEN = 'TIEN_LEN',
+  XI_DACH = 'XI_DACH',
+  CO_CA_NGU = 'CO_CA_NGU',
+  SIEU_TRI_TUE = 'SIEU_TRI_TUE',
+}
+
+// ─── Cờ Cá Ngựa types ──────────────────────────────────────────────────────
+
+export type CaNguColor = 'red' | 'blue' | 'yellow' | 'green';
+
+export type CaNguPiecePos =
+  | { type: 'home' }
+  | { type: 'path'; index: number }
+  | { type: 'homeCol'; step: number }
+  | { type: 'finished' };
+
+export interface CaNguPiece {
+  id: number;
+  pos: CaNguPiecePos;
+}
+
+export interface CaNguPlayer {
+  uid: string;
+  name: string;
+  avatar?: string;
+  color: CaNguColor;
+  balance: number;
+}
+
+export interface CaNguTransaction {
+  ts: number;
+  fromUid: string;
+  toUid: string;
+  amount: number;
+  reason: 'kick' | 'kickDouble' | 'homeCol6' | 'endPenalty';
+}
+
+export interface CaNguGameState {
+  status: 'waiting' | 'rolling' | 'choosing' | 'moving' | 'finished';
+  playerOrder: string[];
+  players: Record<string, CaNguPlayer>;
+  balances: Record<string, number>;
+  pieces: Record<string, CaNguPiece[]>;
+  currentTurnUid: string;
+  dice: [number, number] | null;
+  extraTurn: boolean;
+  winner: string | null;
+  betAmount: number;
+  transactions: CaNguTransaction[];
+  pendingMoves: CaNguMoveOption[] | null;
+  highlightPieceId: number | null;
+  lastAction: string | null;
+}
+
+export interface CaNguMoveOption {
+  pieceId: number;
+  diceValues: number[];
+  targetPos: CaNguPiecePos;
+  kicksUid?: string;
+  isDouble: boolean;
+}
+
+export interface CaNguLobby {
+  id: string;
+  hostUid: string;
+  hostName: string;
+  betAmount: number;
+  maxPlayers: 4;
+  players: Record<string, { name: string; avatar?: string; ready: boolean }>;
+  status: 'waiting' | 'starting' | 'started';
+  createdAt: number;
+  roomCode?: string;
+  gameId?: string;
 }
 
 export type SoundType = 'effect' | 'dice' | 'money' | 'pig' | 'win' | 'loss' | 'lucky' | 'boom';
@@ -100,18 +173,18 @@ export interface ShopItem {
   type: ItemType;
   description: string;
   imageUrl: string;
-  
+
   // Cho BONUS_CARD
   bonusPercent?: number;
   expiresIn?: number;
-  
+
   // Cho TET_INTERACTIVE
   tetAction?: TetItemAction;
   minReward?: number;      // Tiền thưởng tối thiểu
   maxReward?: number;      // Tiền thưởng tối đa
   maxUses?: number;        // Số lần dùng tối đa (-1 = vô hạn)
   cooldown?: number;       // Thời gian chờ giữa các lần dùng (ms)
-  
+
   stock?: number;
 }
 
@@ -120,11 +193,11 @@ export interface UserItem {
   quantity: number;
   obtainedAt: number;
   used?: boolean;            // Đang sử dụng (avatar, background, decoration)
-  
+
   // Cho BONUS_CARD
   activatedAt?: number;
   expiresAt?: number;
-  
+
   // Cho TET_INTERACTIVE
   usesLeft?: number;         // Số lần dùng còn lại
   lastUsedAt?: number;       // Lần dùng gần nhất
@@ -208,23 +281,23 @@ export interface AdminNotification {
   title: string;
   message: string;
   imageUrl?: string;           // Ảnh minh họa
-  
+
   // Gift kèm theo
   giftItems?: {
     itemId: string;
     quantity: number;
   }[];
   giftMoney?: number;          // Tiền thưởng
-  
+
   // Target users
   targetType: 'all' | 'specific'; // Gửi tất cả hay cụ thể
   targetUserIds?: string[];    // Danh sách UID (nếu specific)
-  
+
   // Metadata
   createdBy: string;           // Admin UID
   createdAt: number;
   expiresAt?: number;          // Hết hạn (tự xóa)
-  
+
   // Tracking
   readBy?: string[];           // Danh sách user đã đọc
   claimedBy?: string[];        // Danh sách user đã nhận quà
@@ -236,5 +309,54 @@ export interface UserNotification {
   notificationId: string;      // Link đến AdminNotification
   read: boolean;
   claimed: boolean;            // Đã nhận quà chưa
+  createdAt: number;
+}
+
+export interface QuizRoomPlayer {
+  name: string;
+  avatar?: string;
+  balance: number;
+  score: number;
+  isEliminated: boolean;
+  eliminatedInRound: number | null;
+  isSpectator: boolean;
+  isReady: boolean;
+}
+
+export interface QuizRoomQuestion {
+  id: number;
+  question: string;
+  options: string[];
+  correctIndex: number;
+  category: string;
+  difficulty: 'easy' | 'medium' | 'hard';
+  timeLimit: number;
+}
+
+export interface QuizRoomAnswer {
+  answerIndex: number;
+  answerTime: number;
+}
+
+export interface QuizRoom {
+  id: string;
+  hostUid: string;
+  hostName: string;
+  betAmount: number;
+  totalPot: number;
+  roomCode: string;
+  status: 'lobby' | 'starting' | 'playing' | 'ended';
+  startingIn: number;
+  practiceMode: boolean;
+  phase: 'question' | 'reveal' | 'leaderboard' | 'elimination' | 'podium';
+  currentRound: 1 | 2 | 3;
+  currentQuestionIndex: number;
+  questionStartTime: number;
+  timeLimit: number;
+  questions: QuizRoomQuestion[][];
+  players: Record<string, QuizRoomPlayer>;
+  answers: Record<string, Record<string, QuizRoomAnswer>>;
+  winners?: { first?: string; second?: string; third?: string };
+  rewards?: Record<string, number>;
   createdAt: number;
 }

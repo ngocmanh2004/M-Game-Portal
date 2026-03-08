@@ -1,146 +1,189 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { GameType } from '../types';
+import { Button } from './Button';
 
 interface HomeProps {
   onSelectGame: (game: GameType) => void;
 }
 
 export const Home: React.FC<HomeProps> = ({ onSelectGame }) => {
+  const [onlinePlayers, setOnlinePlayers] = useState(1248);
+
+  // simulate fluctuation in online players to make the lobby feel "live"
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setOnlinePlayers(prev => prev + Math.floor(Math.random() * 7) - 3);
+    }, 4500);
+    return () => clearInterval(interval);
+  }, []);
+
   const games = [
     {
+      type: GameType.TIEN_LEN,
+      title: 'Tiến Lên Miền Nam',
+      description: 'Thể hiện đẳng cấp sát phạt',
+      logo: '/assets/image/logos/tienlen.png',
+      gradient: 'from-emerald-400 to-teal-600',
+      badge: 'HOT'
+    },
+    {
+      type: GameType.XI_DACH,
+      title: 'Xì Dách',
+      description: 'Đỉnh cao Blackjack phong cách Việt',
+      logo: '/assets/image/logos/xidach.png',
+      gradient: 'from-amber-700 to-neutral-900',
+      badge: 'HOT'
+    },
+    {
+      type: GameType.SIEU_TRI_TUE,
+      title: 'Ai Thông Minh Hơn?',
+      description: 'Hỏi đáp phong cách Kahoot tranh Tốc độ',
+      logo: '/assets/image/logos/sieutritue.png',
+      gradient: 'from-cyan-400 to-blue-700',
+      badge: 'NEW'
+    },
+    {
       type: GameType.BAU_CUA,
-      title: 'Bầu Cua',
-      description: 'Trò chơi truyền thống',
-      logo: '/assets/image/logos/baucua-noel.png',
-      gradient: 'from-red-800 to-red-600',
+      title: 'Bầu Cua Tôm Cá',
+      description: 'Thử thách may rủi mùa lễ hội',
+      logo: '/assets/image/logos/baucua.jpg',
+      gradient: 'from-orange-500 to-red-600',
+      badge: 'HOT'
     },
     {
       type: GameType.TAI_XIU,
       title: 'Tài Xỉu',
-      description: 'Xí ngầu may mắn',
-      logo: '/assets/image/logos/taixiu-noel.png',
-      gradient: 'from-yellow-700 to-yellow-600',
+      description: 'Lắc xí ngầu phán đoán cực căng',
+      logo: '/assets/image/logos/taixiu.jpg',
+      gradient: 'from-amber-400 to-orange-600',
     },
     {
       type: GameType.XOC_DIA,
       title: 'Xóc Đĩa',
-      description: 'Chẵn lẻ hấp dẫn',
-      logo: '/assets/image/logos/xocdia-noel.png',
-      gradient: 'from-red-700 to-yellow-700',
+      description: 'Quân vị sấp ngửa - Cuộc chiến chẵn lẻ',
+      logo: '/assets/image/logos/xocdia.jpg',
+      gradient: 'from-rose-500 to-red-800',
     },
     {
       type: GameType.DAP_HEO,
       title: 'Đập Heo Đất',
-      description: 'Nổ hũ phát tài',
-      logo: '/assets/image/logos/dapheo-noel.png',
-      gradient: 'from-yellow-600 to-red-600',
+      description: 'Săn Jackpot nổ hũ khổng lồ',
+      logo: '/assets/image/logos/dapheo.jpg',
+      gradient: 'from-pink-500 to-purple-600',
     },
-    {
-      type: GameType.TIEN_LEN,
-      title: 'Tiến Lên Miền Nam',
-      description: 'Đánh bài tiến lên',
-      logo: '/assets/image/logos/tienlen-noel.png',
-      gradient: 'from-green-800 to-green-600',
-    }
+    
   ];
 
   return (
-    <div className="flex flex-col items-center gap-4 sm:gap-6 w-full max-w-7xl mx-auto px-3 pb-8 pt-2">
-      
-      {/* Title */}
-      <div className="text-center relative w-full">
-        <h2 className="font-festive text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-yellow-400 to-red-500 mb-2 drop-shadow-[0_2px_10px_rgba(255,215,0,0.6)]">
-          Chọn Trò Chơi
-        </h2>
-        <div className="h-1 w-24 sm:w-32 mx-auto bg-gradient-to-r from-transparent via-yellow-400 to-transparent rounded-full"></div>
+    <div className="flex flex-col items-center gap-8 sm:gap-10 w-full max-w-[1400px] mx-auto px-4 sm:px-6 pb-16 pt-2 animate-fade-in-up">
+
+      {/* 1. HERO SECTION */}
+      <div className="w-full relative rounded-[2.5rem] overflow-hidden bg-gradient-to-br from-blue-900 via-[#111827] to-[#312e81] shadow-[0_20px_50px_rgba(0,0,0,0.5)] p-8 sm:p-12 md:p-16 flex flex-col md:flex-row items-center justify-between border border-white/10 group">
+        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-20 mix-blend-overlay"></div>
+        <div className="absolute top-[-50%] right-[-10%] w-[50%] h-[150%] bg-blue-500/20 blur-[120px] rounded-full group-hover:bg-blue-400/30 transition-colors duration-1000"></div>
+
+        <div className="relative z-10 text-center md:text-left max-w-2xl flex flex-col items-center md:items-start space-y-5">
+          
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-blue-100 to-indigo-300 drop-shadow-lg leading-tight">
+            Sẵn sàng chinh phục đỉnh cao?
+          </h1>
+          <p className="text-blue-200/90 text-sm sm:text-lg font-medium tracking-wide max-w-xl">
+            Vào ngay một phòng trải nghiệm để so tài cùng hàng ngàn cao thủ khác trên toàn hệ thống M-Game Portal!
+          </p>
+          <div className="pt-2">
+            <Button
+              size="lg"
+              className="!from-blue-500 !to-indigo-600 px-8 py-4 sm:px-10 sm:py-5 text-base sm:text-lg shadow-[0_0_30px_rgba(59,130,246,0.4)] border-none text-white tracking-widest uppercase hover:scale-105"
+              onClick={() => onSelectGame(GameType.SIEU_TRI_TUE)}
+            >
+              CHƠI NGAY
+            </Button>
+          </div>
+        </div>
+
+        {/* Hero Graphic */}
+        <div className="relative z-10 w-56 h-56 md:w-72 md:h-72 mt-10 md:mt-0 flex-shrink-0 animate-float hidden sm:block">
+          <div className="absolute inset-0 bg-blue-500/40 blur-[50px] rounded-full"></div>
+          <img
+            src="/assets/image/logos/sieutritue.png"
+            alt="Featured Game"
+            className="relative w-full h-full object-cover rounded-3xl shadow-[0_20px_40px_rgba(0,0,0,0.6)] border-2 border-white/20 transform -rotate-6 transition-transform hover:rotate-0 duration-500"
+          />
+        </div>
       </div>
 
-      {/* Game Grid - 2 cột mobile, 4 cột desktop */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-5 w-full">
-        {games.map((game, index) => (
-          <button
-            key={game.type}
-            onClick={() => onSelectGame(game.type)}
-            className="group relative overflow-hidden bg-gradient-to-br from-gray-900 to-gray-800 rounded-xl sm:rounded-2xl border-2 transition-all duration-300 hover:scale-105 active:scale-95 shadow-xl hover:shadow-2xl animate-slide-down"
-            style={{ animationDelay: `${index * 0.1}s` }}
-          >
-            {/* Animated Border */}
-            <div className={`absolute -inset-0.5 bg-gradient-to-r ${game.gradient} rounded-xl sm:rounded-2xl blur opacity-60 group-hover:opacity-100 transition-opacity`}></div>
+      {/* 2. LIVE LOBBY STATS */}
+      <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
 
-            {/* Content */}
-            <div className="relative bg-gradient-to-br from-gray-900 to-gray-800 rounded-xl sm:rounded-2xl p-3 sm:p-4">
-              
-              {/* Logo */}
-              <div className="relative w-full aspect-square mb-2 sm:mb-3 overflow-hidden rounded-lg sm:rounded-xl border-2 border-yellow-600/40 group-hover:border-yellow-500 transition-colors">
-                {/* Glow background */}
-                <div className={`absolute inset-0 bg-gradient-to-br ${game.gradient} opacity-20 blur-xl`}></div>
-                
-                {/* Image */}
-                <img 
-                  src={game.logo} 
+        
+      </div>
+
+      {/* 3. GAME SELECTION GRID */}
+      <div className="w-full mt-4">
+        <div className="flex items-center justify-between mb-8">
+          <h2 className="text-2xl sm:text-3xl font-black text-white flex items-center gap-4 drop-shadow-md">
+            Sảnh Chờ <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400 font-bold">Minigames</span>
+          </h2>
+          <div className="h-1 flex-1 max-w-[200px] bg-gradient-to-r from-blue-500 to-transparent rounded-full hidden sm:block ml-4 opacity-50"></div>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 sm:gap-6 lg:gap-8 w-full">
+          {games.map((game, index) => (
+            <button
+              key={game.type}
+              onClick={() => onSelectGame(game.type)}
+              className="group relative h-[300px] sm:h-[340px] rounded-[2rem] overflow-hidden transition-all duration-500 hover:scale-[1.03] hover:-translate-y-2 active:scale-[0.98] shadow-[0_15px_35px_rgba(0,0,0,0.5)] hover:shadow-[0_25px_50px_rgba(59,130,246,0.3)] animate-fade-in-up"
+              style={{ animationDelay: `${0.2 + (index * 0.1)}s` }}
+            >
+              {/* Background Poster Image */}
+              <div className="absolute inset-0 bg-gray-900">
+                <img
+                  src={game.logo}
                   alt={game.title}
-                  className="relative w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
-                  onError={(e) => {
-                    e.currentTarget.src = 'https://via.placeholder.com/200x200/dc2626/fbbf24?text=' + game.title;
-                  }}
+                  className="w-full h-full object-cover transform scale-100 group-hover:scale-110 transition-transform duration-700 ease-out opacity-80 group-hover:opacity-100"
+                  onError={(e) => { e.currentTarget.src = 'https://via.placeholder.com/300x400/1e3a8a/60a5fa?text=' + encodeURIComponent(game.title); }}
                 />
+                {/* Dark Gradient Overlay for optimal text reading */}
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a1a] via-[#0a0a1a]/70 to-transparent"></div>
               </div>
 
-              {/* Title */}
-              <h3 className="font-bold text-base sm:text-lg md:text-xl text-yellow-400 mb-1 text-center">
-                {game.title}
-              </h3>
+              {/* Hover Ring/Glow Effect */}
+              <div className={`absolute inset-0 bg-gradient-to-br ${game.gradient} opacity-0 group-hover:opacity-20 transition-opacity duration-300 pointer-events-none mix-blend-screen`}></div>
 
-              {/* Description */}
-              <p className="text-gray-400 text-xs sm:text-sm text-center mb-2 sm:mb-3">
-                {game.description}
-              </p>
+              {/* Inner Content Area */}
+              <div className="absolute inset-0 p-6 flex flex-col justify-end text-left z-10">
 
-              {/* Play Button */}
-              <div className={`relative overflow-hidden rounded-md sm:rounded-lg ${game.gradient} p-0.5 group-hover:scale-105 transition-transform`}>
-                <div className="bg-gray-900 rounded-md sm:rounded-lg px-3 py-1.5 sm:px-4 sm:py-2 text-center">
-                  <span className="text-yellow-400 font-semibold text-xs sm:text-sm">
-                    Chơi Ngay
+                {/* Status Badges */}
+                {game.badge && (
+                  <span className={`absolute top-5 right-5 px-3 py-1 rounded-full text-[10px] font-black text-white shadow-lg uppercase tracking-wider ${game.badge === 'HOT' ? 'bg-gradient-to-r from-red-500 to-rose-600 animate-pulse' : 'bg-gradient-to-r from-blue-500 to-indigo-600'}`}>
+                    {game.badge}
                   </span>
+                )}
+
+                <h3 className="font-black text-2xl sm:text-3xl text-white mb-2 group-hover:text-yellow-400 transition-colors drop-shadow-[0_4px_10px_rgba(0,0,0,0.8)] leading-tight">
+                  {game.title}
+                </h3>
+                <p className="text-gray-300 text-sm font-medium mb-6 drop-shadow-md line-clamp-2 pr-4 leading-relaxed">
+                  {game.description}
+                </p>
+
+                {/* Call To Action Button built into the Card */}
+                <div className={`relative overflow-hidden rounded-2xl bg-gradient-to-r ${game.gradient} p-[2px] transform origin-left transition-transform`}>
+                  <div className="bg-black/40 backdrop-blur-md rounded-[14px] px-5 py-3 flex items-center justify-between group-hover:bg-transparent transition-colors">
+                    <span className="text-white font-bold text-sm tracking-widest uppercase">
+                      Tham Gia Ngay
+                    </span>
+                    <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center transform group-hover:translate-x-1 transition-transform">
+                      <span className="text-white font-bold">→</span>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-
-            {/* Shine Effect */}
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-          </button>
-        ))}
-      </div>
-
-      {/* Info Card - COMPACT hơn trên desktop */}
-      <div className="w-full max-w-4xl bg-gradient-to-br from-red-950/50 to-yellow-950/50 backdrop-blur-sm border border-yellow-600/30 rounded-xl sm:rounded-2xl p-3 sm:p-4 md:p-5">
-        <div className="flex items-center gap-2 mb-2 sm:mb-3">
-          <div className="h-0.5 sm:h-1 w-6 sm:w-8 bg-gradient-to-r from-red-500 to-yellow-500 rounded"></div>
-          <h3 className="text-yellow-400 font-bold text-xs sm:text-sm md:text-base">
-            Hướng Dẫn
-          </h3>
-          <div className="h-0.5 sm:h-1 flex-1 bg-gradient-to-r from-yellow-500 to-transparent rounded"></div>
+            </button>
+          ))}
         </div>
-        
-        <ul className="text-gray-300 text-[10px] sm:text-xs md:text-sm space-y-1.5 sm:space-y-2">
-          <li className="flex items-start gap-1.5 sm:gap-2">
-            <span className="text-red-500 font-bold mt-0.5">•</span>
-            <span><strong className="text-yellow-400">Bầu Cua:</strong> Xóc đĩa 6 con vật</span>
-          </li>
-          <li className="flex items-start gap-1.5 sm:gap-2">
-            <span className="text-yellow-500 font-bold mt-0.5">•</span>
-            <span><strong className="text-yellow-400">Tài Xỉu:</strong> Lắc 3 xúc xắc, đoán tổng điểm</span>
-          </li>
-          <li className="flex items-start gap-1.5 sm:gap-2">
-            <span className="text-red-500 font-bold mt-0.5">•</span>
-            <span><strong className="text-yellow-400">Xóc Đĩa:</strong> 4 đồng xu, đoán Chẵn/Lẻ</span>
-          </li>
-          <li className="flex items-start gap-1.5 sm:gap-2">
-            <span className="text-yellow-500 font-bold mt-0.5">•</span>
-            <span><strong className="text-yellow-400">Đập Heo:</strong> Cơ hội nổ hũ lên tới 5 triệu!</span>
-          </li>
-        </ul>
       </div>
     </div>
   );
 };
+

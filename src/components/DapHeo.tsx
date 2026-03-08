@@ -38,137 +38,92 @@ export const DapHeo: React.FC<DapHeoProps> = ({ balance, updateBalance, onShowNo
   }, [getActiveBonus]);
 
   const handlePurchase = (pig: PigType) => {
-    if (balance < pig.price) {
-      onShowNotification("Không đủ tiền để mua heo này!", 'loss');
-      return;
-    }
-
+    if (balance < pig.price) { onShowNotification("Không đủ tiền để mua heo này!", 'loss'); return; }
     playSound('money');
     updateBalance(balance - pig.price);
     setSelectedPig(pig);
-    onShowNotification(`Đã mua ${pig.name}! 🐷`, 'win');
+    onShowNotification(`Đã mua ${pig.name}!`, 'win');
   };
 
   const handleSmash = () => {
-    if (!selectedPig) {
-      onShowNotification("Vui lòng chọn heo trước!", 'loss');
-      return;
-    }
-
+    if (!selectedPig) { onShowNotification("Vui lòng chọn heo trước!", 'loss'); return; }
     setIsSmashing(true);
     playSound('pig');
-
     setTimeout(() => {
       const randomValue = Math.random();
-      
       if (randomValue < selectedPig.boomChance) {
         playSound('loss');
         setTimeout(() => playSound('boom'), 100);
-        
         setReward(0);
         setIsSmashing(false);
         setShowBoom(true);
-        onShowNotification("💣 HEO NỔ TUNG! Mất trắng!", 'loss');
-      } 
-      else if (randomValue < selectedPig.boomChance + selectedPig.jackpotChance) {
+        onShowNotification("HEO NỔ TUNG! Mất trắng!", 'loss');
+      } else if (randomValue < selectedPig.boomChance + selectedPig.jackpotChance) {
         playSound('win');
         setTimeout(() => playSound('lucky'), 100);
-        
-        // ⭐ DÙNG jackpotReward THAY VÌ maxReward
         let jackpotReward = selectedPig.jackpotReward;
-
         if (activeBonus > 0) {
           const bonusAmount = Math.floor(jackpotReward * (activeBonus / 100));
           jackpotReward += bonusAmount;
-          setTimeout(() => {
-            onShowNotification(`⚡ +${activeBonus}% Bonus = +${bonusAmount.toLocaleString()}đ!`, 'win');
-          }, 1500);
+          setTimeout(() => onShowNotification(`+${activeBonus}% Bonus = +${bonusAmount.toLocaleString()}đ!`, 'win'), 1500);
         }
-
         setReward(jackpotReward);
         updateBalance(balance + jackpotReward);
         setIsSmashing(false);
         setShowJackpot(true);
-        onShowNotification(`🎰 NỔ HŨ! Trúng ${jackpotReward.toLocaleString()}đ!`, 'win');
-      } 
-      else {
+        onShowNotification(`NỔ HŨ! Trúng ${jackpotReward.toLocaleString()}đ!`, 'win');
+      } else {
         playSound('win');
-        
         let randomReward = getRandomInt(selectedPig.minReward, selectedPig.maxReward);
-
         if (activeBonus > 0) {
           const bonusAmount = Math.floor(randomReward * (activeBonus / 100));
           randomReward += bonusAmount;
-          setTimeout(() => {
-            onShowNotification(`⚡ +${activeBonus}% Bonus = +${bonusAmount.toLocaleString()}đ!`, 'win');
-          }, 1000);
+          setTimeout(() => onShowNotification(`+${activeBonus}% Bonus = +${bonusAmount.toLocaleString()}đ!`, 'win'), 1000);
         }
-
         setReward(randomReward);
         updateBalance(balance + randomReward);
         setIsSmashing(false);
         setShowResult(true);
       }
-      
       setSelectedPig(null);
     }, 2000);
   };
 
-  const handleCloseResult = () => {
-    setShowResult(false);
-    setReward(0);
-  };
-
-  const handleCloseBoom = () => {
-    setShowBoom(false);
-  };
-
-  const handleCloseJackpot = () => {
-    setShowJackpot(false);
-    setReward(0);
-  };
+  const handleCloseResult = () => { setShowResult(false); setReward(0); };
+  const handleCloseBoom = () => setShowBoom(false);
+  const handleCloseJackpot = () => { setShowJackpot(false); setReward(0); };
 
   return (
     <>
-      {/* ⭐ FIXED POSITION - RA NGOÀI CONTAINER HOÀN TOÀN */}
+      {/* Bonus fixed banner */}
       {activeBonus > 0 && (
         <div className="fixed top-16 left-0 right-0 z-[100] px-2 sm:px-4">
-          <div className="bg-gradient-to-r from-yellow-400 to-orange-500 rounded-2xl p-3 sm:p-4 border-4 border-yellow-300 shadow-2xl animate-pulse max-w-6xl mx-auto">
-            <p className="text-center text-white font-bold text-sm sm:text-base md:text-lg">
-              ⚡ BONUS +{activeBonus}% ĐANG HOẠT ĐỘNG! ⚡
-            </p>
+          <div className="bg-amber-500/10 border border-amber-500/30 rounded-2xl px-4 py-2 text-center max-w-6xl mx-auto">
+            <p className="text-amber-300 font-bold text-sm">Bonus +{activeBonus}% đang hoạt động</p>
           </div>
         </div>
       )}
 
-      {/* ⭐ CONTAINER VỚI PADDING-TOP ĐỂ TRÁNH BỊ CHE */}
-      <div className={`flex flex-col items-center gap-4 sm:gap-6 w-full max-w-6xl mx-auto pb-8 px-2 ${activeBonus > 0 ? 'pt-20 sm:pt-24' : ''}`}>
-        
-        {/* Game Title */}
+      <div className={`flex flex-col items-center gap-5 w-full max-w-6xl mx-auto pb-8 px-3 ${activeBonus > 0 ? 'pt-20 sm:pt-24' : ''}`}>
+
+        {/* Title */}
         <div className="text-center">
-          <h2 className="font-festive text-2xl sm:text-3xl md:text-4xl text-tet-yellow drop-shadow-lg mb-1 sm:mb-2">
-            Đập Heo Đất - Nổ Hũ May Mắn 🐷
-          </h2>
-          <p className="text-white/90 text-xs sm:text-sm md:text-base italic">
-            Chọn heo, đập thôi, nhận lộc liền tay! 💰
-          </p>
-          
-          {/* CHỈ HIỂN THỊ KHI CHƯA CÓ BONUS */}
-          {!activeBonus && (
-            <div className="mt-2 flex flex-col sm:flex-row gap-2 justify-center items-center">
-              <div className="bg-gradient-to-r from-yellow-500 to-orange-500 backdrop-blur-md px-3 py-1.5 sm:px-4 sm:py-2 rounded-full border-2 border-yellow-300">
-                <p className="text-white text-[10px] sm:text-xs font-bold flex items-center gap-1">
-                  🎰 Cơ hội NỔ HŨ!
-                </p>
-              </div>
-              <div className="bg-red-600/80 backdrop-blur-md px-3 py-1.5 sm:px-4 sm:py-2 rounded-full border-2 border-red-400">
-                <p className="text-white text-[10px] sm:text-xs font-bold flex items-center gap-1">
-                  ⚠️ Cẩn thận BOOM!
-                </p>
-              </div>
-            </div>
-          )}
+          <h1 className="text-2xl sm:text-3xl font-black text-white tracking-tight">Đập Heo Đất</h1>
+          <p className="text-gray-400 text-sm mt-1">Chọn heo, đập thôi, nhận lộc liền tay!</p>
+          <div className="h-0.5 w-20 mx-auto mt-2 bg-gradient-to-r from-transparent via-indigo-400 to-transparent rounded-full" />
         </div>
+
+        {/* Info badges */}
+        {!activeBonus && (
+          <div className="flex gap-2 flex-wrap justify-center">
+            <span className="bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs font-bold px-3 py-1 rounded-full">
+              Cơ hội Nổ Hũ!
+            </span>
+            <span className="bg-red-500/10 border border-red-500/30 text-red-400 text-xs font-bold px-3 py-1 rounded-full">
+              Cẩn thận BOOM!
+            </span>
+          </div>
+        )}
 
         {/* Result Popups */}
         {showResult && <ResultPopup reward={reward} onClose={handleCloseResult} />}
@@ -176,7 +131,7 @@ export const DapHeo: React.FC<DapHeoProps> = ({ balance, updateBalance, onShowNo
         {showJackpot && <JackpotPopup reward={reward} onClose={handleCloseJackpot} />}
 
         {/* Pig Display Area */}
-        <div className="w-full bg-white/10 backdrop-blur-md rounded-2xl sm:rounded-3xl border-2 sm:border-4 border-tet-gold/50 p-4 sm:p-6 md:p-8 shadow-2xl">
+        <div className="w-full bg-black/40 backdrop-blur-sm rounded-2xl border border-white/10 shadow-xl p-5 sm:p-7">
           <PigDisplay pig={selectedPig} isSmashing={isSmashing} />
         </div>
 
@@ -185,26 +140,21 @@ export const DapHeo: React.FC<DapHeoProps> = ({ balance, updateBalance, onShowNo
           <Button
             size="lg"
             onClick={handleSmash}
-            className="px-8 sm:px-12 py-3 sm:py-4 text-xl sm:text-2xl animate-pulse hover:animate-none shadow-[0_0_30px_rgba(255,215,0,0.6)]"
+            className="px-10 sm:px-14 py-3 sm:py-4 text-lg sm:text-xl animate-pulse hover:animate-none shadow-[0_0_24px_rgba(99,102,241,0.5)]"
           >
-            ĐẬP HEO NGAY! 🔨
+            ĐẬP HEO NGAY!
           </Button>
         )}
 
         {isSmashing && (
           <div className="text-center">
-            <p className="text-tet-yellow text-lg sm:text-xl md:text-2xl font-bold animate-bounce drop-shadow-lg">
-              Đang đập heo... 💥
-            </p>
+            <p className="text-white text-lg sm:text-xl font-bold animate-bounce">Đang đập heo...</p>
           </div>
         )}
 
         {/* Pig Selection */}
         <div className="w-full">
-          <h3 className="text-center font-festive text-xl sm:text-2xl md:text-3xl text-tet-yellow mb-3 sm:mb-4 drop-shadow-lg">
-            Chọn Heo Đất 🏮
-          </h3>
-          
+          <h3 className="text-center font-black text-base sm:text-lg text-white mb-3">Chọn Heo Đất</h3>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3 md:gap-4">
             {PIG_TYPES.map((pig) => (
               <PigCard
@@ -219,33 +169,29 @@ export const DapHeo: React.FC<DapHeoProps> = ({ balance, updateBalance, onShowNo
         </div>
 
         {/* Instructions */}
-        <div className="w-full bg-yellow-400/20 backdrop-blur-md border-2 border-yellow-500/50 rounded-xl p-3 sm:p-4">
-          <h4 className="font-bold text-tet-yellow text-sm sm:text-base mb-2 flex items-center gap-2">
-            <span>📌</span> Hướng dẫn:
-          </h4>
-          <ul className="text-white/90 text-xs sm:text-sm space-y-1">
-            <li>🐷 Chọn mua heo → 🔨 Đập heo → 💰 Nhận thưởng!</li>
-            <li>🎰 <strong>Jackpot:</strong> 300k - 5M tùy heo!</li>
-            <li>💣 <strong>BOOM:</strong> Mất trắng!</li>
+        <div className="w-full bg-black/40 border border-white/10 rounded-2xl p-4">
+          <h4 className="font-bold text-white text-sm mb-2">Hướng dẫn</h4>
+          <ul className="text-gray-400 text-xs sm:text-sm space-y-1">
+            <li>Chọn mua heo → Đập heo → Nhận thưởng!</li>
+            <li><strong className="text-white">Jackpot:</strong> 300K – 5M tùy heo</li>
+            <li><strong className="text-white">BOOM:</strong> Mất trắng!</li>
             {activeBonus > 0 && (
-              <li className="text-yellow-300 font-bold">⚡ +{activeBonus}% Bonus!</li>
+              <li className="text-amber-400 font-bold">+{activeBonus}% Bonus!</li>
             )}
           </ul>
         </div>
 
         {/* Odds Table */}
-        <div className="w-full bg-gradient-to-br from-purple-900/30 to-pink-900/30 backdrop-blur-md border-2 border-purple-500/50 rounded-xl p-3 sm:p-4">
-          <h4 className="font-bold text-purple-200 text-sm sm:text-base mb-2 text-center">
-            📊 Bảng Thưởng
-          </h4>
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-2">
+        <div className="w-full bg-black/40 border border-white/10 rounded-2xl p-4">
+          <h4 className="font-bold text-white text-sm mb-3 text-center">Bảng Thưởng</h4>
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3">
             {PIG_TYPES.map((pig) => (
-              <div key={pig.id} className={`bg-gradient-to-br ${pig.color} p-2 rounded-lg border border-white/30`}>
-                <p className="text-white font-bold text-center text-xs mb-1">{pig.name}</p>
-                <div className="text-[10px] text-white/90 space-y-0.5">
-                  <p>💵 {pig.price.toLocaleString()}đ</p>
-                  <p>💰 {pig.minReward.toLocaleString()}-{pig.maxReward.toLocaleString()}đ</p>
-                  <p className="text-yellow-300 font-bold">🎰 {pig.jackpotReward.toLocaleString()}đ</p>
+              <div key={pig.id} className={`bg-gradient-to-br ${pig.color} p-3 rounded-xl border border-white/20`}>
+                <p className="text-white font-bold text-center text-xs mb-2">{pig.name}</p>
+                <div className="text-[10px] text-white/80 space-y-0.5">
+                  <p>Giá: {pig.price.toLocaleString()}đ</p>
+                  <p>Thưởng: {pig.minReward.toLocaleString()}–{pig.maxReward.toLocaleString()}đ</p>
+                  <p className="text-amber-300 font-bold">Jackpot: {pig.jackpotReward.toLocaleString()}đ</p>
                 </div>
               </div>
             ))}

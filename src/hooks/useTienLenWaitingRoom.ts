@@ -4,7 +4,7 @@ import { createTienLenGame } from '../utils/tienlen/gameCreator';
 
 const db = getDatabase();
 
-export function useTienLenWaitingRoom(lobbyId: string) {
+export function useTienLenWaitingRoom(lobbyId: string, userUid?: string) {
   const [lobby, setLobby] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
@@ -65,7 +65,7 @@ export function useTienLenWaitingRoom(lobbyId: string) {
   // Host tự countdown và chuyển sang playing
   useEffect(() => {
     if (!lobby || lobby.status !== 'starting') return;
-    const isHost = lobby.hostUid === window.localStorage.getItem('uid') || false;
+    const isHost = userUid ? lobby.hostUid === userUid : lobby.hostUid === window.localStorage.getItem('uid') || false;
     if (!isHost) return;
     let timer: any;
     let count = lobby.startingIn || 5;

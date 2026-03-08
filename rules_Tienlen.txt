@@ -1,0 +1,77 @@
+DOCUMENTATION: LUẬT TIẾN LÊN MIỀN NAM (VIETNAM)
+
+1. Giá trị và Thứ tự quân bài
+
+Tiến Lên Miền Nam sử dụng bộ bài 52 lá. Sức mạnh của lá bài phụ thuộc vào Số (Value) trước, sau đó mới đến Chất (Suit).
+
+Thứ tự Số: $3 < 4 < 5 < 6 < 7 < 8 < 9 < 10 < J < Q < K < A < 2$.
+
+Lá 3 là lá nhỏ nhất.
+
+Lá 2 (Heo) là lá lớn nhất.
+
+Thứ tự Chất: ♠ (Bích) < ♣ (Chuồn) < ♦ (Rô) < ♥ (Cơ).
+
+Kết hợp: Quân $2♥$ là quân bài mạnh nhất trong trò chơi.
+
+2. Các tổ hợp bài (Hands)
+
+Người sau phải chặn người trước bằng một tổ hợp cùng loại nhưng có giá trị cao hơn.
+
+Tổ hợpMô tảVí dụRác (Single)Một lá bài đơn lẻ.$5♦$Đôi (Pair)Hai lá bài cùng số.$9♣, 9♥$Sám cô (Triple)Ba lá bài cùng số.$Q♠, Q♦, Q♥$Sảnh (Straight)Từ 3 lá trở lên có số liên tiếp. Không phân biệt chất. Lưu ý: Không có sảnh chứa lá 2 (Ví dụ: K-A-2 là sai).$3-4-5$ hoặc $10-J-Q-K-A$3 Đôi thông3 đôi có số liên tiếp nhau.$4-4, 5-5, 6-6$Tứ quý4 lá bài cùng số.$J♠, J♣, J♦, J♥$4 Đôi thông4 đôi có số liên tiếp nhau.$7-7, 8-8, 9-9, 10-10$
+
+3. Quy tắc "Chặt" (Slashing) và Hàng
+
+Đây là phần quan trọng nhất để AI xử lý các tình huống đặc biệt với quân 2 (Heo).
+
+3 Đôi thông: Chặt được một lá $2$ (bất kỳ chất nào) hoặc 3 đôi thông nhỏ hơn.
+
+Tứ quý: Chặt được một lá $2$, một đôi $2$, 3 đôi thông, hoặc tứ quý nhỏ hơn.
+
+4 Đôi thông: Chặt được một lá $2$, một đôi $2$, 3 đôi thông, tứ quý, hoặc 4 đôi thông nhỏ hơn.
+
+Đặc biệt: 4 đôi thông có thể chặt mà không cần theo vòng (chặt tự do khi có lượt).
+
+4. Tiến trình chơi
+
+Ván đầu tiên: Người giữ lá $3♠$ (3 Bích) đánh trước và bắt buộc phải có lá này trong tổ hợp đánh ra.
+
+Các ván tiếp theo: Người thắng ván trước được đánh đầu tiên.
+
+Vòng chơi: Theo chiều kim đồng hồ.
+
+Bỏ lượt: Nếu một người bỏ lượt (Pass), họ không được tham gia đánh tiếp trong vòng đó cho đến khi kết thúc vòng (mọi người khác đều bỏ lượt).
+
+Kết thúc vòng: Khi không còn ai chặn được lá bài vừa đánh, vòng cũ kết thúc. Người đánh cuối cùng bắt đầu vòng mới với tổ hợp tùy ý.
+
+5. Các trường hợp Thắng trắng (Instant Win)
+
+Nếu người chơi sở hữu các bộ bài sau sau khi chia, họ thắng ngay lập tức mà không cần đánh:
+
+Sảnh rồng: Từ $3$ đến $A$ ($12$ lá liên tiếp).
+
+Tứ quý 2: $2♠, 2♣, 2♦, 2♥$.
+
+6 Đôi: (Bất kỳ, không cần thông).
+
+5 Đôi thông.
+
+2 Tứ quý.
+
+6. Các quy tắc phạt (Penalty Logic)
+
+Để game hấp dẫn và công bằng, cần áp dụng các logic phạt sau:
+
+Thối (Rotten): Khi ván bài kết thúc, người về sau cùng vẫn còn giữ quân $2$, Tứ quý hoặc Đôi thông trên tay thì bị phạt tiền/điểm.
+
+Cóng (Stuck): Một người chưa đánh được lá bài nào mà người khác đã về Nhất. Người bị Cóng thường bị phạt gấp đôi hoặc gấp ba.
+
+Đút mù: Về nhất bằng lá cuối cùng là $3♠$ (tùy luật địa phương, có thể cấu hình thêm).
+
+7. Cấu trúc dữ liệu gợi ý cho AI Agent
+
+Card Object: { value: 3-15, suit: 1-4, display: "3-Bích" } (với 15 là quân 2).
+
+Hand Evaluation: Hàm kiểm tra bộ bài hiện tại thuộc loại nào (Rác, Đôi, Sảnh, hay Hàng).
+
+Can Beat Logic: So sánh Hand A và Hand B. Nếu A.type == B.type, so sánh lá cao nhất trong bộ. Nếu B là "Hàng" (Tứ quý/Đôi thông), kiểm tra khả năng chặt lá $2$.

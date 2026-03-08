@@ -29,6 +29,7 @@ export async function createTienLenGame(lobby: any, lobbyId: string) {
   }
   const gameData: any = {
     lobbyId,
+    hostUid: lobby.hostUid || null,
     roomCode: lobby.roomCode,
     roomType: lobby.roomType,
     betAmount: lobby.betAmount,
@@ -57,6 +58,8 @@ export async function createTienLenGame(lobby: any, lobbyId: string) {
       email: p.email,
       photoURL: p.photoURL,
       position: Number(idx),
+      isBot: p.isBot || false,
+      difficulty: p.difficulty || null,
       hand: hands[idx],
       handCount: hands[idx].length,
       finishPosition: null,

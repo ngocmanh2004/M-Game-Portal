@@ -2,11 +2,12 @@ import React from 'react';
 import cn from 'classnames';
 
 interface CardProps {
-  card: string; // VD: '3S', 'KH'
+  card: string;
   selected?: boolean;
   onClick?: () => void;
   disabled?: boolean;
   className?: string;
+  isPlayerCard?: boolean; // NEW
 }
 
 export const Card: React.FC<CardProps> = ({
@@ -15,7 +16,11 @@ export const Card: React.FC<CardProps> = ({
   onClick,
   disabled,
   className = '',
+  isPlayerCard = false,
 }) => {
+  const cardWidth = isPlayerCard ? 60 : 50;
+  const cardHeight = isPlayerCard ? 84 : 70;
+  
   return (
     <div
       className={cn(
@@ -26,8 +31,8 @@ export const Card: React.FC<CardProps> = ({
         className
       )}
       style={{
-        width: 50,
-        height: 70,
+        width: cardWidth,
+        height: cardHeight,
         margin: '0 2px',
         userSelect: 'none',
       }}

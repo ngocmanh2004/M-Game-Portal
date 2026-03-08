@@ -24,7 +24,7 @@ export const useLeaderboard = (topCount: number = 10) => {
           const data = docSnap.data();
           entries.push({
             uid: docSnap.id,
-            email: data.email || 'Unknown',
+            email: data.nickname || data.email?.split('@')[0] || 'Unknown',
             avatar: data.avatar,
             background: data.background,
             money: data.money || 0,
@@ -41,7 +41,7 @@ export const useLeaderboard = (topCount: number = 10) => {
     };
 
     fetchLeaderboard();
-    
+
     // ⭐ REFRESH MỖI 10 GIÂY
     const interval = setInterval(fetchLeaderboard, 10000);
     return () => clearInterval(interval);

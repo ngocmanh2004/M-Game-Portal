@@ -5,16 +5,47 @@ interface RoomCardProps {
   onJoin: () => void;
 }
 
-export const RoomCard: React.FC<RoomCardProps> = ({ room, onJoin }) => (
-  <div className="bg-white/10 rounded-xl p-4 flex flex-col gap-2 border border-yellow-400 shadow-lg">
-    <div className="flex justify-between items-center">
-      <div>
-        <div className="font-bold text-lg text-yellow-300">Mã phòng: {room.roomCode}</div>
-        <div className="text-white">Loại: <span className="font-semibold">{room.roomType}</span></div>
-        <div className="text-white">Cược: <span className="font-semibold">{room.betAmount.toLocaleString()}đ</span></div>
-        <div className="text-white">Người chơi: {room.playerCount}/{room.maxPlayers}</div>
+function formatMoney(money: number) {
+  if (money >= 1_000_000_000) return `${Math.floor(money / 1_000_000_000)}B`;
+  if (money >= 1_000_000) return `${Math.floor(money / 1_000_000)}M`;
+  if (money >= 1_000) return `${Math.floor(money / 1_000)}K`;
+  return money.toString();
+}
+
+export const RoomCard: React.FC<RoomCardProps> = ({ room, onJoin }) => {
+  const playerCount = room.players ? Object.keys(room.players).length : 0;
+  const isFull = playerCount >= room.maxPlayers;
+
+  return (
+    <div
+      onClick={!isFull ? onJoin : undefined}
+      className={`
+        relative group rounded-xl border transition-all duration-200
+        ${isFull
+          ? 'border-white/5 bg-black/60 opacity-60 cursor-not-allowed'
+          : 'border-white/20 bg-black/80 hover:bg-black/90 hover:border-white/30 hover:-translate-y-0.5 cursor-pointer active:scale-95'
+        }
+      `}
+    >
+      {/* Game banner */}
+      <div className="h-10 mx-2 mt-2 rounded-lg bg-gradient-to-r from-indigo-900/60 to-purple-900/60 border border-indigo-500/20 flex items-center justify-center">
+        <span className="text-indigo-300 font-black text-xs tracking-widest">TLMN</span>
       </div>
-      <button className="btn btn-success" onClick={onJoin}>Vào phòng</button>
+
+      <div className="px-3 py-2 space-y-1.5">
+        <div className="flex items-center justify-between">
+          <span className="text-white font-bold text-xs">#{room.roomCode}</span>
+          <span className="text-[10px] text-gray-500 uppercase">{room.roomType}</span>
+        </div>
+
+        <div className="flex items-center justify-between pt-1 border-t border-white/5">
+          <span className="text-amber-400 font-bold text-xs">{formatMoney(room.betAmount)}đ</span>
+          <div className="flex items-center gap-1.5">
+            <span className="text-xs text-gray-400">{playerCount}/{room.maxPlayers}</span>
+            <div className={`w-1.5 h-1.5 rounded-full ${isFull ? 'bg-red-400' : 'bg-emerald-400'}`} />
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
-);
+  );
+};
