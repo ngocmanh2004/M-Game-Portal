@@ -50,69 +50,97 @@ export const NotificationCard: React.FC<NotificationCardProps> = ({
 
   return (
     <div
-      className={`relative bg-gradient-to-br from-yellow-900/80 to-red-900/80 rounded-xl border-2 p-4 mb-3 shadow-lg transition-all
-        ${!notification.read ? 'border-yellow-400' : notification.claimed ? 'border-green-400 opacity-90' : 'border-white/20 opacity-80'}
+      className={`relative group bg-white/5 hover:bg-white/10 rounded-2xl p-4 sm:p-5 transition-all duration-300 shadow-xl border border-white/5 active:scale-[0.98] cursor-pointer
+        ${!notification.read ? 'before:content-[""] before:absolute before:left-0 before:top-4 before:bottom-4 before:w-1 before:bg-yellow-400 before:rounded-r-full before:shadow-[0_0_10px_rgba(250,204,21,0.5)]' : ''}
+        ${notification.claimed ? 'opacity-60 saturate-50' : ''}
       `}
       onClick={handleMarkRead}
     >
       {/* Nút xóa */}
       <button
         onClick={e => { e.stopPropagation(); onDelete(notification.id); }}
-        className="absolute top-2 right-2 text-red-400 hover:text-red-200 bg-white/10 rounded-full p-1 transition-all"
+        className="absolute top-4 right-4 text-white/20 hover:text-red-400 bg-white/5 hover:bg-white/10 rounded-full w-8 h-8 flex items-center justify-center transition-all opacity-0 group-hover:opacity-100 z-10 border border-white/5"
         title="Xóa thông báo"
       >
-        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" />
         </svg>
       </button>
 
-      {/* Icon */}
-      <div className="absolute left-3 top-3 text-2xl select-none pointer-events-none">
-        {notification.details.type === NotificationType.GIFT && '🎁'}
-        {notification.details.type === NotificationType.EVENT && '🎊'}
-        {notification.details.type === NotificationType.SYSTEM && '🔔'}
-        {notification.details.type === NotificationType.WARNING && '⚠️'}
-        {notification.details.type === NotificationType.UPDATE && '🔄'}
-      </div>
-
-      {/* Title & Content */}
-      <div className="pl-10">
-        <div className="flex items-center gap-2">
-          <span className="font-bold text-yellow-300 text-base">{notification.details.title}</span>
-          {!notification.read && (
-            <span className="ml-2 px-2 py-0.5 bg-yellow-400 text-xs text-red-900 rounded-full font-bold animate-pulse">Mới</span>
-          )}
-          {notification.claimed && (
-            <span className="ml-2 px-2 py-0.5 bg-green-400 text-xs text-white rounded-full font-bold">Đã nhận</span>
-          )}
+      <div className="flex gap-4 sm:gap-5">
+        {/* Icon Column */}
+        <div className="shrink-0 pt-1">
+          <div className={`w-12 h-12 rounded-2xl flex items-center justify-center text-2xl shadow-inner border border-white/5 ${notification.details.type === NotificationType.GIFT ? 'bg-orange-500/20 text-orange-400' :
+            notification.details.type === NotificationType.SYSTEM ? 'bg-blue-500/20 text-blue-400' :
+              'bg-gray-500/20 text-gray-300'
+            }`}>
+            {notification.details.type === NotificationType.GIFT && '🎁'}
+            {notification.details.type === NotificationType.EVENT && '🎊'}
+            {notification.details.type === NotificationType.SYSTEM && '🔔'}
+            {notification.details.type === NotificationType.WARNING && '⚠️'}
+            {notification.details.type === NotificationType.UPDATE && '🔄'}
+          </div>
         </div>
-        <div className="text-white/90 text-sm mt-1">{notification.details.message}</div>
-        {notification.details.imageUrl && (
-          <img src={notification.details.imageUrl} alt="img" className="w-full max-w-xs rounded-lg mt-2" />
-        )}
 
-        {/* Gift */}
-        {notification.details.giftMoney && (
-          <div className="mt-2 text-yellow-300 text-sm font-bold">💰 Tiền thưởng: {notification.details.giftMoney.toLocaleString()}đ</div>
-        )}
-        {renderGiftItems()}
-
-        {/* Claim button */}
-        {((notification.details.giftMoney || (notification.details.giftItems && notification.details.giftItems.length > 0))) && (
-          <div className="mt-3">
-            {notification.claimed ? (
-              <span className="inline-block px-3 py-1 bg-green-500 text-white rounded-full font-bold text-xs">Đã nhận quà</span>
-            ) : (
-              <button
-                onClick={e => { e.stopPropagation(); handleClaim(); }}
-                disabled={claiming}
-                className="px-4 py-2 bg-gradient-to-r from-yellow-400 to-orange-500 text-red-900 font-bold rounded-lg shadow hover:scale-105 active:scale-95 transition-all"
-              >
-                {claiming ? 'Đang nhận...' : '🎁 Nhận quà'}
-              </button>
+        {/* Content Column */}
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center flex-wrap gap-2 mb-1">
+            <h3 className={`font-black tracking-wide ${notification.read ? 'text-white/60' : 'text-white'}`}>
+              {notification.details.title}
+            </h3>
+            {!notification.read && (
+              <span className="px-2 py-0.5 bg-yellow-400 text-[10px] text-black rounded-lg font-bold uppercase tracking-wider shadow-sm shadow-yellow-400/20">Mới</span>
+            )}
+            {notification.claimed && (
+              <span className="px-2 py-0.5 bg-green-500/20 text-green-400 text-[10px] rounded-lg font-bold uppercase tracking-wider border border-green-500/30">Đã nhận</span>
             )}
           </div>
-        )}
+
+          <p className={`text-sm leading-relaxed ${notification.read ? 'text-white/40' : 'text-white/70'}`}>
+            {notification.details.message}
+          </p>
+
+          {notification.details.imageUrl && (
+            <div className="mt-3 relative rounded-xl overflow-hidden border border-white/10 group-hover:border-white/20 transition-all shadow-lg shadow-black/40 max-w-[240px]">
+              <img
+                src={notification.details.imageUrl}
+                alt="img"
+                className="w-full h-auto max-h-[160px] object-cover transform hover:scale-105 transition-transform duration-500"
+              />
+            </div>
+          )}
+
+          {/* Money & Items */}
+          <div className="mt-4 flex flex-col gap-2">
+            {notification.details.giftMoney && (
+              <div className="flex items-center gap-2 text-yellow-500 font-black text-sm drop-shadow-md">
+                <span className="text-base">💰</span>
+                <span>Tiền thưởng: +{notification.details.giftMoney.toLocaleString()}đ</span>
+              </div>
+            )}
+            {renderGiftItems()}
+          </div>
+
+          {/* Claim button */}
+          {(notification.details.giftMoney || (notification.details.giftItems && notification.details.giftItems.length > 0)) && (
+            <div className="mt-5">
+              {notification.claimed ? (
+                <div className="flex items-center gap-2 text-green-500/60 text-xs font-bold bg-green-500/5 py-2 px-4 rounded-xl border border-green-500/10 w-fit">
+                  <span>✓ Đã nằm trong túi đồ</span>
+                </div>
+              ) : (
+                <button
+                  onClick={e => { e.stopPropagation(); handleClaim(); }}
+                  disabled={claiming}
+                  className="relative overflow-hidden group/btn flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-400 hover:to-orange-400 text-black font-black rounded-2xl shadow-[0_4px_15px_rgba(245,158,11,0.3)] hover:shadow-[0_4px_20px_rgba(245,158,11,0.5)] transition-all hover:-translate-y-0.5 active:translate-y-0 active:scale-95 disabled:grayscale"
+                >
+                  <span className="text-xl group-hover/btn:rotate-12 transition-transform">{claiming ? '⏳' : '🎁'}</span>
+                  <span>{claiming ? 'Đang nhận quà...' : 'NHẬN QUÀ NGAY'}</span>
+                </button>
+              )}
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

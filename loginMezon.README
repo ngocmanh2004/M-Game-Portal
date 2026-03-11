@@ -1,0 +1,57 @@
+YÊU CẦU DÀNH CHO AI AGENT (GEMINI): Hãy đóng vai trò là một Senior Fullstack Developer (ReactJS + Firebase + Node.js). Nhiệm vụ của bạn là viết code hoàn chỉnh để tích hợp luồng đăng nhập OAuth2 của nền tảng Mezon vào một dự án web minigame bằng React và Firebase.
+1. THÔNG TIN CẤU HÌNH API CỦA MEZON (CẦN HARDCODE VÀO ENV HOẶC CONFIG):
+Client ID: 2031726261864239104
+.
+Client Secret: mGtQINbpnKyOcdSY
+.
+Base Authorization URL: https://oauth2.mezon.ai/oauth2/auth
+.
+Token URL: https://oauth2.mezon.ai/oauth2/token
+.
+User Information URL: https://oauth2.mezon.ai/userinfo
+.
+Scope hỗ trợ: Sử dụng openid
+.
+Grant Type: authorization_code
+.
+2. HƯỚNG DẪN TỪNG BƯỚC CHO LUỒNG THỰC THI (AUTHORIZATION CODE FLOW):
+Bước 1: Khởi tạo đăng nhập (Tại React Frontend)
+Viết một hàm xử lý sự kiện khi người dùng click vào nút "Đăng nhập bằng Mezon".
+Hàm này cần tạo ra một tham số state để chống CSRF. Yêu cầu bắt buộc từ Mezon: Tham số state phải là một chuỗi bao gồm chữ và số có độ dài chính xác 11 ký tự
+.
+Lưu giá trị state này vào sessionStorage của trình duyệt
+.
+Chuyển hướng (redirect) người dùng đến Base Authorization URL với các tham số query: client_id, scope (mã hóa URL bằng %20 nếu có nhiều scope), redirect_uri (đã được url-encoded) và state vừa tạo
+.
+Bước 2: Xử lý Callback sau khi ủy quyền (Tại React Frontend)
+Tạo một Route Component (ví dụ /callback) để hứng người dùng sau khi Mezon chuyển hướng về redirect_uri
+.
+Trích xuất tham số code và state từ URL Query String
+.
+Rất quan trọng về bảo mật: So sánh state trên URL với state đang lưu trong sessionStorage. Nếu không khớp, phải chặn tiến trình và báo lỗi ngay lập tức
+.
+Nếu hợp lệ, chuyển mã code này đến Backend (Khuyến nghị viết một hàm Firebase Cloud Functions) để thực hiện đổi Token, nhằm bảo mật client_secret.
+Bước 3: Đổi mã Code lấy Access Token (Tại Backend / Firebase Cloud Functions)
+Viết một hàm API nhận code và state từ Frontend.
+Gửi một POST request tới Token URL (https://oauth2.mezon.ai/oauth2/token)
+.
+CẢNH BÁO KIẾN TRÚC TỪ MEZON: Request đổi token này chỉ được phép chấp nhận Content-Type là application/x-www-form-urlencoded. Tuyệt đối không được gửi bằng định dạng JSON (nếu gửi JSON sẽ bị trả về lỗi)
+.
+Body của form data phải bao gồm các tham số
+:
+grant_type: "authorization_code"
+code: (mã lấy từ frontend)
+state: (mã state lấy từ frontend)
+client_id: "2031726261864239104"
+client_secret: "mGtQINbpnKyOcdSY"
+redirect_uri: (phải khớp exacly với URL đã dùng ở Bước 1).
+Lưu ý: Các thông tin xác thực (client_id và client_secret) cũng có thể được cung cấp thông qua HTTP Basic Authentication thay vì nhét vào form body
+.
+Bước 4: Lấy thông tin người dùng và Tích hợp Firebase Auth (Tại Backend) (Lưu ý: Phần này kết hợp logic của Firebase)
+Sau khi nhận được access_token từ Mezon
+, sử dụng nó để gọi một GET request tới User Information URL (https://oauth2.mezon.ai/userinfo)
+.
+Lấy ID và thông tin người dùng từ Mezon, sử dụng Firebase Admin SDK (admin.auth().createCustomToken(mezonUserId)) để tạo một Custom Token của Firebase.
+Trả Custom Token này về lại cho React Frontend.
+Tại React Frontend, sử dụng hàm signInWithCustomToken(auth, customToken) của Firebase SDK để hoàn tất việc đăng nhập.
+YÊU CẦU ĐẦU RA: Hãy cung cấp mã nguồn (code snippets) hoàn chỉnh, phân tách rõ ràng phần code cho React Frontend và phần code cho Firebase Cloud Functions (Node.js) dựa theo đúng 4 bước trên. Tuân thủ nghiêm ngặt các quy tắc về state 11 ký tự và content-type application/x-www-form-urlencoded của Mezon.

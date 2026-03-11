@@ -1,0 +1,1328 @@
+[
+  {
+    "id": 2,
+    "question": "Thủ đô của Nhật Bản là gì?",
+    "options": [
+      "Kyoto",
+      "Tokyo",
+      "Nagoya",
+      "Osaka"
+    ],
+    "correctIndex": 1,
+    "category": "địa lý",
+    "difficulty": "medium"
+  },
+  {
+    "id": 5,
+    "question": "Hành tinh nào gần Mặt Trời nhất?",
+    "options": [
+      "Sao Thủy",
+      "Sao Hỏa",
+      "Sao Mộc",
+      "Sao Kim"
+    ],
+    "correctIndex": 0,
+    "category": "khoa học",
+    "difficulty": "medium"
+  },
+  {
+    "id": 6,
+    "question": "Một năm nhuận có bao nhiêu ngày?",
+    "options": [
+      "365",
+      "366",
+      "367",
+      "364"
+    ],
+    "correctIndex": 1,
+    "category": "khoa học",
+    "difficulty": "medium"
+  },
+  {
+    "id": 7,
+    "question": "Ai là người phát minh ra bóng đèn điện?",
+    "options": [
+      "Einstein",
+      "Tesla",
+      "Edison",
+      "Newton"
+    ],
+    "correctIndex": 2,
+    "category": "lịch sử",
+    "difficulty": "medium"
+  },
+  {
+    "id": 10,
+    "question": "0.75 km bằng bao nhiêu mét?",
+    "options": [
+      "750",
+      "75",
+      "7500",
+      "705"
+    ],
+    "correctIndex": 0,
+    "category": "toán học",
+    "difficulty": "medium"
+  },
+  {
+    "id": 11,
+    "question": "Châu lục nào có diện tích nhỏ nhất?",
+    "options": [
+      "Châu Nam Cực",
+      "Châu Phi",
+      "Châu Úc",
+      "Châu Âu"
+    ],
+    "correctIndex": 2,
+    "category": "địa lý",
+    "difficulty": "medium"
+  },
+  {
+    "id": 14,
+    "question": "Loài chim nào không biết bay?",
+    "options": [
+      "Bồ câu",
+      "Đà điểu",
+      "Đại bàng",
+      "Chim sẻ"
+    ],
+    "correctIndex": 1,
+    "category": "sinh học",
+    "difficulty": "medium"
+  },
+  {
+    "id": 16,
+    "question": "Tháng nào có 28 ngày?",
+    "options": [
+      "Tháng 1",
+      "Tháng 12",
+      "Tháng 2",
+      "Tất cả các tháng"
+    ],
+    "correctIndex": 3,
+    "category": "đố mẹo",
+    "difficulty": "medium"
+  },
+  {
+    "id": 18,
+    "question": "Trái đất quay quanh gì?",
+    "options": [
+      "Sao Hỏa",
+      "Mặt trời",
+      "Sao Kim",
+      "Mặt trăng"
+    ],
+    "correctIndex": 1,
+    "category": "khoa học",
+    "difficulty": "medium"
+  },
+  {
+    "id": 23,
+    "question": "Cái gì càng rửa càng bẩn?",
+    "options": [
+      "Bàn tay",
+      "Bàn chải",
+      "Khăn lau",
+      "Nước"
+    ],
+    "correctIndex": 2,
+    "category": "đố mẹo",
+    "difficulty": "medium"
+  },
+  {
+    "id": 27,
+    "question": "Loài động vật nào là biểu tượng của nước Úc?",
+    "options": [
+      "Sư tử",
+      "Hổ",
+      "Kangaroo",
+      "Gấu trúc"
+    ],
+    "correctIndex": 2,
+    "category": "sinh học",
+    "difficulty": "medium"
+  },
+  {
+    "id": 30,
+    "question": "Một hình có 3 cạnh và 3 góc được gọi là gì?",
+    "options": [
+      "Tứ giác",
+      "Tam giác",
+      "Ngũ giác",
+      "Lục giác"
+    ],
+    "correctIndex": 1,
+    "category": "toán học",
+    "difficulty": "medium"
+  },
+  {
+    "id": 37,
+    "question": "Ai là người vẽ bức tranh Mona Lisa?",
+    "options": [
+      "Da Vinci",
+      "Picasso",
+      "Michelangelo",
+      "Van Gogh"
+    ],
+    "correctIndex": 0,
+    "category": "văn học",
+    "difficulty": "medium"
+  },
+  {
+    "id": 39,
+    "question": "Mặt trời mọc ở hướng nào?",
+    "options": [
+      "Nam",
+      "Bắc",
+      "Đông",
+      "Tây"
+    ],
+    "correctIndex": 2,
+    "category": "khoa học",
+    "difficulty": "medium"
+  },
+  {
+    "id": 40,
+    "question": "2 + 8 × 2 - 4 = ?",
+    "options": [
+      "14",
+      "12",
+      "16",
+      "10"
+    ],
+    "correctIndex": 0,
+    "category": "toán học",
+    "difficulty": "medium"
+  },
+  {
+    "id": 41,
+    "question": "Hành tinh nào lớn nhất trong Hệ Mặt Trời?",
+    "options": [
+      "Sao Mộc",
+      "Sao Hỏa",
+      "Sao Kim",
+      "Sao Thổ"
+    ],
+    "correctIndex": 0,
+    "category": "khoa học",
+    "difficulty": "medium"
+  },
+  {
+    "id": 42,
+    "question": "Thủ đô của Hàn Quốc là gì?",
+    "options": [
+      "Incheon",
+      "Seoul",
+      "Daegu",
+      "Busan"
+    ],
+    "correctIndex": 1,
+    "category": "địa lý",
+    "difficulty": "medium"
+  },
+  {
+    "id": 44,
+    "question": "Loài động vật nào được mệnh danh là 'chúa sơn lâm'?",
+    "options": [
+      "Báo",
+      "Gấu",
+      "Hổ",
+      "Sư tử"
+    ],
+    "correctIndex": 3,
+    "category": "sinh học",
+    "difficulty": "medium"
+  },
+  {
+    "id": 46,
+    "question": "Ai là người đầu tiên đặt chân lên Mặt Trăng?",
+    "options": [
+      "Yuri Gagarin",
+      "Neil Armstrong",
+      "Michael Collins",
+      "Buzz Aldrin"
+    ],
+    "correctIndex": 1,
+    "category": "lịch sử",
+    "difficulty": "medium"
+  },
+  {
+    "id": 47,
+    "question": "Loại khí nào chiếm nhiều nhất trong không khí?",
+    "options": [
+      "CO2",
+      "Hydro",
+      "Nitơ",
+      "Oxy"
+    ],
+    "correctIndex": 2,
+    "category": "khoa học",
+    "difficulty": "medium"
+  },
+  {
+    "id": 48,
+    "question": "Thủ đô của Thái Lan là gì?",
+    "options": [
+      "Chiang Mai",
+      "Pattaya",
+      "Phuket",
+      "Bangkok"
+    ],
+    "correctIndex": 3,
+    "category": "địa lý",
+    "difficulty": "medium"
+  },
+  {
+    "id": 56,
+    "question": "Số La Mã XV tương ứng với số nào?",
+    "options": [
+      "10",
+      "15",
+      "20",
+      "5"
+    ],
+    "correctIndex": 1,
+    "category": "toán học",
+    "difficulty": "medium"
+  },
+  {
+    "id": 58,
+    "question": "Loài vật nào có thể thay đổi màu sắc để ngụy trang?",
+    "options": [
+      "Cá heo",
+      "Tắc kè hoa",
+      "Thỏ",
+      "Rắn"
+    ],
+    "correctIndex": 1,
+    "category": "sinh học",
+    "difficulty": "medium"
+  },
+  {
+    "id": 66,
+    "question": "Thành phố nào là thủ đô của Anh?",
+    "options": [
+      "Liverpool",
+      "London",
+      "Birmingham",
+      "Manchester"
+    ],
+    "correctIndex": 1,
+    "category": "địa lý",
+    "difficulty": "medium"
+  },
+  {
+    "id": 70,
+    "question": "Hành tinh nào được gọi là 'Hành tinh đỏ'?",
+    "options": [
+      "Sao Mộc",
+      "Sao Hỏa",
+      "Sao Thủy",
+      "Sao Kim"
+    ],
+    "correctIndex": 1,
+    "category": "khoa học",
+    "difficulty": "medium"
+  },
+  {
+    "id": 71,
+    "question": "Loài động vật nào sống ở Bắc Cực?",
+    "options": [
+      "Sư tử",
+      "Voi",
+      "Gấu trắng",
+      "Hổ"
+    ],
+    "correctIndex": 2,
+    "category": "sinh học",
+    "difficulty": "medium"
+  },
+  {
+    "id": 74,
+    "question": "Ai là người phát minh ra điện thoại?",
+    "options": [
+      "Newton",
+      "Alexander Graham Bell",
+      "Edison",
+      "Tesla"
+    ],
+    "correctIndex": 1,
+    "category": "lịch sử",
+    "difficulty": "medium"
+  },
+  {
+    "id": 75,
+    "question": "Loài động vật nào được gọi là 'vua của rừng xanh'?",
+    "options": [
+      "Báo",
+      "Gấu",
+      "Hổ",
+      "Sư tử"
+    ],
+    "correctIndex": 2,
+    "category": "sinh học",
+    "difficulty": "medium"
+  },
+  {
+    "id": 78,
+    "question": "Loài cá nào lớn nhất thế giới?",
+    "options": [
+      "Cá ngừ",
+      "Cá mập voi",
+      "Cá heo",
+      "Cá mập trắng"
+    ],
+    "correctIndex": 1,
+    "category": "sinh học",
+    "difficulty": "medium"
+  },
+  {
+    "id": 100,
+    "question": "Ai là người đầu tiên bay vào vũ trụ?",
+    "options": [
+      "Buzz Aldrin",
+      "John Glenn",
+      "Neil Armstrong",
+      "Yuri Gagarin"
+    ],
+    "correctIndex": 3,
+    "category": "lịch sử",
+    "difficulty": "medium"
+  },
+  {
+    "id": 101,
+    "question": "Loài động vật nào được mệnh danh là 'ông vua của biển cả'?",
+    "options": [
+      "Cá mập trắng",
+      "Cá heo",
+      "Bạch tuộc",
+      "Cá voi"
+    ],
+    "correctIndex": 0,
+    "category": "sinh học",
+    "difficulty": "medium"
+  },
+  {
+    "id": 109,
+    "question": "Loài động vật nào ngủ đông?",
+    "options": [
+      "Gấu",
+      "Hổ",
+      "Báo",
+      "Ngựa"
+    ],
+    "correctIndex": 0,
+    "category": "sinh học",
+    "difficulty": "medium"
+  },
+  {
+    "id": 110,
+    "question": "Trong các đơn vị sau, đơn vị nào dùng để đo chiều dài?",
+    "options": [
+      "Lít",
+      "Mét",
+      "Ampe",
+      "Giây"
+    ],
+    "correctIndex": 1,
+    "category": "toán học",
+    "difficulty": "medium"
+  },
+  {
+    "id": 113,
+    "question": "Cái gì càng đi càng nhỏ?",
+    "options": [
+      "Cây nến",
+      "Quả bóng bay",
+      "Quả táo",
+      "Bóng"
+    ],
+    "correctIndex": 0,
+    "category": "đố mẹo",
+    "difficulty": "medium"
+  },
+  {
+    "id": 115,
+    "question": "Loài cá nào có thể phát sáng?",
+    "options": [
+      "Cá ngừ",
+      "Cá chép",
+      "Cá đèn lồng",
+      "Cá mập"
+    ],
+    "correctIndex": 2,
+    "category": "sinh học",
+    "difficulty": "medium"
+  },
+  {
+    "id": 120,
+    "question": "Ai là người vẽ bức tranh 'Starry Night'?",
+    "options": [
+      "Da Vinci",
+      "Monet",
+      "Picasso",
+      "Van Gogh"
+    ],
+    "correctIndex": 3,
+    "category": "văn học",
+    "difficulty": "medium"
+  },
+  {
+    "id": 124,
+    "question": "Thủ đô của Canada là gì?",
+    "options": [
+      "Montreal",
+      "Vancouver",
+      "Toronto",
+      "Ottawa"
+    ],
+    "correctIndex": 3,
+    "category": "địa lý",
+    "difficulty": "medium"
+  },
+  {
+    "id": 129,
+    "question": "Chất nào chiếm nhiều nhất trong khí quyển Trái Đất?",
+    "options": [
+      "Nitơ",
+      "CO2",
+      "Hydro",
+      "Oxy"
+    ],
+    "correctIndex": 0,
+    "category": "khoa học",
+    "difficulty": "medium"
+  },
+  {
+    "id": 130,
+    "question": "Loài chim nào bay nhanh nhất thế giới?",
+    "options": [
+      "Chim én",
+      "Chim cắt Peregrine",
+      "Chim ưng",
+      "Đại bàng"
+    ],
+    "correctIndex": 1,
+    "category": "sinh học",
+    "difficulty": "medium"
+  },
+  {
+    "id": 139,
+    "question": "Châu lục nào có diện tích nhỏ nhất?",
+    "options": [
+      "Nam Cực",
+      "Châu Phi",
+      "Châu Úc",
+      "Châu Âu"
+    ],
+    "correctIndex": 2,
+    "category": "địa lý",
+    "difficulty": "medium"
+  },
+  {
+    "id": 140,
+    "question": "Một tuần có bao nhiêu giờ?",
+    "options": [
+      "144",
+      "160",
+      "120",
+      "168"
+    ],
+    "correctIndex": 3,
+    "category": "toán học",
+    "difficulty": "medium"
+  },
+  {
+    "id": 141,
+    "question": "Ai là người đầu tiên bay vào vũ trụ?",
+    "options": [
+      "Yuri Gagarin",
+      "Buzz Aldrin",
+      "John Glenn",
+      "Neil Armstrong"
+    ],
+    "correctIndex": 0,
+    "category": "khoa học",
+    "difficulty": "medium"
+  },
+  {
+    "id": 143,
+    "question": "Quốc gia nào có kim tự tháp nổi tiếng?",
+    "options": [
+      "Peru",
+      "Ấn Độ",
+      "Ai Cập",
+      "Mexico"
+    ],
+    "correctIndex": 2,
+    "category": "lịch sử",
+    "difficulty": "medium"
+  },
+  {
+    "id": 145,
+    "question": "Loài động vật nào lớn nhất thế giới?",
+    "options": [
+      "Cá voi xanh",
+      "Voi châu Phi",
+      "Khủng long",
+      "Cá mập trắng"
+    ],
+    "correctIndex": 0,
+    "category": "sinh học",
+    "difficulty": "medium"
+  },
+  {
+    "id": 146,
+    "question": "Thủ đô của Hàn Quốc là gì?",
+    "options": [
+      "Incheon",
+      "Seoul",
+      "Daegu",
+      "Busan"
+    ],
+    "correctIndex": 1,
+    "category": "địa lý",
+    "difficulty": "medium"
+  },
+  {
+    "id": 150,
+    "question": "Đâu là hành tinh gần Mặt Trời nhất?",
+    "options": [
+      "Sao Hỏa",
+      "Sao Thủy",
+      "Trái Đất",
+      "Sao Kim"
+    ],
+    "correctIndex": 1,
+    "category": "khoa học",
+    "difficulty": "medium"
+  },
+  {
+    "id": 156,
+    "question": "Thủ đô của Nhật Bản là gì?",
+    "options": [
+      "Osaka",
+      "Nagoya",
+      "Kyoto",
+      "Tokyo"
+    ],
+    "correctIndex": 3,
+    "category": "địa lý",
+    "difficulty": "medium"
+  },
+  {
+    "id": 157,
+    "question": "Loài cá nào lớn nhất thế giới?",
+    "options": [
+      "Cá mập voi",
+      "Cá mập trắng",
+      "Cá ngừ",
+      "Cá voi xanh"
+    ],
+    "correctIndex": 0,
+    "category": "sinh học",
+    "difficulty": "medium"
+  },
+  {
+    "id": 159,
+    "question": "Một ngày có bao nhiêu giây?",
+    "options": [
+      "64000",
+      "90000",
+      "86400",
+      "72000"
+    ],
+    "correctIndex": 2,
+    "category": "toán học",
+    "difficulty": "medium"
+  },
+  {
+    "id": 160,
+    "question": "Hành tinh nào có nhiều vành đai nổi tiếng?",
+    "options": [
+      "Sao Kim",
+      "Sao Thủy",
+      "Sao Hỏa",
+      "Sao Thổ"
+    ],
+    "correctIndex": 3,
+    "category": "khoa học",
+    "difficulty": "medium"
+  },
+  {
+    "id": 161,
+    "question": "Đâu là loài động vật nhanh nhất trên cạn?",
+    "options": [
+      "Báo gê-pa",
+      "Hổ",
+      "Sư tử",
+      "Ngựa"
+    ],
+    "correctIndex": 0,
+    "category": "sinh học",
+    "difficulty": "medium"
+  },
+  {
+    "id": 168,
+    "question": "(9 × 9) ÷ 3 = bao nhiêu?",
+    "options": [
+      "18",
+      "27",
+      "24",
+      "21"
+    ],
+    "correctIndex": 1,
+    "category": "toán học",
+    "difficulty": "medium"
+  },
+  {
+    "id": 173,
+    "question": "Trong hệ mặt trời có bao nhiêu hành tinh?",
+    "options": [
+      "8",
+      "9",
+      "10",
+      "7"
+    ],
+    "correctIndex": 0,
+    "category": "khoa học",
+    "difficulty": "medium"
+  },
+  {
+    "id": 175,
+    "question": "Cái gì càng đi càng nhỏ?",
+    "options": [
+      "Bóng",
+      "Cái bóng",
+      "Dấu chân",
+      "Con đường"
+    ],
+    "correctIndex": 2,
+    "category": "đố mẹo",
+    "difficulty": "medium"
+  },
+  {
+    "id": 176,
+    "question": "Thủ đô của Đức là gì?",
+    "options": [
+      "Frankfurt",
+      "Hamburg",
+      "Munich",
+      "Berlin"
+    ],
+    "correctIndex": 3,
+    "category": "địa lý",
+    "difficulty": "medium"
+  },
+  {
+    "id": 179,
+    "question": "Loài chim nào không biết bay?",
+    "options": [
+      "Đại bàng",
+      "Chim én",
+      "Đà điểu",
+      "Chim cắt"
+    ],
+    "correctIndex": 2,
+    "category": "sinh học",
+    "difficulty": "medium"
+  },
+  {
+    "id": 183,
+    "question": "Trong toán học, số nào là số chẵn?",
+    "options": [
+      "21",
+      "19",
+      "18",
+      "17"
+    ],
+    "correctIndex": 2,
+    "category": "toán học",
+    "difficulty": "medium"
+  },
+  {
+    "id": 188,
+    "question": "Quốc gia nào có Kim Tự Tháp Giza?",
+    "options": [
+      "Peru",
+      "Ấn Độ",
+      "Mexico",
+      "Ai Cập"
+    ],
+    "correctIndex": 3,
+    "category": "lịch sử",
+    "difficulty": "medium"
+  },
+  {
+    "id": 190,
+    "question": "Hành tinh nào nóng nhất hệ mặt trời?",
+    "options": [
+      "Sao Hỏa",
+      "Sao Kim",
+      "Sao Mộc",
+      "Sao Thủy"
+    ],
+    "correctIndex": 1,
+    "category": "khoa học",
+    "difficulty": "medium"
+  },
+  {
+    "id": 192,
+    "question": "Thủ đô của Úc là gì?",
+    "options": [
+      "Melbourne",
+      "Perth",
+      "Sydney",
+      "Canberra"
+    ],
+    "correctIndex": 3,
+    "category": "địa lý",
+    "difficulty": "medium"
+  },
+  {
+    "id": 193,
+    "question": "Một tam giác có tổng các góc bằng bao nhiêu?",
+    "options": [
+      "180°",
+      "90°",
+      "270°",
+      "360°"
+    ],
+    "correctIndex": 0,
+    "category": "toán học",
+    "difficulty": "medium"
+  },
+  {
+    "id": 194,
+    "question": "Loài động vật nào ngủ nhiều nhất?",
+    "options": [
+      "Gấu",
+      "Koala",
+      "Lười",
+      "Mèo"
+    ],
+    "correctIndex": 1,
+    "category": "sinh học",
+    "difficulty": "medium"
+  },
+  {
+    "id": 200,
+    "question": "Trong bóng đá, World Cup đầu tiên diễn ra năm nào?",
+    "options": [
+      "1940",
+      "1950",
+      "1920",
+      "1930"
+    ],
+    "correctIndex": 3,
+    "category": "thể thao",
+    "difficulty": "medium"
+  },
+  {
+    "id": 198,
+    "question": "Ngọn núi cao nhất thế giới là gì?",
+    "options": [
+      "Kangchenjunga",
+      "Everest",
+      "Lhotse",
+      "K2"
+    ],
+    "correctIndex": 1,
+    "category": "địa lý",
+    "difficulty": "medium"
+  },
+  {
+    "id": 196,
+    "question": "Trong cờ vua, quân nào di chuyển theo đường chéo?",
+    "options": [
+      "Mã",
+      "Hậu",
+      "Xe",
+      "Tượng"
+    ],
+    "correctIndex": 3,
+    "category": "thể thao",
+    "difficulty": "medium"
+  },
+  {
+    "id": 191,
+    "question": "Ai là người sáng lập Amazon?",
+    "options": [
+      "Bill Gates",
+      "Steve Jobs",
+      "Jeff Bezos",
+      "Elon Musk"
+    ],
+    "correctIndex": 2,
+    "category": "đời sống",
+    "difficulty": "medium"
+  },
+  {
+    "id": 189,
+    "question": "Trong cơ thể người có bao nhiêu giác quan cơ bản?",
+    "options": [
+      "5",
+      "4",
+      "7",
+      "6"
+    ],
+    "correctIndex": 0,
+    "category": "sinh học",
+    "difficulty": "medium"
+  },
+  {
+    "id": 186,
+    "question": "Trong bóng đá, cú sút phạt góc gọi là gì?",
+    "options": [
+      "Free kick",
+      "Corner",
+      "Throw in",
+      "Penalty"
+    ],
+    "correctIndex": 1,
+    "category": "thể thao",
+    "difficulty": "medium"
+  },
+  {
+    "id": 184,
+    "question": "Con vật nào sống dưới nước nhưng thở bằng phổi?",
+    "options": [
+      "Cá ngừ",
+      "Cá chép",
+      "Cá mập",
+      "Cá voi"
+    ],
+    "correctIndex": 3,
+    "category": "sinh học",
+    "difficulty": "medium"
+  },
+  {
+    "id": 181,
+    "question": "Ai là người sáng lập Tesla?",
+    "options": [
+      "Elon Musk",
+      "Jeff Bezos",
+      "Larry Page",
+      "Bill Gates"
+    ],
+    "correctIndex": 0,
+    "category": "đời sống",
+    "difficulty": "medium"
+  },
+  {
+    "id": 180,
+    "question": "Trong âm nhạc, nhạc cụ nào có dây?",
+    "options": [
+      "Sáo",
+      "Kèn",
+      "Trống",
+      "Guitar"
+    ],
+    "correctIndex": 3,
+    "category": "văn hóa",
+    "difficulty": "medium"
+  },
+  {
+    "id": 178,
+    "question": "Trong bóng rổ, mỗi đội có bao nhiêu cầu thủ trên sân?",
+    "options": [
+      "7",
+      "5",
+      "4",
+      "6"
+    ],
+    "correctIndex": 1,
+    "category": "thể thao",
+    "difficulty": "medium"
+  },
+  {
+    "id": 231,
+    "question": "Nước sôi ở điều kiện bình thường là bao nhiêu độ C?",
+    "options": [
+      "50",
+      "90",
+      "100",
+      "120"
+    ],
+    "correctIndex": 2,
+    "category": "khoa học",
+    "difficulty": "medium"
+  },
+  {
+    "id": 232,
+    "question": "Ai được mệnh danh là 'Bà chúa thơ Nôm'?",
+    "options": [
+      "Đoàn Thị Điểm",
+      "Hồ Xuân Hương",
+      "Bà Huyện Thanh Quan",
+      "Bùi Thị Xuân"
+    ],
+    "correctIndex": 1,
+    "category": "văn học",
+    "difficulty": "medium"
+  },
+  {
+    "id": 233,
+    "question": "25 + 36 bằng bao nhiêu?",
+    "options": [
+      "51",
+      "61",
+      "71",
+      "41"
+    ],
+    "correctIndex": 1,
+    "category": "toán học",
+    "difficulty": "medium"
+  },
+  {
+    "id": 234,
+    "question": "Vịnh Hạ Long nằm ở tỉnh nào của Việt Nam?",
+    "options": [
+      "Hải Phòng",
+      "Quảng Ninh",
+      "Ninh Bình",
+      "Thái Bình"
+    ],
+    "correctIndex": 1,
+    "category": "địa lý",
+    "difficulty": "medium"
+  },
+  {
+    "id": 235,
+    "question": "Ai là người phát minh thuốc nổ mìn (dynamite)?",
+    "options": [
+      "Thomas Edison",
+      "Albert Einstein",
+      "Alfred Nobel",
+      "Isaac Newton"
+    ],
+    "correctIndex": 2,
+    "category": "khoa học",
+    "difficulty": "medium"
+  },
+  {
+    "id": 236,
+    "question": "Đại dương nào nhỏ nhất trên Trái Đất?",
+    "options": [
+      "Bắc Băng Dương",
+      "Đại Tây Dương",
+      "Ấn Độ Dương",
+      "Thái Bình Dương"
+    ],
+    "correctIndex": 0,
+    "category": "địa lý",
+    "difficulty": "medium"
+  },
+  {
+    "id": 237,
+    "question": "Một năm không nhuận có bao nhiêu ngày?",
+    "options": [
+      "364",
+      "365",
+      "366",
+      "360"
+    ],
+    "correctIndex": 1,
+    "category": "đời sống",
+    "difficulty": "medium"
+  },
+  {
+    "id": 238,
+    "question": "Nhân vật chính trong truyện cổ tích 'Tấm Cám' là ai?",
+    "options": [
+      "Tấm",
+      "Cám",
+      "Dì ghẻ",
+      "Ông Bụt"
+    ],
+    "correctIndex": 0,
+    "category": "văn học",
+    "difficulty": "medium"
+  },
+  {
+    "id": 239,
+    "question": "Vệ tinh tự nhiên duy nhất của Trái Đất là?",
+    "options": [
+      "Sao Kim",
+      "Mặt Trăng",
+      "Mặt Trời",
+      "Sao Hỏa"
+    ],
+    "correctIndex": 1,
+    "category": "khoa học",
+    "difficulty": "medium"
+  },
+  {
+    "id": 240,
+    "question": "Quần đảo Hoàng Sa thuộc thành phố/tỉnh nào của Việt Nam?",
+    "options": [
+      "Khánh Hòa",
+      "Bình Định",
+      "Đà Nẵng",
+      "Quảng Ngãi"
+    ],
+    "correctIndex": 2,
+    "category": "địa lý",
+    "difficulty": "medium"
+  },
+  {
+    "id": 241,
+    "question": "Đồng tiền chính thức của Hàn Quốc là gì?",
+    "options": [
+      "Yên",
+      "Won",
+      "Tệ",
+      "Đô la"
+    ],
+    "correctIndex": 1,
+    "category": "địa lý",
+    "difficulty": "medium"
+  },
+  {
+    "id": 242,
+    "question": "Người có nhóm máu O có thể truyền máu cho ai?",
+    "options": [
+      "Chỉ nhóm máu O",
+      "Nhóm máu A và B",
+      "Chỉ nhóm máu AB",
+      "Tất cả các nhóm máu"
+    ],
+    "correctIndex": 3,
+    "category": "sinh học",
+    "difficulty": "medium"
+  },
+  {
+    "id": 243,
+    "question": "Hành tinh nào có vành đai rõ nét và đẹp nhất Hệ Mặt Trời?",
+    "options": [
+      "Sao Mộc",
+      "Sao Kim",
+      "Sao Thổ",
+      "Sao Thiên Vương"
+    ],
+    "correctIndex": 2,
+    "category": "khoa học",
+    "difficulty": "medium"
+  },
+  {
+    "id": 244,
+    "question": "Quê hương của nhà soạn nhạc thiên tài Mozart là nước nào?",
+    "options": [
+      "Pháp",
+      "Đức",
+      "Áo",
+      "Ý"
+    ],
+    "correctIndex": 2,
+    "category": "âm nhạc",
+    "difficulty": "medium"
+  },
+  {
+    "id": 245,
+    "question": "Thủ đô của nước Úc là thành phố nào?",
+    "options": [
+      "Sydney",
+      "Melbourne",
+      "Canberra",
+      "Brisbane"
+    ],
+    "correctIndex": 2,
+    "category": "địa lý",
+    "difficulty": "medium"
+  },
+  {
+    "id": 246,
+    "question": "Bộ phim hoạt hình 'Đi tìm Nemo' nói về loài cá gì?",
+    "options": [
+      "Cá bơn",
+      "Cá đuối",
+      "Cá mập",
+      "Cá hề"
+    ],
+    "correctIndex": 3,
+    "category": "đời sống",
+    "difficulty": "medium"
+  },
+  {
+    "id": 247,
+    "question": "Bao nhiêu mét thì bằng 1 kilomet?",
+    "options": [
+      "100",
+      "10",
+      "1000",
+      "10000"
+    ],
+    "correctIndex": 2,
+    "category": "toán học",
+    "difficulty": "medium"
+  },
+  {
+    "id": 248,
+    "question": "Khí nào chiếm tỷ lệ lớn nhất trong không khí?",
+    "options": [
+      "Oxy",
+      "Nitơ",
+      "CO2",
+      "Hydro"
+    ],
+    "correctIndex": 1,
+    "category": "khoa học",
+    "difficulty": "medium"
+  },
+  {
+    "id": 249,
+    "question": "Chữ 'H' trong H2O là nguyên tố gì?",
+    "options": [
+      "Heli",
+      "Hydro",
+      "Oxy",
+      "Nito"
+    ],
+    "correctIndex": 1,
+    "category": "khoa học",
+    "difficulty": "medium"
+  },
+  {
+    "id": 250,
+    "question": "Lễ hội Cố đô Hoa Lư được diễn ra ở tỉnh nào?",
+    "options": [
+      "Ninh Bình",
+      "Thanh Hóa",
+      "Hà Nam",
+      "Nam Định"
+    ],
+    "correctIndex": 0,
+    "category": "lịch sử",
+    "difficulty": "medium"
+  },
+  {
+    "id": 271,
+    "question": "Để thay đổi nhánh làm việc hiện tại (switch branch), ta sử dụng lệnh nào dưới đây?",
+    "options": [
+      "git move",
+      "git checkout / git switch",
+      "git jump",
+      "git branch -m"
+    ],
+    "correctIndex": 1,
+    "category": "công nghệ",
+    "difficulty": "medium"
+  },
+  {
+    "id": 272,
+    "question": "Lệnh nào dùng để tạo ra một nhánh mới NHƯNG KHÔNG trực tiếp chuyển sang nhánh đó ngay?",
+    "options": [
+      "git create-branch",
+      "git branch <tên-nhánh>",
+      "git checkout -b <tên-nhánh>",
+      "git new-branch"
+    ],
+    "correctIndex": 1,
+    "category": "công nghệ",
+    "difficulty": "medium"
+  },
+  {
+    "id": 273,
+    "question": "Để gom (merge) một nhánh có tên 'feature' vào nhánh 'master', thao tác chuẩn xác nhất là gì?",
+    "options": [
+      "Đứng ở nhánh 'feature' và chạy 'git merge master'",
+      "Chạy 'git merge master feature' ở bất kỳ đâu",
+      "Đứng ở nhánh 'master' và chạy 'git merge feature'",
+      "Đứng ở nhánh 'feature' và chạy 'git pull master'"
+    ],
+    "correctIndex": 2,
+    "category": "công nghệ",
+    "difficulty": "medium"
+  },
+  {
+    "id": 274,
+    "question": "Lệnh 'git fetch' khác với lệnh 'git pull' ở điểm cốt lõi nào?",
+    "options": [
+      "Fetch kéo thay đổi và tự động cập nhật code làm việc, Pull thì không",
+      "Không có gì khác biệt, hai lệnh giống hệt nhau",
+      "Fetch chỉ tải thông tin về, chưa gộp (merge) thẳng vào code làm việc; Pull bao gồm cả Fetch và Merge",
+      "Pull chuyên dùng để đẩy code, Fetch chuyên dùng để kéo code"
+    ],
+    "correctIndex": 2,
+    "category": "công nghệ",
+    "difficulty": "medium"
+  },
+  {
+    "id": 275,
+    "question": "Tham số (cờ) nào đi kèm lệnh 'git commit' cho phép bạn gõ trực tiếp lời nhắn mô tả (message) mà không cần mở trình soạn thảo chữ?",
+    "options": [
+      "-m",
+      "-a",
+      "-u",
+      "-d"
+    ],
+    "correctIndex": 0,
+    "category": "công nghệ",
+    "difficulty": "medium"
+  },
+  {
+    "id": 276,
+    "question": "Nếu đã lỡ gọi lệnh 'git add' một file, nhưng sau đó đổi ý không muốn đưa nó vào commit tới, bạn dùng lệnh gì để hoàn tác?",
+    "options": [
+      "git delete",
+      "git unadd",
+      "git revert --staged",
+      "git restore --staged / git reset"
+    ],
+    "correctIndex": 3,
+    "category": "công nghệ",
+    "difficulty": "medium"
+  },
+  {
+    "id": 277,
+    "question": "Tập tin nào trong dự án dùng để khái báo đường dẫn các thư mục hoặc file mà Git không nên theo dõi?",
+    "options": [
+      ".gitconfig",
+      ".gitignore",
+      ".gitmodules",
+      ".gitattributes"
+    ],
+    "correctIndex": 1,
+    "category": "công nghệ",
+    "difficulty": "medium"
+  },
+  {
+    "id": 278,
+    "question": "Thuật ngữ 'Conflict' (Xung đột) trong Git ám chỉ điều gì?",
+    "options": [
+      "Khi hai người dùng cố gắng đổi tên cùng một nhánh",
+      "Khi hợp nhất các nhánh có sửa đổi cùng một dòng code ở một tập tin bằng hai nội dung khác nhau",
+      "Khi ổ cứng hết dung lượng để tạo commit",
+      "Khi GitHub bảo trì máy chủ"
+    ],
+    "correctIndex": 1,
+    "category": "công nghệ",
+    "difficulty": "medium"
+  },
+  {
+    "id": 279,
+    "question": "Lệnh nào cho phép xem chi tiết từng dòng sự khác biệt (diff) của các thay đổi chưa được staged (chưa có trong mục add)?",
+    "options": [
+      "git changes",
+      "git log -p",
+      "git status --detail",
+      "git diff"
+    ],
+    "correctIndex": 3,
+    "category": "công nghệ",
+    "difficulty": "medium"
+  },
+  {
+    "id": 280,
+    "question": "Trong tình huống bạn đang code dở một tính năng nhưng phải nhảy gấp qua thẻ khác để sửa lỗi, lệnh nào giúp lưu công việc tạm thời mà không cần commit?",
+    "options": [
+      "git pause",
+      "git stash",
+      "git save",
+      "git hold"
+    ],
+    "correctIndex": 1,
+    "category": "công nghệ",
+    "difficulty": "medium"
+  }
+]

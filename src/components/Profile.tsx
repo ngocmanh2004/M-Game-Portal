@@ -130,9 +130,11 @@ export const Profile: React.FC<ProfileProps> = ({ userId, onClose }) => {
                 borderClass={`border-4 ${isTop1 ? 'border-yellow-400' : isTop2 ? 'border-gray-300' : isTop3 ? 'border-orange-400' : 'border-[#1a0f0a]'}`}
               />
 
-              <div className="absolute bottom-1 right-1 w-6 h-6 bg-green-500 rounded-full border-2 border-black flex items-center justify-center shadow-lg z-20">
-                <span className="w-2.5 h-2.5 bg-white rounded-full"></span>
-              </div>
+              {!isMe && (
+                <div className="absolute bottom-1 right-1 sm:bottom-2 sm:right-2 w-5 h-5 sm:w-6 sm:h-6 bg-green-500 rounded-full border-2 border-[#1a0f0a] flex items-center justify-center shadow-lg z-20">
+                  <span className="w-2 h-2 sm:w-2.5 sm:h-2.5 bg-white rounded-full"></span>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -169,8 +171,8 @@ export const Profile: React.FC<ProfileProps> = ({ userId, onClose }) => {
               </button>
             </div>
           ) : (
-            <div className="group flex justify-center items-center gap-2 mb-2 pb-1 relative">
-              <h1 className="text-2xl sm:text-3xl font-black tracking-wide drop-shadow-md">
+            <div className="flex justify-center items-center gap-2 mb-2 pb-1 relative">
+              <h1 className="text-2xl sm:text-3xl font-black tracking-wide drop-shadow-md flex items-center gap-2">
                 {userData.nickname || userData.email?.split('@')[0]}
               </h1>
               {isMe && (
@@ -179,10 +181,10 @@ export const Profile: React.FC<ProfileProps> = ({ userId, onClose }) => {
                     setNewNickname(userData.nickname || userData.email?.split('@')[0] || '');
                     setIsEditingNickname(true);
                   }}
-                  className="opacity-0 group-hover:opacity-100 transition-opacity p-1.5 hover:bg-white/10 rounded-lg absolute -right-10"
+                  className="p-2 sm:p-2 bg-white/10 hover:bg-white/20 rounded-full transition-all flex items-center justify-center border border-white/10 hover:border-white/30 hover:scale-105 active:scale-95 shadow-sm"
                   title="Sửa Biệt Danh"
                 >
-                  <svg className="w-5 h-5 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <svg className="w-4 h-4 sm:w-5 sm:h-5 text-gray-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
                   </svg>
                 </button>

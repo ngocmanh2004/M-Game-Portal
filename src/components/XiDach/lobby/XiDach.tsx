@@ -7,9 +7,10 @@ import { getDatabase, onValue, ref } from 'firebase/database';
 interface XiDachProps {
   user: { uid: string; username: string; email: string; balance: number; avatar?: string; background?: string };
   onGoHome?: () => void;
+  onSetPlayingInternalMusic?: (isPlaying: boolean) => void;
 }
 
-export const XiDach: React.FC<XiDachProps> = ({ user, onGoHome }) => {
+export const XiDach: React.FC<XiDachProps> = ({ user, onGoHome, onSetPlayingInternalMusic }) => {
   const [view, setView] = useState<'lobby' | 'waiting' | 'game'>('lobby');
   const [currentLobbyId, setCurrentLobbyId] = useState<string | null>(null);
 
@@ -23,6 +24,15 @@ export const XiDach: React.FC<XiDachProps> = ({ user, onGoHome }) => {
     setView('lobby');
     window.localStorage.removeItem('xidach_position');
   };
+
+  useEffect(() => {
+    if (onSetPlayingInternalMusic) {
+      onSetPlayingInternalMusic(view === 'game');
+    }
+    return () => {
+      if (onSetPlayingInternalMusic) onSetPlayingInternalMusic(false);
+    };
+  }, [view, onSetPlayingInternalMusic]);
 
   // Watch lobby → game transition
   useEffect(() => {

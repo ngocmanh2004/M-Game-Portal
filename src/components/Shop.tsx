@@ -34,10 +34,6 @@ export const Shop: React.FC<ShopProps> = ({ userId, userMoney, onShowNotificatio
       onShowNotification(result.message, 'win');
       setSelectedItem(null);
 
-      // ⭐ XÓA DÒNG RELOAD - CHỈ ĐÓNG MODAL
-      // setTimeout(() => {
-      //   window.location.reload();
-      // }, 1500);
     } else {
       playSound('loss');
       onShowNotification(result.message, 'loss');
@@ -67,7 +63,7 @@ export const Shop: React.FC<ShopProps> = ({ userId, userMoney, onShowNotificatio
         <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-purple-500/10 group-hover:opacity-100 transition-opacity"></div>
         <div className="relative flex flex-col sm:flex-row items-center justify-between gap-4">
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white to-blue-200 drop-shadow-lg flex items-center gap-3">
-            <span className="text-blue-400 animate-pulse">💎</span> CỬA HÀNG
+            <span className="text-blue-400 animate-pulse"></span> CỬA HÀNG
           </h1>
           <div className="bg-black/40 backdrop-blur-md px-6 py-3 rounded-2xl font-black text-lg sm:text-xl border border-white/10 shadow-inner flex items-center gap-2">
             <span className="text-yellow-400 drop-shadow-[0_0_5px_rgba(250,204,21,0.5)]">💰</span>

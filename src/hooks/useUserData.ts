@@ -109,7 +109,8 @@ export const useUserData = (userId: string | undefined) => {
 
       await updateDoc(userRef, {
         [`tasks.${taskName}`]: true,
-        money: increment(reward)
+        money: increment(reward),
+        tickets: increment(1)
       });
 
       const updatedUserDoc = await getDoc(doc(db, 'users', userId)); // ⭐ getDoc ĐÃ ĐƯỢC IMPORT
@@ -120,7 +121,7 @@ export const useUserData = (userId: string | undefined) => {
 
       return {
         success: true,
-        message: `🎉 Hoàn thành nhiệm vụ! Nhận ${reward.toLocaleString('vi-VN')} đ`
+        message: `🎉 Hoàn thành nhiệm vụ! Nhận ${reward.toLocaleString('vi-VN')} đ và 1 Vé Quay`
       };
     } catch (error) {
       console.error('Error updating task:', error);

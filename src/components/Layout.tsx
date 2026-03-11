@@ -7,6 +7,8 @@ import { useUserNotifications } from '../hooks/useUserNotifications';
 import { NotificationList } from './NotificationList';
 import { Footer } from './Footer';
 import { SupportModal } from './SupportModal';
+import { LuckyWheelPopup } from './shared/LuckyWheelPopup';
+import { trackQuestProgress } from '../hooks/useDailyQuests';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -44,12 +46,32 @@ export const Layout: React.FC<LayoutProps> = ({
   }, [initialShowSupport]);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
+  const [showLuckyWheel, setShowLuckyWheel] = useState(false);
+  const [hasAutoOpened, setHasAutoOpened] = useState(false); // ⭐ Auto open logic
 
   const { userData } = useUserData(user.uid);
   const { notifications, unreadCount } = useUserNotifications(user.uid); // ⭐ THÊM
 
   // ⭐ CHECK ADMIN
   const isAdmin = userData?.isAdmin || false;
+
+  useEffect(() => {
+    if (user?.uid) {
+      trackQuestProgress(user.uid, 'login', 1);
+    }
+  }, [user?.uid]);
+
+  // ⭐ AUTO OPEN LUCKY WHEEL
+  useEffect(() => {
+    if (userData && !hasAutoOpened) {
+      const today = new Date().toISOString().split('T')[0];
+      // Nếu ngày quay cuối cùng khác hôm nay (nghĩa là đăng nhập lần đầu trong ngày mới)
+      if (userData.lastSpinDate !== today) {
+        setShowLuckyWheel(true);
+        setHasAutoOpened(true);
+      }
+    }
+  }, [userData, hasAutoOpened]);
 
   const hasUnfinishedTasks = userData && (
     !userData.tasks.followTiktok ||
@@ -154,11 +176,11 @@ export const Layout: React.FC<LayoutProps> = ({
                 {navItems.map(item => (
                   <button
                     key={item.id}
-                    onClick={() => onNavigate(item.id)}
+                    onClick={() => handleNavigate(item.id)}
                     className={`
                       relative px-4 py-2 rounded-full font-semibold text-sm whitespace-nowrap
                       transition-all duration-200 active:scale-95
-                      ${currentGame === item.id
+                      ${currentGame === item.id && item.id !== GameType.DASHBOARD
                         ? 'bg-white/25 text-white'
                         : 'text-white/80 hover:text-white hover:bg-white/15 hover:scale-105'
                       }
@@ -175,8 +197,8 @@ export const Layout: React.FC<LayoutProps> = ({
               {/* USER PANEL — desktop */}
               <div className="hidden md:flex items-center gap-2 shrink-0">
                 {/* Money badge */}
-                <div className="bg-yellow-400 text-black font-black text-sm px-4 py-1.5 rounded-full shadow-md select-none">
-                  💰 {formatCurrency(user.balance)}
+                <div className="bg-yellow-400 text-black font-black text-sm px-4 py-1.5 rounded-full shadow-md select-none flex items-center gap-2">
+                  <span>💰 {formatCurrency(user.balance)}</span>
                 </div>
 
                 {/* Notification bell */}
@@ -227,8 +249,8 @@ export const Layout: React.FC<LayoutProps> = ({
               {/* MOBILE RIGHT */}
               <div className="flex md:hidden items-center gap-2">
                 {/* Money */}
-                <div className="bg-yellow-400 text-black font-black text-xs px-3 py-1 rounded-full shadow">
-                  💰 {formatCurrency(user.balance)}
+                <div className="bg-yellow-400 text-black font-black text-xs px-3 py-1 rounded-full shadow flex items-center gap-1.5">
+                  <span>💰 {formatCurrency(user.balance)}</span>
                 </div>
 
                 {/* Notification */}
@@ -350,6 +372,14 @@ export const Layout: React.FC<LayoutProps> = ({
         isOpen={isSupportOpen}
         onClose={() => setIsSupportOpen(false)}
       />
+
+      {/* Lucky Wheel Modal */}
+      {showLuckyWheel && (
+        <LuckyWheelPopup
+          uid={user?.uid || ''}
+          onClose={() => setShowLuckyWheel(false)}
+        />
+      )}
 
       {/* ⭐ Trang trí mũ Noel ở góc trên avatar */}
       <style>

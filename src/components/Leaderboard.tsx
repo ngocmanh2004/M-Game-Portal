@@ -71,14 +71,14 @@ export const Leaderboard: React.FC = () => {
         shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(message)}&url=${encodeURIComponent(url)}`;
         break;
       case 'tiktok':
-        setShareMessage('📱 Mở TikTok và tạo video với thành tích của bạn!');
+        setShareMessage('Mở TikTok và tạo video với thành tích của bạn!');
         setTimeout(() => setShareMessage(null), 5000);
         return;
     }
 
     if (shareUrl) {
       window.open(shareUrl, '_blank', 'width=600,height=400');
-      setShareMessage('✅ Đã mở cửa sổ chia sẻ!');
+      setShareMessage('Đã mở cửa sổ chia sẻ!');
       setTimeout(() => setShareMessage(null), 3000);
     }
   };
@@ -103,7 +103,7 @@ export const Leaderboard: React.FC = () => {
         {currentUserRank && (
           <div className="relative mt-2 bg-gradient-to-r from-blue-600/20 to-indigo-600/20 backdrop-blur-md rounded-2xl p-4 sm:px-8 border border-blue-400/30 shadow-[0_0_20px_rgba(59,130,246,0.3)] animate-pulse hover:animate-none transition-all">
             <p className="text-blue-100 font-bold text-base sm:text-xl flex items-center gap-3">
-              🎯 Hạng <span className="text-yellow-400 text-xl sm:text-2xl font-black">#{currentUserRank.rank}</span> với <span className="text-green-400 font-black">{formatCurrency(currentUserRank.money)}</span>
+              Hạng <span className="text-yellow-400 text-xl sm:text-2xl font-black">#{currentUserRank.rank}</span> với <span className="text-green-400 font-black">{formatCurrency(currentUserRank.money)}</span>
             </p>
           </div>
         )}
@@ -119,16 +119,26 @@ export const Leaderboard: React.FC = () => {
       {/* Social Share Buttons */}
       {currentUserRank && (
         <div className="w-full bg-white/5 backdrop-blur-md rounded-2xl p-4 sm:p-5 border border-white/10">
-          <h3 className="text-gray-300 font-bold text-sm sm:text-base mb-3 text-center uppercase tracking-widest">📢 Khoe Chiến Tích</h3>
-          <div className="flex flex-wrap gap-3 justify-center">
-            <button onClick={() => handleShare('facebook')} className="flex items-center gap-2 bg-[#1877F2]/20 hover:bg-[#1877F2]/40 border border-[#1877F2]/50 text-[#1877F2] hover:text-white font-bold py-2 px-4 rounded-xl transition-all duration-300">
-              📘 Facebook
+          <h3 className="text-gray-300 font-bold text-sm sm:text-base mb-3 text-center uppercase tracking-widest">Khoe Chiến Tích</h3>
+          <div className="flex flex-wrap gap-4 justify-center">
+            <button onClick={() => handleShare('facebook')} className="flex items-center gap-2 bg-[#1877F2]/80 hover:bg-[#1877F2] shadow-[0_4px_15px_rgba(24,119,242,0.4)] hover:shadow-[0_4px_20px_rgba(24,119,242,0.6)] text-white font-bold py-2.5 px-5 rounded-2xl transition-all duration-300 hover:scale-105 active:scale-95 group border border-white/20">
+              <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 group-hover:animate-bounce" viewBox="0 0 48 48">
+                <path fill="#fff" d="M24 5A19 19 0 1 0 24 43A19 19 0 1 0 24 5Z"></path>
+                <path fill="#1877F2" d="M26.572,29.036h4.917l0.772-4.995h-5.69v-2.73c0-2.075,0.678-3.915,2.619-3.915h3.119v-4.359c-0.548-0.074-1.707-0.236-3.897-0.236c-4.573,0-7.254,2.415-7.254,7.917v3.323h-4.701v4.995h4.701v13.729C22.089,42.905,23.032,43,24,43c0.875,0,1.729-0.08,2.572-0.194V29.036z"></path>
+              </svg>
+              Facebook
             </button>
-            <button onClick={() => handleShare('twitter')} className="flex items-center gap-2 bg-[#1DA1F2]/20 hover:bg-[#1DA1F2]/40 border border-[#1DA1F2]/50 text-[#1DA1F2] hover:text-white font-bold py-2 px-4 rounded-xl transition-all duration-300">
-              🐦 Twitter
+            <button onClick={() => handleShare('twitter')} className="flex items-center gap-2 bg-gradient-to-r from-gray-700 to-gray-900 hover:from-gray-600 hover:to-gray-800 shadow-[0_4px_15px_rgba(255,255,255,0.1)] hover:shadow-[0_4px_20px_rgba(255,255,255,0.2)] border border-white/20 text-white font-bold py-2.5 px-5 rounded-2xl transition-all duration-300 hover:scale-105 active:scale-95 group">
+              <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 group-hover:animate-bounce drop-shadow-md" viewBox="0 0 50 50">
+                <path fill="#fff" d="M 11 4 C 7.134 4 4 7.134 4 11 L 4 39 C 4 42.866 7.134 46 11 46 L 39 46 C 42.866 46 46 42.866 46 39 L 46 11 C 46 7.134 42.866 4 39 4 L 11 4 z M 13.085938 13 L 21.023438 13 L 26.660156 21.009766 L 33.5 13 L 36 13 L 27.789062 22.613281 L 37.914062 37 L 29.978516 37 L 23.4375 27.707031 L 15.5 37 L 13 37 L 22.308594 26.103516 L 13.085938 13 z M 16.914062 15 L 31.021484 35 L 34.085938 35 L 19.978516 15 L 16.914062 15 z"></path>
+              </svg>
+              X
             </button>
-            <button onClick={() => handleShare('tiktok')} className="flex items-center gap-2 bg-[#000000]/40 hover:bg-[#ff0050]/40 border border-[#ff0050]/50 text-white font-bold py-2 px-4 rounded-xl transition-all duration-300">
-              🎵 TikTok
+            <button onClick={() => handleShare('tiktok')} className="flex items-center gap-2 bg-gradient-to-r from-[#25F4EE]/80 via-black/80 to-[#FE2C55]/80 hover:from-[#25F4EE] hover:via-black hover:to-[#FE2C55] shadow-[0_4px_15px_rgba(254,44,85,0.3)] hover:shadow-[0_4px_20px_rgba(254,44,85,0.5)] border border-[#FE2C55]/50 text-white font-bold py-2.5 px-5 rounded-2xl transition-all duration-300 hover:scale-105 active:scale-95 group">
+              <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 group-hover:animate-bounce drop-shadow-[0_0_3px_#25F4EE]" viewBox="0 0 50 50">
+                <path fill="#fff" d="M41,4H9C6.243,4,4,6.243,4,9v32c0,2.757,2.243,5,5,5h32c2.757,0,5-2.243,5-5V9C46,6.243,43.757,4,41,4z M37.006,22.323 c-0.227,0.021-0.457,0.035-0.69,0.035c-2.623,0-4.928-1.349-6.269-3.388c0,5.349,0,11.435,0,11.537c0,4.709-3.818,8.527-8.527,8.527 s-8.527-3.818-8.527-8.527s3.818-8.527,8.527-8.527c0.178,0,0.352,0.016,0.527,0.027v4.202c-0.175-0.021-0.347-0.053-0.527-0.053 c-2.404,0-4.352,1.948-4.352,4.352s1.948,4.352,4.352,4.352s4.527-1.894,4.527-4.298c0-0.095,0.042-19.594,0.042-19.594h4.016 c0.378,3.591,3.277,6.425,6.901,6.685V22.323z"></path>
+              </svg>
+              TikTok
             </button>
           </div>
         </div>

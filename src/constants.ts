@@ -3,51 +3,51 @@ import { BauCuaItem, ChipInfo, PigType, ShopItem, ItemType, TetItemAction } from
 export const INITIAL_BALANCE = 500000;
 
 export const BAU_CUA_ITEMS: BauCuaItem[] = [
-    { 
-    id: 'ga', 
-    name: 'Gà', 
-    image: '/assets/image/items/ga.jpg', 
+  {
+    id: 'ga',
+    name: 'Gà',
+    image: '/assets/image/items/ga.jpg',
     boardImage: '/assets/image/items/ga.png',
-    color: 'bg-yellow-600' 
+    color: 'bg-yellow-600'
   },
 
-  { 
-    id: 'bau', 
-    name: 'Bầu', 
+  {
+    id: 'bau',
+    name: 'Bầu',
     image: '/assets/image/items/bau.png',        // ⭐ Ảnh trong bát (không background)
     boardImage: '/assets/image/items/bau.jpg',   // ⭐ Ảnh ô đặt cược (có background)
-    color: 'bg-green-600' 
-  },
-  
-  { 
-    id: 'nai', 
-    name: 'Nai', 
-    image: '/assets/image/items/nai.jpg', 
-    boardImage: '/assets/image/items/nai.png',
-    color: 'bg-orange-600' 
-  },
-    { 
-    id: 'tom', 
-    name: 'Tôm', 
-    image: '/assets/image/items/tom.jpg',        // ⭐ Trong bát
-    boardImage: '/assets/image/items/tom.png',   // ⭐ Ô cược
-    color: 'bg-pink-600' 
-  },
-  
-  { 
-    id: 'cua', 
-    name: 'Cua', 
-    image: '/assets/image/items/cua.png', 
-    boardImage: '/assets/image/items/cua.jpg',
-    color: 'bg-red-600' 
+    color: 'bg-green-600'
   },
 
-  { 
-    id: 'ca', 
-    name: 'Cá', 
-    image: '/assets/image/items/ca.jpg', 
+  {
+    id: 'nai',
+    name: 'Nai',
+    image: '/assets/image/items/nai.jpg',
+    boardImage: '/assets/image/items/nai.png',
+    color: 'bg-orange-600'
+  },
+  {
+    id: 'tom',
+    name: 'Tôm',
+    image: '/assets/image/items/tom.jpg',        // ⭐ Trong bát
+    boardImage: '/assets/image/items/tom.png',   // ⭐ Ô cược
+    color: 'bg-pink-600'
+  },
+
+  {
+    id: 'cua',
+    name: 'Cua',
+    image: '/assets/image/items/cua.png',
+    boardImage: '/assets/image/items/cua.jpg',
+    color: 'bg-red-600'
+  },
+
+  {
+    id: 'ca',
+    name: 'Cá',
+    image: '/assets/image/items/ca.jpg',
     boardImage: '/assets/image/items/ca.png',
-    color: 'bg-blue-600' 
+    color: 'bg-blue-600'
   }
 ];
 
@@ -204,6 +204,7 @@ export const SOUNDS = {
   loss: '/assets/audio/lose.mp3',
   lucky: '/assets/audio/lucky.mp3',
   boom: '/assets/audio/boom.mp3',
+  spin: '/assets/audio/spin.mp3',
   bgMusic: '/assets/audio/tet-music.mp3'
 };
 
@@ -218,7 +219,7 @@ export const ASSETS = {
 // ⭐ ========== DANH SÁCH VẬT PHẨM SHOP - CẬP NHẬT ẢNH THẬT ==========
 
 export const SHOP_ITEMS: ShopItem[] = [
-  
+
   // ========== AVATARS - ẢNH THẬT ==========
   {
     id: 'avatar_free_nam',
@@ -274,7 +275,7 @@ export const SHOP_ITEMS: ShopItem[] = [
     imageUrl: '/assets/image/items/avt-hiendai-nu.jpg',
     stock: 999
   },
-    {
+  {
     id: 'avatar_noel1_nam',
     name: 'Noel Ấm Áp - Nam',
     price: 1000000,
@@ -284,7 +285,7 @@ export const SHOP_ITEMS: ShopItem[] = [
     stock: 999
   },
 
-    {
+  {
     id: 'avatar_noel1_nu',
     name: 'Noel Ấm Áp - Nữ',
     price: 1000000,
@@ -294,7 +295,7 @@ export const SHOP_ITEMS: ShopItem[] = [
     stock: 999
   },
 
-    {
+  {
     id: 'avatar_noel2_nam',
     name: '👑 Mạnh Không Lạnh',
     price: 1000000000,
@@ -303,7 +304,7 @@ export const SHOP_ITEMS: ShopItem[] = [
     imageUrl: '/assets/image/items/avt-noel2-nam.jpg',
     stock: 999
   },
-      {
+  {
     id: 'avatar_noel1_nu',
     name: '💎 Noel An Lành VIP',
     price: 10000000,
@@ -342,7 +343,7 @@ export const SHOP_ITEMS: ShopItem[] = [
     stock: 999
   },
 
-    {
+  {
     id: 'bg_shop_4',
     name: 'Nền Giáng Sinh 1',
     price: 1000000,
@@ -352,7 +353,7 @@ export const SHOP_ITEMS: ShopItem[] = [
     stock: 999
   },
 
-      {
+  {
     id: 'bg_shop_5',
     name: 'Nền Giáng Sinh 2',
     price: 1500000,
@@ -362,7 +363,7 @@ export const SHOP_ITEMS: ShopItem[] = [
     stock: 999
   },
 
-        {
+  {
     id: 'bg_shop_6',
     name: 'Nền Giáng Sinh 3',
     price: 2000000,
@@ -408,7 +409,7 @@ export const SHOP_ITEMS: ShopItem[] = [
   },
 
   // ⭐ ========== VẬT PHẨM TẾT - ẢNH THẬT + GIÁ PHÙ HỢP ==========
-  
+
   // 1. PHÁO HOA - 1 triệu
   {
     id: 'tet_phao_hoa',
@@ -496,7 +497,7 @@ export const SHOP_ITEMS: ShopItem[] = [
     price: 1000000,
     type: ItemType.TET_INTERACTIVE,
     description: 'Trang trí Profile. Không có tương tác',
-    imageUrl: '/assets/image/items/lixi.jpg', 
+    imageUrl: '/assets/image/items/lixi.jpg',
     tetAction: TetItemAction.DECORATION,
     maxUses: -1,
     stock: 999

@@ -8,9 +8,10 @@ import { GameBoard } from './game/GameBoard';
 interface CaCaNguProps {
   user: { uid: string; username: string; email: string; balance: number; avatar?: string; background?: string };
   onGoHome?: () => void;
+  onSetPlayingInternalMusic?: (isPlaying: boolean) => void;
 }
 
-export const CaCaNgu: React.FC<CaCaNguProps> = ({ user, onGoHome }) => {
+export const CaCaNgu: React.FC<CaCaNguProps> = ({ user, onGoHome, onSetPlayingInternalMusic }) => {
   const [isMobile, setIsMobile] = useState(false);
   const [isPortrait, setIsPortrait] = useState(false);
   const [view, setView] = useState<'lobby' | 'waiting' | 'game'>('lobby');
@@ -33,9 +34,18 @@ export const CaCaNgu: React.FC<CaCaNguProps> = ({ user, onGoHome }) => {
 
   useEffect(() => {
     if (isMobile && !isPortrait && window.screen.orientation && (window.screen.orientation as any).lock) {
-      (window.screen.orientation as any).lock('landscape').catch(() => {});
+      (window.screen.orientation as any).lock('landscape').catch(() => { });
     }
   }, [isMobile, isPortrait]);
+
+  useEffect(() => {
+    if (onSetPlayingInternalMusic) {
+      onSetPlayingInternalMusic(view === 'game');
+    }
+    return () => {
+      if (onSetPlayingInternalMusic) onSetPlayingInternalMusic(false);
+    };
+  }, [view, onSetPlayingInternalMusic]);
 
   useEffect(() => {
     if (view !== 'waiting' || !currentLobbyId) return;

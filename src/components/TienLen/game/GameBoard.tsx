@@ -9,6 +9,7 @@ import { useTienLenLobby } from "../../../hooks/useTienLenLobby";
 import { pickBotMove } from '../../../utils/tienlen/botAI';
 import { useGameReactions, GameReactionsOverlay, EmojiPickerButton, ThrowMenu } from '../../shared/GameReactions';
 import { useVoiceChat } from '../../../hooks/useVoiceChat';
+import { trackQuestProgress } from '../../../hooks/useDailyQuests';
 
 // --- CẤU HÌNH ---
 const TURN_DURATION = 20;
@@ -247,11 +248,6 @@ export const GameBoard: React.FC<GameBoardProps> = ({
   useEffect(() => {
     clockAudioRef.current = new Audio("/assets/audio/slow-clock.mp3");
     clockAudioRef.current.volume = 0.5;
-    const bgMusic = document.getElementById("bg-music") as HTMLAudioElement;
-    if (bgMusic) bgMusic.volume = 0.2;
-    return () => {
-      if (bgMusic) bgMusic.volume = 1.0;
-    };
   }, []);
 
   useEffect(() => {
@@ -574,6 +570,15 @@ export const GameBoard: React.FC<GameBoardProps> = ({
       playSound("win");
       updates[`players/${myPos}/finishPosition`] = currentFinishers + 1;
       const totalFinished = currentFinishers + 1;
+
+      // Track Quests
+      if (user?.uid) {
+        trackQuestProgress(user.uid, 'play_tienlen', 1);
+        if (currentFinishers === 0) {
+          // First place
+          trackQuestProgress(user.uid, 'win_any_game', 1);
+        }
+      }
 
       if (totalPlayers - totalFinished <= 1) {
         const loserPos = playersArr.findIndex(

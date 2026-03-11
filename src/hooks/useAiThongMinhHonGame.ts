@@ -3,6 +3,7 @@ import { getDatabase, ref, onValue, update, get } from 'firebase/database';
 import { getFirestore, doc, runTransaction as fsRunTransaction } from 'firebase/firestore';
 import { quizQuestions } from '../components/SieuTriTue/data/quizQuestions';
 import { QuizRoomQuestion } from '../types';
+import { trackQuestProgress } from './useDailyQuests';
 
 const db = getDatabase();
 const firestore = getFirestore();
@@ -18,7 +19,7 @@ function calcScore(isCorrect: boolean): number {
 }
 
 function calcQualified(totalPlayers: number, percent: number): number {
-  return Math.min(totalPlayers - 1, Math.max(2, Math.ceil(totalPlayers * percent)));
+  return Math.min(totalPlayers, Math.max(2, Math.ceil(totalPlayers * percent)));
 }
 
 function shuffleArray<T>(arr: T[]): T[] {
@@ -205,7 +206,7 @@ export function useAiThongMinhHonGame(roomId: string, uid: string) {
 
       if (r.currentRound === 3) {
         await endGame(r, activePlayers);
-      } else if (r.practiceMode || activePlayers.length <= 1) {
+      } else if (r.practiceMode || activePlayers.length <= 2) {
         const nextRound = (r.currentRound + 1) as 1 | 2 | 3;
         const nextConfig = ROUND_CONFIG[nextRound - 1];
         const nextQ = r.questions?.[nextRound - 1]?.[0];
@@ -216,20 +217,31 @@ export function useAiThongMinhHonGame(roomId: string, uid: string) {
           questionStartTime: Date.now(),
           timeLimit: nextQ?.timeLimit || nextConfig.timeLimit,
         });
-      } else if (activePlayers.length <= 2) {
-        await endGame(r, activePlayers);
       } else {
         const config = ROUND_CONFIG[roundIdx];
         const qualified = calcQualified(activePlayers.length, config.advancePercent);
         const eliminated = activePlayers.slice(qualified).map(([id]) => id);
 
-        const updates: Record<string, any> = { phase: 'elimination' };
-        eliminated.forEach((id) => {
-          updates[`players/${id}/isEliminated`] = true;
-          updates[`players/${id}/eliminatedInRound`] = r.currentRound;
-          updates[`players/${id}/isSpectator`] = true;
-        });
-        await update(ref(db, `quizRooms/${roomId}`), updates);
+        if (eliminated.length === 0) {
+          const nextRound = (r.currentRound + 1) as 1 | 2 | 3;
+          const nextConfig = ROUND_CONFIG[nextRound - 1];
+          const nextQ = r.questions?.[nextRound - 1]?.[0];
+          await update(ref(db, `quizRooms/${roomId}`), {
+            phase: 'question',
+            currentRound: nextRound,
+            currentQuestionIndex: 0,
+            questionStartTime: Date.now(),
+            timeLimit: nextQ?.timeLimit || nextConfig.timeLimit,
+          });
+        } else {
+          const updates: Record<string, any> = { phase: 'elimination' };
+          eliminated.forEach((id) => {
+            updates[`players/${id}/isEliminated`] = true;
+            updates[`players/${id}/eliminatedInRound`] = r.currentRound;
+            updates[`players/${id}/isSpectator`] = true;
+          });
+          await update(ref(db, `quizRooms/${roomId}`), updates);
+        }
       }
     }
   };
@@ -277,6 +289,17 @@ export function useAiThongMinhHonGame(roomId: string, uid: string) {
         });
       } catch (e) { console.error('Reward error:', e); }
     }
+
+    // Track Quests for all active players who made it to the end
+    sortedActivePlayers.forEach(([playerUid]: any) => {
+      // "Chơi 2 ván Ai Thông Minh Hơn" quest
+      trackQuestProgress(playerUid, 'play_aithongminhhon', 1);
+
+      // If first place "Thắng 1 ván bất kỳ"
+      if (winners.first === playerUid) {
+        trackQuestProgress(playerUid, 'win_any_game', 1);
+      }
+    });
 
     await update(ref(db, `quizRooms/${roomId}`), {
       status: 'ended',

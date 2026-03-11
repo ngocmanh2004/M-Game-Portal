@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { Layout } from './components/Layout';
 import { Auth } from './components/Auth';
 import { Home } from './components/Home';
@@ -24,6 +24,7 @@ import { TienLen } from './components/TienLen/TienLen';
 import { XiDach } from './components/XiDach/lobby/XiDach';
 import { CaCaNgu } from './components/CaCaNgu/CaCaNgu';
 import { AiThongMinhHon } from './components/SieuTriTue/AiThongMinhHon/AiThongMinhHon';
+import { MezonCallback } from './components/MezonCallback';
 
 function App() {
   const { user, loading: authLoading, logout } = useAuth();
@@ -34,6 +35,15 @@ function App() {
   const [bgIndex, setBgIndex] = useState(0);
   const [notification, setNotification] = useState<{ message: string; type: 'win' | 'loss' } | null>(null);
   const [selectedUser, setSelectedUser] = useState<string | null>(null);
+  const [isPlayingInternalMusic, setIsPlayingInternalMusic] = useState(false);
+
+  // ⭐ Kiểm tra xem có đang ở trang callback của Mezon không
+  const isMezonCallback = window.location.pathname === '/mezon-callback';
+  const [mezonError, setMezonError] = useState<string | null>(null);
+
+  const handleSetPlayingInternalMusic = useCallback((isPlaying: boolean) => {
+    setIsPlayingInternalMusic(isPlaying);
+  }, []);
 
   const soundRefs = useRef<{ [key in SoundType]?: HTMLAudioElement }>({});
   const bgMusicRef = useRef<HTMLAudioElement | null>(null);
@@ -59,12 +69,13 @@ function App() {
 
   // Control background music
   useEffect(() => {
-    if (!isMuted && bgMusicRef.current) {
+    // Stop BG music if muted, logged out, or if the current game is playing its own music
+    if (user && !isMuted && !isPlayingInternalMusic && bgMusicRef.current) {
       bgMusicRef.current.play().catch(err => console.log('Auto-play prevented:', err));
     } else if (bgMusicRef.current) {
       bgMusicRef.current.pause();
     }
-  }, [isMuted]);
+  }, [user, isMuted, isPlayingInternalMusic]);
 
   const playSound = (type: SoundType) => {
     if (isMuted) return;
@@ -152,8 +163,29 @@ function App() {
     );
   }
 
+  if (isMezonCallback) {
+    return (
+      <MezonCallback 
+        onSuccess={() => {
+          // Firebase tự động cập nhật auth state, App sẽ re-render vì useAuth()
+          window.location.href = '/';
+        }} 
+        onError={(msg) => setMezonError(msg)} 
+      />
+    );
+  }
+
   if (!user) {
-    return <Auth />;
+    return (
+      <>
+        {mezonError && (
+          <div className="fixed top-4 left-1/2 -translate-x-1/2 z-[100] bg-red-600 text-white px-6 py-3 rounded-full shadow-2xl animate-bounce">
+            ❌ {mezonError}
+          </div>
+        )}
+        <Auth />
+      </>
+    );
   }
 
   if (!userData) {
@@ -238,6 +270,7 @@ function App() {
               avatar: userData.avatar,
               background: userData.background,
             }}
+            onSetPlayingInternalMusic={handleSetPlayingInternalMusic}
           />
         );
 
@@ -252,6 +285,7 @@ function App() {
               avatar: userData.avatar,
               background: userData.background,
             }}
+            onSetPlayingInternalMusic={handleSetPlayingInternalMusic}
           />
         );
 
@@ -266,6 +300,7 @@ function App() {
               avatar: userData.avatar,
               background: userData.background,
             }}
+            onSetPlayingInternalMusic={handleSetPlayingInternalMusic}
           />
         );
 
@@ -280,6 +315,7 @@ function App() {
               avatar: userData.avatar,
               background: userData.background,
             }}
+            onSetPlayingInternalMusic={handleSetPlayingInternalMusic}
           />
         );
 
@@ -320,6 +356,7 @@ function App() {
           background: userData.background,
         }}
         onGoHome={() => setCurrentGame(GameType.HOME)}
+        onSetPlayingInternalMusic={handleSetPlayingInternalMusic}
       />
     );
   }
@@ -337,6 +374,7 @@ function App() {
           background: userData.background,
         }}
         onGoHome={() => setCurrentGame(GameType.HOME)}
+        onSetPlayingInternalMusic={handleSetPlayingInternalMusic}
       />
     );
   }
@@ -353,6 +391,7 @@ function App() {
           background: userData.background,
         }}
         onGoHome={() => setCurrentGame(GameType.HOME)}
+        onSetPlayingInternalMusic={handleSetPlayingInternalMusic}
       />
     );
   }
@@ -369,6 +408,7 @@ function App() {
           background: userData.background,
         }}
         onGoHome={() => setCurrentGame(GameType.HOME)}
+        onSetPlayingInternalMusic={handleSetPlayingInternalMusic}
       />
     );
   }

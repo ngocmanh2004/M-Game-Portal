@@ -8,9 +8,10 @@ import { getDatabase, onValue, ref } from 'firebase/database';
 interface TienLenProps {
   user: { uid: string; username: string; email: string; balance: number; avatar?: string; background?: string; };
   onGoHome?: () => void;
+  onSetPlayingInternalMusic?: (isPlaying: boolean) => void;
 }
 
-export const TienLen: React.FC<TienLenProps> = ({ user, onGoHome }) => {
+export const TienLen: React.FC<TienLenProps> = ({ user, onGoHome, onSetPlayingInternalMusic }) => {
   const [isMobile, setIsMobile] = useState(false);
   const [isPortrait, setIsPortrait] = useState(false);
   const [view, setView] = useState<'lobby' | 'waiting' | 'game'>('lobby');
@@ -23,11 +24,20 @@ export const TienLen: React.FC<TienLenProps> = ({ user, onGoHome }) => {
   }, []);
 
   useEffect(() => {
-    if (isMobile && !isPortrait && (window.screen.orientation && (window.screen.orientation as any).lock)) { (window.screen.orientation as any).lock('landscape').catch(() => {}); }
+    if (isMobile && !isPortrait && (window.screen.orientation && (window.screen.orientation as any).lock)) { (window.screen.orientation as any).lock('landscape').catch(() => { }); }
   }, [isMobile, isPortrait]);
 
   const handleJoinRoom = (lobbyId: string) => { setCurrentLobbyId(lobbyId); setView('waiting'); };
   const handleLeaveRoom = () => { setCurrentLobbyId(null); setView('lobby'); };
+
+  useEffect(() => {
+    if (onSetPlayingInternalMusic) {
+      onSetPlayingInternalMusic(view === 'game');
+    }
+    return () => {
+      if (onSetPlayingInternalMusic) onSetPlayingInternalMusic(false);
+    };
+  }, [view, onSetPlayingInternalMusic]);
 
   useEffect(() => {
     if (view === 'waiting' && currentLobbyId) {

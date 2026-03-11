@@ -1,5 +1,14 @@
 {
   "projects": {
     "default": "gametet-vn"
+  },
+  "targets": {
+    "gametet-vn": {
+      "hosting": {
+        "m-game": [
+          "m-game"
+        ]
+      }
+    }
   }
 }

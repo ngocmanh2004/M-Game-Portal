@@ -7,9 +7,10 @@ import { getDatabase, onValue, ref, onDisconnect, update } from 'firebase/databa
 interface Props {
   user: { uid: string; username: string; email: string; balance: number; avatar?: string; background?: string };
   onGoHome?: () => void;
+  onSetPlayingInternalMusic?: (isPlaying: boolean) => void;
 }
 
-export const AiThongMinhHon: React.FC<Props> = ({ user, onGoHome }) => {
+export const AiThongMinhHon: React.FC<Props> = ({ user, onGoHome, onSetPlayingInternalMusic }) => {
   const [view, setView] = useState<'lobby' | 'waiting' | 'game'>('lobby');
   const [currentRoomId, setCurrentRoomId] = useState<string | null>(null);
 
@@ -23,6 +24,15 @@ export const AiThongMinhHon: React.FC<Props> = ({ user, onGoHome }) => {
     setView('lobby');
     window.localStorage.removeItem('quiz_lobby_id');
   };
+
+  useEffect(() => {
+    if (onSetPlayingInternalMusic) {
+      onSetPlayingInternalMusic(view === 'game');
+    }
+    return () => {
+      if (onSetPlayingInternalMusic) onSetPlayingInternalMusic(false);
+    };
+  }, [view, onSetPlayingInternalMusic]);
 
   useEffect(() => {
     if (view !== 'waiting' || !currentRoomId) return;

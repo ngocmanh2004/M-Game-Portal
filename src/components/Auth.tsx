@@ -50,6 +50,29 @@ export const Auth: React.FC = () => {
     }
   };
 
+  // ⭐ Hàm xử lý đăng nhập Mezon
+  const handleMezonLogin = () => {
+    setLoading(true);
+    // 1. Sinh chuỗi state 11 ký tự (chữ & số)
+    const charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    let state = "";
+    for (let i = 0; i < 11; i++) {
+      state += charset.charAt(Math.floor(Math.random() * charset.length));
+    }
+
+    // 2. Lưu state vào sessionStorage
+    sessionStorage.setItem('mezon_auth_state', state);
+
+    // 3. Cấu hình tham số
+    const clientId = "2031726261864239104";
+    const redirectUri = encodeURIComponent("https://m-game.web.app/mezon-callback");
+    const scope = "openid";
+    const authUrl = `https://oauth2.mezon.ai/oauth2/auth?client_id=${clientId}&response_type=code&scope=${scope}&redirect_uri=${redirectUri}&state=${state}`;
+
+    // 4. Redirect
+    window.location.href = authUrl;
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden bg-[#0a0a1a]">
 
@@ -141,6 +164,28 @@ export const Auth: React.FC = () => {
               {loading ? '⏳ Đang xử lý...' : (isLogin ? 'VÀO CỔNG GAME' : 'TẠO TÀI KHOẢN MỚI')}
             </Button>
           </form>
+
+          {/* ⭐ Nút đăng nhập Mezon */}
+          <div className="mt-6 flex flex-col gap-3">
+            <div className="flex items-center gap-4">
+              <div className="flex-1 h-[1px] bg-white/10"></div>
+              <span className="text-gray-500 text-sm">Hoặc</span>
+              <div className="flex-1 h-[1px] bg-white/10"></div>
+            </div>
+            
+            <button
+              onClick={handleMezonLogin}
+              disabled={loading}
+              className="w-full flex items-center justify-center gap-3 py-3.5 bg-[#4B2991] hover:bg-[#5D35B0] text-white rounded-xl font-bold transition-all border border-[#7C4DFF]/30 shadow-lg group disabled:opacity-50"
+            >
+              <img 
+                src="https://mezon.ai/wp-content/uploads/2023/10/Logo-Mezon-1.png" 
+                alt="Mezon" 
+                className="w-6 h-6 object-contain group-hover:scale-110 transition-transform" 
+              />
+              {loading ? 'Đang chuyển hướng...' : 'Đăng nhập bằng App Mezon'}
+            </button>
+          </div>
 
           {!isLogin && (
             <div className="mt-6 p-4 bg-gradient-to-r from-purple-900/40 to-indigo-900/40 border border-purple-500/30 rounded-xl backdrop-blur-sm">

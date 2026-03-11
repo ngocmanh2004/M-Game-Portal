@@ -11,6 +11,10 @@ export interface UserData {
   email: string;
   nickname?: string;
   money: number;
+  tickets?: number;
+  lastSpinDate?: string;
+  lastQuestDate?: string;
+  dailyQuests?: Record<string, any>;
   avatar?: string;
   background?: string;
   lastCheckin: string;

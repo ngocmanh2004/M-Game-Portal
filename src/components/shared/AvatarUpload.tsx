@@ -150,27 +150,35 @@ export const AvatarUpload: React.FC<AvatarUploadProps> = ({
     return (
         <div className="flex flex-col items-center">
             <div
-                className={`relative ${sizeClass} rounded-full ${borderClass} overflow-hidden bg-black shadow-2xl p-0.5 group ${isMe ? 'cursor-pointer' : ''}`}
+                className={`relative ${sizeClass} group ${isMe ? 'cursor-pointer' : ''}`}
                 onClick={handleClick}
             >
-                <img
-                    src={displayUrl}
-                    alt="Avatar"
-                    className="w-full h-full rounded-full object-cover transition-all"
-                    onError={(e) => { e.currentTarget.src = DEFAULT_AVATAR; }}
-                />
+                <div className={`w-full h-full rounded-full ${borderClass} overflow-hidden bg-[#1a0f0a] shadow-2xl relative transition-transform hover:scale-[1.02] duration-300`}>
+                    <img
+                        src={displayUrl}
+                        alt="Avatar"
+                        className="w-full h-full rounded-full object-cover"
+                        onError={(e) => { e.currentTarget.src = DEFAULT_AVATAR; }}
+                    />
+
+                    {uploading && (
+                        <div className="absolute inset-0 bg-black/60 flex flex-col items-center justify-center z-10 pointer-events-none">
+                            <div className="w-6 h-6 sm:w-8 sm:h-8 border-2 sm:border-4 border-white border-t-transparent rounded-full animate-spin mb-1"></div>
+                            <span className="text-[10px] sm:text-xs text-white font-bold">{progress}%</span>
+                        </div>
+                    )}
+                </div>
 
                 {isMe && !uploading && !previewUrl && (
-                    <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center rounded-full">
-                        <span className="text-white text-2xl drop-shadow-md">📷</span>
-                    </div>
-                )}
-
-                {uploading && (
-                    <div className="absolute inset-0 bg-black/60 flex flex-col items-center justify-center rounded-full z-10 pointer-events-none">
-                        <div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin mb-1"></div>
-                        <span className="text-[10px] sm:text-xs text-white font-bold">{progress}%</span>
-                    </div>
+                    <button
+                        className="absolute bottom-1 right-1 sm:bottom-2 sm:right-2 w-7 h-7 sm:w-9 sm:h-9 bg-slate-800 text-white rounded-full flex items-center justify-center border-2 border-[#1a0f0a] shadow-[0_4px_10px_rgba(0,0,0,0.5)] hover:bg-slate-700 hover:scale-110 active:scale-95 transition-all z-30 group-hover:bg-slate-700"
+                        title="Thay đổi Avatar"
+                    >
+                        <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+                    </button>
                 )}
 
                 <input

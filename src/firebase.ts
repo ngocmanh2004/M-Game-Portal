@@ -7,7 +7,7 @@ import { getStorage } from 'firebase/storage';
 // ⭐ Firebase config từ Firebase Console
 const firebaseConfig = {
   apiKey: "AIzaSyAiSbZ-qJ97w1gr0tZvCuJGQmu0BQMZwCU",
-  authDomain: "gametet-vn.firebaseapp.com",
+  authDomain: "m-game.firebaseapp.com",
   projectId: "gametet-vn",
   storageBucket: "gametet-vn.appspot.com",
   messagingSenderId: "97855747402",
