@@ -20,7 +20,14 @@ admin.initializeApp({
 });
 
 const app = express();
-app.use(cors());
+
+// ⭐ Cấu hình CORS để cho phép các domain của bạn
+app.use(cors({
+  origin: '*', // Cho phép tất cả các domain gọi vào (Phù hợp để test nhanh)
+  methods: ['GET', 'POST', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
