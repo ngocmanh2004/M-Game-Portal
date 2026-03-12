@@ -21,7 +21,6 @@ export const MezonCallback: React.FC<MezonCallbackProps> = ({ onSuccess, onError
         return;
       }
 
-      // 1. Kiểm tra state
       const savedState = sessionStorage.getItem('mezon_auth_state');
       if (state !== savedState) {
         onError('Xác thực chuỗi State không khớp. Có thể là một cuộc tấn công CSRF.');
@@ -30,9 +29,7 @@ export const MezonCallback: React.FC<MezonCallbackProps> = ({ onSuccess, onError
 
       try {
         setStatus('Đang trao đổi token...');
-        // ⭐ Backend cố định trên Vercel
         const backendUrl = 'https://m-game-portal.vercel.app';
-        // Lấy origin hiện tại để báo cho backend biết chúng ta đã dùng redirect_uri nào
         const currentRedirectUri = `${window.location.origin}/mezon-callback`;
 
         const response = await fetch(`${backendUrl}/api/mezon/exchange`, {
@@ -55,14 +52,11 @@ export const MezonCallback: React.FC<MezonCallbackProps> = ({ onSuccess, onError
 
         const { customToken } = data;
 
-        // 3. Đăng nhập vào Firebase bằng Custom Token
         setStatus('Đang đăng nhập vào Minigame...');
         await signInWithCustomToken(auth, customToken);
         
-        // Xóa state cũ
         sessionStorage.removeItem('mezon_auth_state');
         
-        // Clear URL params
         window.history.replaceState({}, document.title, "/");
         
         onSuccess();

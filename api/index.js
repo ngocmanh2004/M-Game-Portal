@@ -7,30 +7,36 @@ const admin = require('firebase-admin');
 // Khởi tạo Firebase Admin
 let serviceAccount;
 if (process.env.FIREBASE_SERVICE_ACCOUNT) {
-  // Ưu tiên dùng biến môi trường khi deploy lên Render/Cloud
   serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
 } else {
-  // Dùng file local khi phát triển
-  serviceAccount = require('../serviceAccountKey.json');
+  // File này nằm ở root, api/index.js cũng ở root (cấu trúc monorepo vercel)
+  try {
+    serviceAccount = require('../serviceAccountKey.json');
+  } catch (e) {
+    serviceAccount = require('./serviceAccountKey.json');
+  }
 }
 
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-  databaseURL: "https://gametet-vn-default-rtdb.asia-southeast1.firebasedatabase.app"
-});
+// Tránh khởi tạo nhiều lần khi hot reload trên Vercel
+if (!admin.apps.length) {
+  admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+    databaseURL: "https://gametet-vn-default-rtdb.asia-southeast1.firebasedatabase.app"
+  });
+}
 
 const app = express();
 
+// Cho phép CORS từ mọi nơi để test, Vercel sẽ xử lý preflight
 app.use(cors({
-  origin: '*', 
+  origin: true, // Tự động cho phép domain gọi vào (trả về header origin của request)
   methods: ['GET', 'POST', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true
 }));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
-const PORT = process.env.PORT || 5000;
 
 const MEZON_CLIENT_ID = "2031726261864239104";
 const MEZON_CLIENT_SECRET = "mGtQINbpnKyOcdSY";
@@ -48,9 +54,7 @@ app.post('/api/mezon/exchange', async (req, res) => {
   const finalRedirectUri = redirect_uri || REDIRECT_URI;
 
   try {
-    console.log('Sending token request to Mezon...');
-    
-     const params = new URLSearchParams();
+    const params = new URLSearchParams();
     params.append('grant_type', 'authorization_code');
     params.append('code', code);
     params.append('state', state);
@@ -59,26 +63,18 @@ app.post('/api/mezon/exchange', async (req, res) => {
     params.append('redirect_uri', finalRedirectUri);
 
     const tokenResponse = await axios.post(MEZON_TOKEN_URL, params, {
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      }
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
     });
 
     const { access_token } = tokenResponse.data;
-    console.log('Access token received');
-
     const userResponse = await axios.get(MEZON_USER_INFO_URL, {
-      headers: {
-        'Authorization': `Bearer ${access_token}`
-      }
+      headers: { 'Authorization': `Bearer ${access_token}` }
     });
 
     const mezonUser = userResponse.data;
     const mezonUserId = mezonUser.id || mezonUser.sub; 
 
-    if (!mezonUserId) {
-      throw new Error('Could not get Mezon User ID');
-    }
+    if (!mezonUserId) throw new Error('Could not get Mezon User ID');
 
     const customToken = await admin.auth().createCustomToken(String(mezonUserId), {
       mezon_username: mezonUser.username || mezonUser.name
@@ -87,7 +83,6 @@ app.post('/api/mezon/exchange', async (req, res) => {
     res.json({ customToken });
 
   } catch (error) {
-    console.error('Mezon Login Error:', error.response?.data || error.message);
     res.status(500).json({ 
       error: 'Failed to exchange token', 
       details: error.response?.data || error.message 
@@ -95,10 +90,10 @@ app.post('/api/mezon/exchange', async (req, res) => {
   }
 });
 
+// Vercel không cần app.listen, nó sẽ dùng module.exports
+const PORT = process.env.PORT || 5000;
 if (process.env.NODE_ENV !== 'production') {
-  app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-  });
+  app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
 }
 
 module.exports = app;
