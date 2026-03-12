@@ -64,7 +64,11 @@ export const MezonCallback: React.FC<MezonCallbackProps> = ({ onSuccess, onError
         }
 
         if (!response.ok) {
-          throw new Error(data.error || data.details || 'Lỗi khi trao đổi token');
+          const detailMessage = typeof data.details === 'string'
+            ? data.details
+            : data.details?.error_description || data.details?.error;
+
+          throw new Error(detailMessage || data.error || 'Lỗi khi trao đổi token');
         }
 
         const { customToken } = data;
