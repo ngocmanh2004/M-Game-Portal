@@ -13,16 +13,48 @@ export const useAuth = () => {
   const [user, setUser] = useState<FirebaseUser | null>(null);
   const [loading, setLoading] = useState(true);
 
+  const ensureUserProfile = async (firebaseUser: FirebaseUser) => {
+    const userRef = doc(db, 'users', firebaseUser.uid);
+    const userSnap = await getDoc(userRef);
+
+    if (!userSnap.exists()) {
+      const email = firebaseUser.email || '';
+      const fallbackName = firebaseUser.displayName || `mezon_${firebaseUser.uid.slice(0, 8)}`;
+
+      await setDoc(userRef, {
+        email,
+        nickname: fallbackName,
+        money: 1000000,
+        tickets: 0,
+        isAdmin: email.toLowerCase() === 'admin@gametet.vn' || email.toLowerCase() === 'admin',
+        tasks: {
+          followTiktok: false,
+          subscribeYoutube: false
+        },
+        lastCheckin: '',
+        avatar: firebaseUser.photoURL || '',
+        background: '',
+        createdAt: serverTimestamp(),
+        lastLogin: serverTimestamp()
+      }, { merge: true });
+
+      return;
+    }
+
+    await updateDoc(userRef, {
+      lastLogin: serverTimestamp()
+    });
+  };
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
       setUser(firebaseUser);
       setLoading(false);
       
       if (firebaseUser) {
-        const userRef = doc(db, 'users', firebaseUser.uid);
-        updateDoc(userRef, {
-          lastLogin: serverTimestamp()
-        }).catch(() => {});
+        ensureUserProfile(firebaseUser).catch((error) => {
+          console.error('Failed to ensure user profile:', error);
+        });
       }
     });
 
@@ -56,10 +88,8 @@ export const useAuth = () => {
 
   const login = async (email: string, password: string) => {
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
-    
-    await updateDoc(doc(db, 'users', userCredential.user.uid), {
-      lastLogin: serverTimestamp()
-    });
+
+    await ensureUserProfile(userCredential.user);
 
     return userCredential.user;
   };
