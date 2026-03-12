@@ -30,14 +30,21 @@ export const MezonCallback: React.FC<MezonCallbackProps> = ({ onSuccess, onError
 
       try {
         setStatus('Đang trao đổi token...');
-        // 2. Gọi sang Backend của chúng ta (Node.js)
-        // Lưu ý: Thay đổi URL nếu bạn deploy backend lên host khác
-        const response = await fetch('http://localhost:5000/api/mezon/exchange', {
+        // ⭐ Backend cố định trên Vercel
+        const backendUrl = 'https://m-game-portal.vercel.app';
+        // Lấy origin hiện tại để báo cho backend biết chúng ta đã dùng redirect_uri nào
+        const currentRedirectUri = `${window.location.origin}/mezon-callback`;
+
+        const response = await fetch(`${backendUrl}/api/mezon/exchange`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ code, state }),
+          body: JSON.stringify({ 
+            code, 
+            state,
+            redirect_uri: currentRedirectUri 
+          }),
         });
 
         const data = await response.json();

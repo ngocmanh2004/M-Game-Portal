@@ -31,28 +31,30 @@ const MEZON_CLIENT_ID = "2031726261864239104";
 const MEZON_CLIENT_SECRET = "mGtQINbpnKyOcdSY";
 const MEZON_TOKEN_URL = "https://oauth2.mezon.ai/oauth2/token";
 const MEZON_USER_INFO_URL = "https://oauth2.mezon.ai/userinfo";
-const REDIRECT_URI = "https://m-game.web.app/mezon-callback"; 
-// Lưu ý: Redirect URI phải khớp tuyệt đối với cái đã đăng ký trên Mezon Portal
+const REDIRECT_URI = process.env.REDIRECT_URI || "https://m-game-portal.vercel.app/mezon-callback"; 
+// Lưu ý: Redirect URI này phải trùng khớp với những gì bạn cài đặt trong Mezon Developer Portal
 
 app.post('/api/mezon/exchange', async (req, res) => {
-  const { code, state } = req.body;
+  const { code, state, redirect_uri } = req.body;
 
   if (!code || !state) {
     return res.status(400).json({ error: 'Missing code or state' });
   }
 
+  // Sử dụng redirect_uri từ frontend gửi lên, nếu không có thì dùng mặc định
+  const finalRedirectUri = redirect_uri || REDIRECT_URI;
+
   try {
     console.log('Sending token request to Mezon...');
     
     // Bước 3: Đổi mã Code lấy Access Token
-    // Ràng buộc Content-Type: application/x-www-form-urlencoded
     const params = new URLSearchParams();
     params.append('grant_type', 'authorization_code');
     params.append('code', code);
     params.append('state', state);
     params.append('client_id', MEZON_CLIENT_ID);
     params.append('client_secret', MEZON_CLIENT_SECRET);
-    params.append('redirect_uri', REDIRECT_URI);
+    params.append('redirect_uri', finalRedirectUri);
 
     const tokenResponse = await axios.post(MEZON_TOKEN_URL, params, {
       headers: {

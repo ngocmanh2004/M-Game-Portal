@@ -65,7 +65,7 @@ export const Auth: React.FC = () => {
 
     // 3. Cấu hình tham số
     const clientId = "2031726261864239104";
-    const redirectUri = encodeURIComponent("https://m-game.web.app/mezon-callback");
+    const redirectUri = encodeURIComponent(`${window.location.origin}/mezon-callback`);
     const scope = "openid";
     const authUrl = `https://oauth2.mezon.ai/oauth2/auth?client_id=${clientId}&response_type=code&scope=${scope}&redirect_uri=${redirectUri}&state=${state}`;
 
