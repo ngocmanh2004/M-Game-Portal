@@ -4,39 +4,82 @@ const cors = require('cors');
 const axios = require('axios');
 const admin = require('firebase-admin');
 
-// Khởi tạo Firebase Admin
-let serviceAccount;
-if (process.env.FIREBASE_SERVICE_ACCOUNT) {
-  // Ưu tiên dùng biến môi trường khi deploy lên Render/Cloud
-  serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
-} else {
-  // Dùng file local khi phát triển
-  serviceAccount = require('../serviceAccountKey.json');
+let firebaseInitError = null;
+
+function resolveServiceAccount() {
+  if (process.env.FIREBASE_SERVICE_ACCOUNT) {
+    try {
+      return JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
+    } catch (error) {
+      throw new Error(`FIREBASE_SERVICE_ACCOUNT is not valid JSON: ${error.message}`);
+    }
+  }
+
+  try {
+    return require('../serviceAccountKey.json');
+  } catch (error) {
+    throw new Error('Missing Firebase service account. Add serviceAccountKey.json or FIREBASE_SERVICE_ACCOUNT.');
+  }
 }
 
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-  databaseURL: "https://gametet-vn-default-rtdb.asia-southeast1.firebasedatabase.app"
-});
+function ensureFirebaseInitialized() {
+  if (admin.apps.length) return;
+  if (firebaseInitError) throw firebaseInitError;
+
+  try {
+    const serviceAccount = resolveServiceAccount();
+    admin.initializeApp({
+      credential: admin.credential.cert(serviceAccount),
+      databaseURL: 'https://gametet-vn-default-rtdb.asia-southeast1.firebasedatabase.app'
+    });
+  } catch (error) {
+    firebaseInitError = error;
+    throw error;
+  }
+}
 
 const app = express();
 
-app.use(cors({
-  origin: '*', 
+const defaultOrigins = [
+  'https://m-game.web.app',
+  'https://m-game-portal.vercel.app',
+  'http://localhost:3000'
+];
+
+const envOrigins = (process.env.CORS_ORIGINS || '')
+  .split(',')
+  .map((item) => item.trim())
+  .filter(Boolean);
+
+const allowedOrigins = new Set([...defaultOrigins, ...envOrigins]);
+
+const corsOptions = {
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.has(origin)) {
+      callback(null, true);
+      return;
+    }
+
+    callback(new Error(`Origin not allowed by CORS: ${origin}`));
+  },
   methods: ['GET', 'POST', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
-}));
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  optionsSuccessStatus: 204
+};
+
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 const PORT = process.env.PORT || 5000;
 
-const MEZON_CLIENT_ID = "2031726261864239104";
-const MEZON_CLIENT_SECRET = "mGtQINbpnKyOcdSY";
-const MEZON_TOKEN_URL = "https://oauth2.mezon.ai/oauth2/token";
-const MEZON_USER_INFO_URL = "https://oauth2.mezon.ai/userinfo";
-const REDIRECT_URI = process.env.REDIRECT_URI || "https://m-game-portal.vercel.app/mezon-callback"; 
+const MEZON_CLIENT_ID = process.env.MEZON_CLIENT_ID || '2031726261864239104';
+const MEZON_CLIENT_SECRET = process.env.MEZON_CLIENT_SECRET || 'mGtQINbpnKyOcdSY';
+const MEZON_TOKEN_URL = 'https://oauth2.mezon.ai/oauth2/token';
+const MEZON_USER_INFO_URL = 'https://oauth2.mezon.ai/userinfo';
+const REDIRECT_URI = process.env.REDIRECT_URI || 'https://m-game-portal.vercel.app/mezon-callback';
 
 app.post('/api/mezon/exchange', async (req, res) => {
   const { code, state, redirect_uri } = req.body;
@@ -48,6 +91,8 @@ app.post('/api/mezon/exchange', async (req, res) => {
   const finalRedirectUri = redirect_uri || REDIRECT_URI;
 
   try {
+    ensureFirebaseInitialized();
+
     console.log('Sending token request to Mezon...');
     
      const params = new URLSearchParams();
@@ -61,7 +106,8 @@ app.post('/api/mezon/exchange', async (req, res) => {
     const tokenResponse = await axios.post(MEZON_TOKEN_URL, params, {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
-      }
+      },
+      timeout: 15000
     });
 
     const { access_token } = tokenResponse.data;
@@ -70,7 +116,8 @@ app.post('/api/mezon/exchange', async (req, res) => {
     const userResponse = await axios.get(MEZON_USER_INFO_URL, {
       headers: {
         'Authorization': `Bearer ${access_token}`
-      }
+      },
+      timeout: 15000
     });
 
     const mezonUser = userResponse.data;

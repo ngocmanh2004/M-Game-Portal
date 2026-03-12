@@ -29,7 +29,11 @@ export const MezonCallback: React.FC<MezonCallbackProps> = ({ onSuccess, onError
 
       try {
         setStatus('Đang trao đổi token...');
-        const backendUrl = 'https://m-game-portal.vercel.app';
+        const configuredApiBase = process.env.REACT_APP_API_BASE_URL;
+        const defaultApiBase = window.location.hostname === 'localhost'
+          ? 'http://localhost:5000'
+          : 'https://m-game-portal.vercel.app';
+        const backendUrl = (configuredApiBase || defaultApiBase).replace(/\/$/, '');
         const currentRedirectUri = `${window.location.origin}/mezon-callback`;
 
         const response = await fetch(`${backendUrl}/api/mezon/exchange`, {
@@ -44,10 +48,23 @@ export const MezonCallback: React.FC<MezonCallbackProps> = ({ onSuccess, onError
           }),
         });
 
-        const data = await response.json();
+        const responseText = await response.text();
+        let data: any = {};
+
+        if (responseText) {
+          try {
+            data = JSON.parse(responseText);
+          } catch {
+            if (!response.ok) {
+              throw new Error(responseText);
+            }
+
+            throw new Error('Phản hồi từ server không đúng định dạng JSON.');
+          }
+        }
 
         if (!response.ok) {
-          throw new Error(data.error || 'Lỗi khi trao đổi token');
+          throw new Error(data.error || data.details || 'Lỗi khi trao đổi token');
         }
 
         const { customToken } = data;
