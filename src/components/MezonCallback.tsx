@@ -30,14 +30,9 @@ export const MezonCallback: React.FC<MezonCallbackProps> = ({ onSuccess, onError
 
       try {
         setStatus('Đang trao đổi token...');
-        
-        // ⭐ Tự động chọn URL backend: 
-        // Nếu đang ở localhost thì dùng localhost, ngược lại dùng URL của Render
-        const backendUrl = window.location.hostname === 'localhost' 
-          ? 'http://localhost:5000' 
-          : 'https://m-game-backend.onrender.com'; // Bạn sẽ thay cái này bằng URL Render cấp cho bạn
-
-        const response = await fetch(`${backendUrl}/api/mezon/exchange`, {
+        // 2. Gọi sang Backend của chúng ta (Node.js)
+        // Lưu ý: Thay đổi URL nếu bạn deploy backend lên host khác
+        const response = await fetch('http://localhost:5000/api/mezon/exchange', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
