@@ -1,13 +1,40 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { GameType } from '../types';
 import { Button } from './Button';
+import {
+  hasStoredAuthToken,
+  isAutoLoginBlocked,
+  isAutoLoginInProgress,
+  isMobileDevice,
+  startMezonOAuthLogin,
+} from '../utils/mezonOAuth';
 
 interface HomeProps {
   onSelectGame: (game: GameType) => void;
+  isAuthenticated?: boolean;
+  isAuthLoading?: boolean;
 }
 
-export const Home: React.FC<HomeProps> = ({ onSelectGame }) => {
+export const Home: React.FC<HomeProps> = ({
+  onSelectGame,
+  isAuthenticated = false,
+  isAuthLoading = false,
+}) => {
   const [onlinePlayers, setOnlinePlayers] = useState(1248);
+  const autoLoginTriggeredRef = useRef(false);
+
+  useEffect(() => {
+    if (isAuthLoading) return;
+    if (autoLoginTriggeredRef.current) return;
+    if (!isMobileDevice()) return;
+    if (isAuthenticated) return;
+    if (hasStoredAuthToken()) return;
+    if (isAutoLoginInProgress()) return;
+    if (isAutoLoginBlocked()) return;
+
+    autoLoginTriggeredRef.current = true;
+    startMezonOAuthLogin();
+  }, [isAuthLoading, isAuthenticated]);
 
   // simulate fluctuation in online players to make the lobby feel "live"
   useEffect(() => {

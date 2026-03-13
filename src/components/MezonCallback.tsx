@@ -1,6 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { auth } from '../firebase';
 import { signInWithCustomToken } from 'firebase/auth';
+import {
+  clearAutoLoginInProgress,
+  mezonStorageKeys,
+  persistAuthToken,
+  setAutoLoginBlock,
+} from '../utils/mezonOAuth';
 
 interface MezonCallbackProps {
   onSuccess: () => void;
@@ -8,27 +14,63 @@ interface MezonCallbackProps {
 }
 
 export const MezonCallback: React.FC<MezonCallbackProps> = ({ onSuccess, onError }) => {
-  const [status, setStatus] = useState('Đang xác thực với Mezon...');
-
   useEffect(() => {
+    const isPopupFlow = !!window.opener && window.opener !== window;
+
+    const finalizePopup = (payload: Record<string, string>) => {
+      if (!isPopupFlow || !window.opener || window.opener.closed) return;
+
+      window.opener.postMessage(
+        {
+          source: 'mezon-oauth',
+          ...payload,
+        },
+        window.location.origin
+      );
+
+      window.close();
+    };
+
+    const redirectToHome = () => {
+      window.location.replace('/');
+    };
+
+    const handleFailure = (message: string) => {
+      clearAutoLoginInProgress();
+      setAutoLoginBlock(60 * 1000);
+
+      if (isPopupFlow) {
+        finalizePopup({ status: 'error', message });
+        return;
+      }
+
+      onError(message);
+      redirectToHome();
+    };
+
     const handleCallback = async () => {
       const urlParams = new URLSearchParams(window.location.search);
       const code = urlParams.get('code');
       const state = urlParams.get('state');
+      const oauthError = urlParams.get('error');
 
-      if (!code || !state) {
-        onError('Không tìm thấy mã xác thực từ Mezon.');
+      if (oauthError) {
+        handleFailure('Mezon OAuth failed.');
         return;
       }
 
-      const savedState = sessionStorage.getItem('mezon_auth_state');
+      if (!code || !state) {
+        handleFailure('Missing OAuth code/state.');
+        return;
+      }
+
+      const savedState = sessionStorage.getItem(mezonStorageKeys.state);
       if (state !== savedState) {
-        onError('Xác thực chuỗi State không khớp. Có thể là một cuộc tấn công CSRF.');
+        handleFailure('Invalid OAuth state.');
         return;
       }
 
       try {
-        setStatus('Đang trao đổi token...');
         const configuredApiBase = process.env.REACT_APP_API_BASE_URL;
         const defaultApiBase = window.location.hostname === 'localhost'
           ? 'http://localhost:5000'
@@ -72,18 +114,25 @@ export const MezonCallback: React.FC<MezonCallbackProps> = ({ onSuccess, onError
         }
 
         const { customToken } = data;
+        if (!customToken || typeof customToken !== 'string') {
+          throw new Error('Missing custom token from backend.');
+        }
 
-        setStatus('Đang đăng nhập vào Minigame...');
+        persistAuthToken(customToken);
         await signInWithCustomToken(auth, customToken);
-        
-        sessionStorage.removeItem('mezon_auth_state');
-        
-        window.history.replaceState({}, document.title, "/");
-        
+
+        sessionStorage.removeItem(mezonStorageKeys.state);
+        clearAutoLoginInProgress();
+
+        if (isPopupFlow) {
+          finalizePopup({ status: 'success' });
+          return;
+        }
+
         onSuccess();
       } catch (err: any) {
         console.error('Mezon Callback Error:', err);
-        onError(err.message || 'Có lỗi xảy ra trong quá trình đăng nhập.');
+        handleFailure(err?.message || 'OAuth callback failed.');
       }
     };
 
@@ -91,14 +140,8 @@ export const MezonCallback: React.FC<MezonCallbackProps> = ({ onSuccess, onError
   }, [onSuccess, onError]);
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-[#0a0a1a] text-white p-6">
-      <div className="w-20 h-20 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mb-6"></div>
-      <h2 className="text-2xl font-bold mb-2">Vui lòng đợi</h2>
-      <p className="text-blue-200/70">{status}</p>
-      
-      <div className="mt-8 text-xs text-gray-500 italic">
-        Đang xử lý luồng bảo mật của Mezon OAuth2...
-      </div>
+    <div className="min-h-screen flex items-center justify-center bg-neutral-50">
+      <div className="w-8 h-8 border-2 border-neutral-300 border-t-neutral-600 rounded-full animate-spin" aria-label="Loading" />
     </div>
   );
 };

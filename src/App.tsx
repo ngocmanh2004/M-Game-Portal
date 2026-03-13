@@ -206,7 +206,13 @@ function App() {
   const renderGame = () => {
     switch (currentGame) {
       case GameType.HOME:
-        return <Home onSelectGame={setCurrentGame} />;
+        return (
+          <Home
+            onSelectGame={setCurrentGame}
+            isAuthenticated={Boolean(user)}
+            isAuthLoading={authLoading}
+          />
+        );
 
       case GameType.DASHBOARD:
         return <Dashboard playSound={playSound} />;

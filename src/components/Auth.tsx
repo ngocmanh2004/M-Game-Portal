@@ -1,6 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Button } from './Button';
 import { useAuth } from '../hooks/useAuth';
+import {
+  hasStoredAuthToken,
+  isAutoLoginBlocked,
+  isAutoLoginInProgress,
+  isMobileDevice,
+  startMezonOAuthLogin,
+} from '../utils/mezonOAuth';
 
 export const Auth: React.FC = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -8,8 +15,21 @@ export const Auth: React.FC = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const autoLoginTriggeredRef = useRef(false);
 
   const { register, login } = useAuth();
+
+  useEffect(() => {
+    if (autoLoginTriggeredRef.current) return;
+    if (!isMobileDevice()) return;
+    if (hasStoredAuthToken()) return;
+    if (isAutoLoginInProgress()) return;
+    if (isAutoLoginBlocked()) return;
+
+    autoLoginTriggeredRef.current = true;
+    setLoading(true);
+    startMezonOAuthLogin();
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -53,24 +73,7 @@ export const Auth: React.FC = () => {
   // ⭐ Hàm xử lý đăng nhập Mezon
   const handleMezonLogin = () => {
     setLoading(true);
-    // 1. Sinh chuỗi state 11 ký tự (chữ & số)
-    const charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    let state = "";
-    for (let i = 0; i < 11; i++) {
-      state += charset.charAt(Math.floor(Math.random() * charset.length));
-    }
-
-    // 2. Lưu state vào sessionStorage
-    sessionStorage.setItem('mezon_auth_state', state);
-
-    // 3. Cấu hình tham số
-    const clientId = "2031726261864239104";
-    const redirectUri = encodeURIComponent(`${window.location.origin}/mezon-callback`);
-    const scope = "openid";
-    const authUrl = `https://oauth2.mezon.ai/oauth2/auth?client_id=${clientId}&response_type=code&scope=${scope}&redirect_uri=${redirectUri}&state=${state}`;
-
-    // 4. Redirect
-    window.location.href = authUrl;
+    startMezonOAuthLogin();
   };
 
   return (
@@ -172,14 +175,14 @@ export const Auth: React.FC = () => {
               <span className="text-gray-500 text-sm">Hoặc</span>
               <div className="flex-1 h-[1px] bg-white/10"></div>
             </div>
-            
+
             <button
               onClick={handleMezonLogin}
               disabled={loading}
               className="w-full flex items-center justify-center gap-3 py-3.5 bg-[#4B2991] hover:bg-[#5D35B0] text-white rounded-xl font-bold transition-all border border-[#7C4DFF]/30 shadow-lg group disabled:opacity-50"
             >
               <img 
-                src="https://mezon.ai/wp-content/uploads/2023/10/Logo-Mezon-1.png" 
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTH3DI4Aqenhf8x4Si2IWRveQ5zYCqIJlCkUg&s"
                 alt="Mezon" 
                 className="w-6 h-6 object-contain group-hover:scale-110 transition-transform" 
               />
