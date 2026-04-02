@@ -120,16 +120,39 @@ app.post('/api/mezon/exchange', async (req, res) => {
       timeout: 15000
     });
 
-    const mezonUser = userResponse.data;
-    const mezonUserId = mezonUser.id || mezonUser.sub; 
+    const mezonUser = userResponse.data || {};
+    const mezonUserId = mezonUser.user_id || mezonUser.id || mezonUser.sub;
+    const mezonEmail = mezonUser.email || null;
+    const mezonAvatar =
+      mezonUser.avatar ||
+      mezonUser.avatar_url ||
+      mezonUser.picture ||
+      mezonUser.image_url ||
+      null;
+    const mezonUsername =
+      mezonUser.username ||
+      mezonUser.display_name ||
+      mezonUser.name ||
+      mezonUser.global_name ||
+      (mezonEmail ? String(mezonEmail).split('@')[0] : `mezon_${String(mezonUserId || '').slice(0, 8)}`);
 
     if (!mezonUserId) throw new Error('Could not get Mezon User ID');
 
     const customToken = await admin.auth().createCustomToken(String(mezonUserId), {
-      mezon_username: mezonUser.username || mezonUser.name
+      mezon_username: mezonUsername,
+      mezon_avatar: mezonAvatar || ''
     });
 
-    res.json({ customToken });
+    res.json({
+      customToken,
+      user: {
+        uid: String(mezonUserId),
+        email: mezonEmail,
+        username: mezonUsername,
+        avatar: mezonAvatar
+      },
+      mezonUser
+    });
 
   } catch (error) {
     console.error('Mezon exchange failed:', error.response?.data || error.message);

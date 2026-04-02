@@ -183,14 +183,14 @@ export const PIG_TYPES: PigType[] = [
 ];
 
 export const BACKGROUNDS_DESKTOP = [
-  { id: 'bg-tet1', name: 'Nền Tết Truyền Thống', url: '/assets/image/background/bg-tet1.png', class: 'bg-gradient-to-br from-red-900 to-red-700' },
+  { id: 'bg-tet1', name: 'Nền Tết Truyền Thống', url: '/assets/image/items/bg-hoamai.jpg', class: 'bg-gradient-to-br from-red-900 to-red-700' },
   { id: 'bg1', name: 'Đỏ Truyền Thống', url: '/assets/image/background/bg1.png', class: 'bg-gradient-to-br from-red-900 to-red-700' },
   { id: 'bg2', name: 'Vàng Rực Rỡ', url: '/assets/image/background/bg2.png', class: 'bg-gradient-to-br from-yellow-700 to-orange-600' },
   { id: 'bg3', name: 'Hồng Phấn', url: '/assets/image/background/bg3.png', class: 'bg-gradient-to-br from-pink-600 to-purple-700' }
 ];
 
 export const BACKGROUNDS_MOBILE = [
-  { id: 'bg-mobile1', name: 'Nền Tết Mobile', url: '/assets/image/items/bg-noel1.jpg', class: 'bg-gradient-to-br from-red-900 to-red-700' },
+  { id: 'bg-mobile1', name: 'Nền Tết Mobile', url: '/assets/image/items/bg-hoamai.jpg', class: 'bg-gradient-to-br from-red-900 to-red-700' },
   { id: 'bg-mb1', name: 'Đỏ Di Động', url: '/assets/image/background/bg-mb1.png', class: 'bg-gradient-to-br from-red-800 to-red-600' },
   { id: 'bg-mb2', name: 'Vàng Di Động', url: '/assets/image/background/bg-mb2.png', class: 'bg-gradient-to-br from-yellow-600 to-orange-500' }
 ];
@@ -349,7 +349,7 @@ export const SHOP_ITEMS: ShopItem[] = [
     price: 1000000,
     type: ItemType.BACKGROUND,
     description: 'Background giáng sinh ấm áp',
-    imageUrl: '/assets/image/items/bg-noel1.jpg',
+    imageUrl: '/assets/image/items/bg-hoamai.jpg',
     stock: 999
   },
 
@@ -506,4 +506,6 @@ export const SHOP_ITEMS: ShopItem[] = [
 
 // ⭐ Avatar & Background mặc định
 export const DEFAULT_AVATAR = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNq2dnEsfUtG9oo4bSvx2TNBGlfrOm1olCPQ&s';
-export const DEFAULT_BACKGROUND = '/assets/image/background/bg1.png';
+export const DEFAULT_BACKGROUND = '/assets/image/items/bg-hoamai.jpg';
+
+

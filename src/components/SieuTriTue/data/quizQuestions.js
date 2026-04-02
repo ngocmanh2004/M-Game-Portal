@@ -3830,7 +3830,6 @@ export const quizQuestions = [
   //   "category": "công nghệ",
   //   "difficulty": "hard"
   // }
-,
   {
     "id": 501,
     "question": "Choose the correct plural form of 'child'.",

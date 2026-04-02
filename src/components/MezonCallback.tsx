@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import { auth } from '../firebase';
 import { signInWithCustomToken } from 'firebase/auth';
+import { doc, serverTimestamp, setDoc } from 'firebase/firestore';
+import { db } from '../firebase';
 import {
   clearAutoLoginInProgress,
   mezonStorageKeys,
@@ -119,7 +121,27 @@ export const MezonCallback: React.FC<MezonCallbackProps> = ({ onSuccess, onError
         }
 
         persistAuthToken(customToken);
-        await signInWithCustomToken(auth, customToken);
+        const userCredential = await signInWithCustomToken(auth, customToken);
+
+        // Sync profile fields from Mezon userinfo so UI can display avatar immediately.
+        const backendUser = data?.user || {};
+        const profilePatch: Record<string, any> = {
+          lastLogin: serverTimestamp(),
+        };
+        if (backendUser.email) {
+          profilePatch.email = backendUser.email;
+        }
+        if (backendUser.username) {
+          profilePatch.nickname = backendUser.username;
+        }
+        if (backendUser.avatar) {
+          profilePatch.avatar = backendUser.avatar;
+        }
+        if (backendUser.uid) {
+          profilePatch.mezonUid = String(backendUser.uid);
+        }
+
+        await setDoc(doc(db, 'users', userCredential.user.uid), profilePatch, { merge: true });
 
         sessionStorage.removeItem(mezonStorageKeys.state);
         clearAutoLoginInProgress();
