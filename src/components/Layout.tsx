@@ -13,6 +13,7 @@ import { trackQuestProgress } from '../hooks/useDailyQuests';
 interface LayoutProps {
   children: React.ReactNode;
   user: User;
+  authProviderLabel?: string;
   onGoHome: () => void;
   onLogout: () => void;
   title: string;
@@ -27,6 +28,7 @@ interface LayoutProps {
 
 export const Layout: React.FC<LayoutProps> = ({
   user,
+  authProviderLabel = 'Tài khoản',
   onGoHome,
   onLogout,
   title,
@@ -232,6 +234,10 @@ export const Layout: React.FC<LayoutProps> = ({
                   </span>
                 </button>
 
+                <span className="text-[11px] px-2 py-1 rounded-full bg-blue-500/20 text-blue-200 border border-blue-400/30">
+                  {authProviderLabel}
+                </span>
+
                 {/* Sound */}
                 <button onClick={toggleSound} className="p-2 rounded-xl text-gray-400 hover:text-white hover:bg-white/10 transition-all" title={isMuted ? 'Bật âm' : 'Tắt âm'}>
                   <img src={isMuted ? ASSETS.soundOff : ASSETS.soundOn} alt="Sound" className="w-5 h-5" />
@@ -242,7 +248,7 @@ export const Layout: React.FC<LayoutProps> = ({
                   onClick={onLogout}
                   className="bg-red-500/20 hover:bg-red-500/40 border border-red-500/40 text-red-300 hover:text-white font-bold px-4 py-1.5 rounded-xl transition-all text-sm active:scale-95"
                 >
-                  Đăng Xuất
+                  Đăng xuất
                 </button>
               </div>
 
@@ -299,6 +305,7 @@ export const Layout: React.FC<LayoutProps> = ({
               <div className="flex-1 min-w-0">
                 <p className="text-white font-bold truncate">{user.email?.split('@')[0]}</p>
                 <p className="text-gray-400 text-xs truncate">{user.email}</p>
+                <p className="text-blue-300 text-[11px] mt-0.5">{authProviderLabel}</p>
               </div>
               <div className="bg-yellow-400 text-black font-black text-xs px-3 py-1.5 rounded-full">
                 {formatCurrency(user.balance)}
@@ -336,7 +343,7 @@ export const Layout: React.FC<LayoutProps> = ({
                   onClick={() => { onLogout(); setShowMobileMenu(false); }}
                   className="w-full text-left px-4 py-3 rounded-xl font-semibold text-sm text-red-400 hover:text-white hover:bg-red-500/20 transition-all active:scale-95 border border-red-500/20"
                 >
-                  Đăng Xuất
+                  Đăng xuất
                 </button>
               </div>
             </div>

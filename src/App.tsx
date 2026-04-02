@@ -25,6 +25,7 @@ import { XiDach } from './components/XiDach/lobby/XiDach';
 import { CaCaNgu } from './components/CaCaNgu/CaCaNgu';
 import { AiThongMinhHon } from './components/SieuTriTue/AiThongMinhHon/AiThongMinhHon';
 import { MezonCallback } from './components/MezonCallback';
+import { hasStoredAuthToken } from './utils/mezonOAuth';
 
 function App() {
   const { user, loading: authLoading, logout } = useAuth();
@@ -36,6 +37,17 @@ function App() {
   const [notification, setNotification] = useState<{ message: string; type: 'win' | 'loss' } | null>(null);
   const [selectedUser, setSelectedUser] = useState<string | null>(null);
   const [isPlayingInternalMusic, setIsPlayingInternalMusic] = useState(false);
+
+  const authProviderLabel = (() => {
+    if (!user) return 'Tài khoản';
+
+    const providerIds = user.providerData.map((provider) => provider.providerId);
+    if (providerIds.includes('google.com')) return 'Google';
+    if (providerIds.includes('password')) return 'Email';
+    if (providerIds.includes('custom') || hasStoredAuthToken()) return 'Mezon';
+
+    return 'Tài khoản';
+  })();
 
   // ⭐ Kiểm tra xem có đang ở trang callback của Mezon không
   const isMezonCallback = window.location.pathname === '/mezon-callback';
@@ -429,6 +441,7 @@ function App() {
         avatar: userData.avatar || undefined,
         background: userData.background || undefined
       }}
+      authProviderLabel={authProviderLabel}
       onGoHome={handleGoHome}
       onLogout={handleLogout}  // ⭐ SỬA ĐÂY
       title={getTitle()}
