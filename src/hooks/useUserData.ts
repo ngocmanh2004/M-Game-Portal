@@ -2,8 +2,6 @@ import { useState, useEffect } from 'react';
 import { doc, updateDoc, increment, onSnapshot, getDoc } from 'firebase/firestore'; // ⭐ THÊM getDoc
 import { db } from '../firebase';
 import { UserData } from '../types';
-import { SHOP_ITEMS } from '../constants';
-import { ItemType } from '../types';
 
 export const useUserData = (userId: string | undefined) => {
   const [userData, setUserData] = useState<UserData | null>(null);
