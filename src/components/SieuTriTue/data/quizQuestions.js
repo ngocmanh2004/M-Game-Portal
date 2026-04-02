@@ -3830,4 +3830,245 @@ export const quizQuestions = [
   //   "category": "công nghệ",
   //   "difficulty": "hard"
   // }
+,
+  {
+    "id": 501,
+    "question": "Choose the correct plural form of 'child'.",
+    "options": ["childs", "children", "childes", "childrens"],
+    "correctIndex": 1,
+    "category": "english",
+    "difficulty": "easy"
+  },
+  {
+    "id": 502,
+    "question": "Which word is a verb?",
+    "options": ["happiness", "quickly", "decide", "beautiful"],
+    "correctIndex": 2,
+    "category": "english",
+    "difficulty": "easy"
+  },
+  {
+    "id": 503,
+    "question": "Fill in the blank: She ____ to school every day.",
+    "options": ["go", "goes", "going", "gone"],
+    "correctIndex": 1,
+    "category": "english",
+    "difficulty": "easy"
+  },
+  {
+    "id": 504,
+    "question": "Which sentence is correct?",
+    "options": ["He don't like coffee.", "He doesn't likes coffee.", "He doesn't like coffee.", "He not like coffee."],
+    "correctIndex": 2,
+    "category": "english",
+    "difficulty": "easy"
+  },
+  {
+    "id": 505,
+    "question": "What is the opposite of 'cheap'?",
+    "options": ["small", "expensive", "simple", "narrow"],
+    "correctIndex": 1,
+    "category": "english",
+    "difficulty": "easy"
+  },
+  {
+    "id": 506,
+    "question": "Choose the correct article: I saw ____ elephant at the zoo.",
+    "options": ["a", "an", "the", "no article"],
+    "correctIndex": 1,
+    "category": "english",
+    "difficulty": "easy"
+  },
+  {
+    "id": 507,
+    "question": "Which word is an adjective?",
+    "options": ["run", "blue", "quickly", "teacher"],
+    "correctIndex": 1,
+    "category": "english",
+    "difficulty": "easy"
+  },
+  {
+    "id": 508,
+    "question": "Fill in the blank: They ____ playing football now.",
+    "options": ["is", "am", "are", "be"],
+    "correctIndex": 2,
+    "category": "english",
+    "difficulty": "easy"
+  },
+  {
+    "id": 509,
+    "question": "Which is the correct past form of 'eat'?",
+    "options": ["eated", "ate", "eaten", "eats"],
+    "correctIndex": 1,
+    "category": "english",
+    "difficulty": "easy"
+  },
+  {
+    "id": 510,
+    "question": "Choose the correct preposition: The book is ____ the table.",
+    "options": ["in", "on", "at", "to"],
+    "correctIndex": 1,
+    "category": "english",
+    "difficulty": "easy"
+  },
+  {
+    "id": 511,
+    "question": "Fill in the blank: If it ____ tomorrow, we will stay home.",
+    "options": ["rain", "rains", "rained", "will rain"],
+    "correctIndex": 1,
+    "category": "english",
+    "difficulty": "medium"
+  },
+  {
+    "id": 512,
+    "question": "Choose the best synonym of 'rapid'.",
+    "options": ["slow", "quick", "weak", "rare"],
+    "correctIndex": 1,
+    "category": "english",
+    "difficulty": "medium"
+  },
+  {
+    "id": 513,
+    "question": "Which sentence uses present perfect correctly?",
+    "options": ["I have saw that movie.", "I have seen that movie.", "I has seen that movie.", "I seen that movie."],
+    "correctIndex": 1,
+    "category": "english",
+    "difficulty": "medium"
+  },
+  {
+    "id": 514,
+    "question": "Fill in the blank: This is the city ____ I was born.",
+    "options": ["which", "where", "who", "when"],
+    "correctIndex": 1,
+    "category": "english",
+    "difficulty": "medium"
+  },
+  {
+    "id": 515,
+    "question": "Choose the correct reported speech: He said, 'I am tired.'",
+    "options": ["He said that he is tired.", "He said that he was tired.", "He said he tired.", "He said that I was tired."],
+    "correctIndex": 1,
+    "category": "english",
+    "difficulty": "medium"
+  },
+  {
+    "id": 516,
+    "question": "Which word is closest in meaning to 'assist'?",
+    "options": ["help", "avoid", "ignore", "delay"],
+    "correctIndex": 0,
+    "category": "english",
+    "difficulty": "medium"
+  },
+  {
+    "id": 517,
+    "question": "Choose the correct form: She is interested ____ learning Spanish.",
+    "options": ["in", "on", "at", "for"],
+    "correctIndex": 0,
+    "category": "english",
+    "difficulty": "medium"
+  },
+  {
+    "id": 518,
+    "question": "Fill in the blank: By the time we arrived, the film ____.",
+    "options": ["starts", "had started", "has started", "was starting"],
+    "correctIndex": 1,
+    "category": "english",
+    "difficulty": "medium"
+  },
+  {
+    "id": 519,
+    "question": "Choose the correctly punctuated sentence.",
+    "options": ["Lets eat grandma.", "Let's eat, grandma.", "Lets, eat grandma.", "Let's eat grandma,"],
+    "correctIndex": 1,
+    "category": "english",
+    "difficulty": "medium"
+  },
+  {
+    "id": 520,
+    "question": "Which sentence is in passive voice?",
+    "options": ["They built the bridge in 2010.", "The bridge was built in 2010.", "They are building the bridge.", "They will build the bridge."],
+    "correctIndex": 1,
+    "category": "english",
+    "difficulty": "medium"
+  },
+  {
+    "id": 521,
+    "question": "Choose the best word: The explanation was so ____ that everyone understood.",
+    "options": ["obscure", "clear", "vague", "confusing"],
+    "correctIndex": 1,
+    "category": "english",
+    "difficulty": "hard"
+  },
+  {
+    "id": 522,
+    "question": "Which sentence has correct subject-verb agreement?",
+    "options": ["Neither of the answers are correct.", "Neither of the answers is correct.", "Neither answers is correct.", "Neither are correct the answers."],
+    "correctIndex": 1,
+    "category": "english",
+    "difficulty": "hard"
+  },
+  {
+    "id": 523,
+    "question": "Fill in the blank: Had she known, she ____ earlier.",
+    "options": ["would come", "would have come", "will come", "came"],
+    "correctIndex": 1,
+    "category": "english",
+    "difficulty": "hard"
+  },
+  {
+    "id": 524,
+    "question": "Choose the best replacement for 'very important' in formal writing.",
+    "options": ["super important", "crucial", "big", "majorly needed"],
+    "correctIndex": 1,
+    "category": "english",
+    "difficulty": "hard"
+  },
+  {
+    "id": 525,
+    "question": "Which sentence is grammatically correct?",
+    "options": ["The data is reliable and support the claim.", "The data are reliable and support the claim.", "The data are reliable and supports the claim.", "The data is reliable and supports the claim."],
+    "correctIndex": 1,
+    "category": "english",
+    "difficulty": "hard"
+  },
+  {
+    "id": 526,
+    "question": "Identify the sentence with a dangling modifier.",
+    "options": ["Walking to the station, the rain started heavily.", "Walking to the station, I got soaked.", "I got soaked while walking to the station.", "While I walked to the station, it rained heavily."],
+    "correctIndex": 0,
+    "category": "english",
+    "difficulty": "hard"
+  },
+  {
+    "id": 527,
+    "question": "Choose the correct connector: He is strict, ____ he is fair.",
+    "options": ["because", "but", "so", "unless"],
+    "correctIndex": 1,
+    "category": "english",
+    "difficulty": "hard"
+  },
+  {
+    "id": 528,
+    "question": "Fill in the blank: No sooner ____ than the lights went out.",
+    "options": ["we sat down", "had we sat down", "we had sat down", "did we sit down"],
+    "correctIndex": 1,
+    "category": "english",
+    "difficulty": "hard"
+  },
+  {
+    "id": 529,
+    "question": "Choose the sentence with correct parallel structure.",
+    "options": ["She likes reading, to swim, and biking.", "She likes to read, to swim, and to bike.", "She likes reading, swimming, and to bike.", "She likes read, swim, and biking."],
+    "correctIndex": 1,
+    "category": "english",
+    "difficulty": "hard"
+  },
+  {
+    "id": 530,
+    "question": "Which sentence is most concise?",
+    "options": ["Due to the fact that it rained, the match was canceled.", "The match was canceled because of rain.", "It rained, and for that reason, the match was canceled.", "The match got canceled in view of the rain."],
+    "correctIndex": 1,
+    "category": "english",
+    "difficulty": "hard"
+  }
 ];
