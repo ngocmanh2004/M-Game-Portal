@@ -29,6 +29,13 @@ const ANSWER_LABELS = ['A', 'B', 'C', 'D'];
 
 const CONFETTI_COLORS = ['#fbbf24', '#3b82f6', '#22c55e', '#ef4444', '#a855f7', '#ec4899', '#f97316'];
 
+function isCorrectAnswer(answerIndex: any, correctIndex: any): boolean {
+  const parsedAnswer = Number(answerIndex);
+  const parsedCorrect = Number(correctIndex);
+  if (!Number.isInteger(parsedAnswer) || !Number.isInteger(parsedCorrect)) return false;
+  return parsedAnswer === parsedCorrect;
+}
+
 function ConfettiParticle({ index }: { index: number }) {
   const left = `${(index * 37 + 13) % 100}%`;
   const delay = `${(index * 0.15) % 3}s`;
@@ -130,7 +137,7 @@ export const GameBoard: React.FC<Props> = ({ user, roomId, onBackToLobby }) => {
     const myAnswer = room?.answers?.[questionKey]?.[user.uid];
     const roundIdx = (room.currentRound || 1) - 1;
     const q = room?.questions?.[roundIdx]?.[room?.currentQuestionIndex || 0];
-    const isCorrect = myAnswer && q && myAnswer.answerIndex === q.correctIndex;
+    const isCorrect = myAnswer && q && isCorrectAnswer(myAnswer.answerIndex, q.correctIndex);
     if (isCorrect) {
       winAudioRef.current && (winAudioRef.current.currentTime = 0);
       winAudioRef.current?.play().catch(() => { });
@@ -252,7 +259,8 @@ export const GameBoard: React.FC<Props> = ({ user, roomId, onBackToLobby }) => {
   const myPlayer = room?.players?.[user.uid];
   const isSpectator = myPlayer?.isEliminated || myPlayer?.isSpectator;
   const myAnswer = room?.answers?.[questionKey]?.[user.uid];
-  const isMyAnswerCorrect = myAnswer && currentQ && myAnswer.answerIndex === currentQ.correctIndex;
+  const isMyAnswerCorrect = myAnswer && currentQ && isCorrectAnswer(myAnswer.answerIndex, currentQ.correctIndex);
+  const hasMyAnswer = myAnswer !== undefined && myAnswer !== null;
   const timerRadius = 36;
   const timerCircumference = 2 * Math.PI * timerRadius;
   const timerProgress = timeLeft / (room.timeLimit || 10);
@@ -265,7 +273,7 @@ export const GameBoard: React.FC<Props> = ({ user, roomId, onBackToLobby }) => {
 
   const getButtonStyleClean = (index: number): string => {
     if (room.phase === 'reveal' && currentQ) {
-      const isCorrect = index === currentQ.correctIndex;
+      const isCorrect = isCorrectAnswer(index, currentQ.correctIndex);
       const isSelected = index === selectedAnswer;
       if (isSelected && isMyAnswerCorrect) {
         return 'bg-green-500 shadow-[0_0_20px_#22c55e] border-green-400 text-white scale-105';
@@ -723,8 +731,16 @@ export const GameBoard: React.FC<Props> = ({ user, roomId, onBackToLobby }) => {
         {currentQ ? (
           <div className="slide-in-top bg-white/5 border border-white/10 rounded-2xl p-4 flex-shrink-0 relative">
             {room.phase === 'reveal' && (
-              <div className={`absolute top-3 right-3 px-3 py-1 rounded-full text-xs font-black border ${isMyAnswerCorrect ? 'bg-green-500/20 text-green-400 border-green-500/50' : 'bg-red-500/20 text-red-400 border-red-500/50'}`}>
-                {isMyAnswerCorrect ? '✓ ĐÚNG' : '✗ SAI'}
+              <div
+                className={`absolute top-3 right-3 px-3 py-1 rounded-full text-xs font-black border ${
+                  !hasMyAnswer
+                    ? 'bg-amber-500/20 text-amber-300 border-amber-500/50'
+                    : isMyAnswerCorrect
+                      ? 'bg-green-500/20 text-green-400 border-green-500/50'
+                      : 'bg-red-500/20 text-red-400 border-red-500/50'
+                }`}
+              >
+                {!hasMyAnswer ? '... CHUA TRA LOI' : isMyAnswerCorrect ? 'DUNG' : 'SAI'}
               </div>
             )}
             {currentQ.category && (
@@ -909,3 +925,4 @@ export const GameBoard: React.FC<Props> = ({ user, roomId, onBackToLobby }) => {
     </div>
   );
 };
+

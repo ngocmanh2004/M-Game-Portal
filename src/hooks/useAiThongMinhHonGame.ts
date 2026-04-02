@@ -31,6 +31,47 @@ function shuffleArray<T>(arr: T[]): T[] {
   return a;
 }
 
+function normalizeQuestion(q: any, timeLimit: number): QuizRoomQuestion | null {
+  const rawOptions: unknown[] = Array.isArray(q?.options) ? q.options : [];
+  const options: string[] = rawOptions.map((option: unknown) => String(option));
+  if (options.length < 2) return null;
+
+  const parsedCorrectIndex = Number(q?.correctIndex);
+  let sourceCorrectIndex = Number.isInteger(parsedCorrectIndex) ? parsedCorrectIndex : -1;
+
+  if (sourceCorrectIndex < 0 || sourceCorrectIndex >= options.length) {
+    const fallbackAnswer = typeof q?.correctAnswer === 'string' ? q.correctAnswer : '';
+    sourceCorrectIndex = options.findIndex((opt: string) => opt === fallbackAnswer);
+  }
+
+  if (sourceCorrectIndex < 0 || sourceCorrectIndex >= options.length) {
+    sourceCorrectIndex = 0;
+  }
+
+  const shuffledOptionsWithOrigin: Array<{ option: string; originalIndex: number }> = shuffleArray(
+    options.map((option: string, originalIndex: number) => ({ option, originalIndex }))
+  );
+  let newCorrectIndex = shuffledOptionsWithOrigin.findIndex(
+    (item: { option: string; originalIndex: number }) => item.originalIndex === sourceCorrectIndex
+  );
+  if (newCorrectIndex < 0) newCorrectIndex = 0;
+
+  const difficulty: 'easy' | 'medium' | 'hard' =
+    q?.difficulty === 'easy' || q?.difficulty === 'medium' || q?.difficulty === 'hard'
+      ? q.difficulty
+      : 'easy';
+
+  return {
+    id: q.id,
+    question: String(q.question || ''),
+    options: shuffledOptionsWithOrigin.map((item: { option: string; originalIndex: number }) => item.option),
+    correctIndex: newCorrectIndex,
+    category: String(q.category || ''),
+    difficulty,
+    timeLimit,
+  };
+}
+
 function selectQuestions(): QuizRoomQuestion[][] {
   const easyPool = (quizQuestions as any[]).filter((q) => q.difficulty === 'easy');
   const mediumPool = (quizQuestions as any[]).filter((q) => q.difficulty === 'medium');
@@ -41,26 +82,24 @@ function selectQuestions(): QuizRoomQuestion[][] {
     return shuffled.slice(0, count);
   };
 
-  const shuffleOptions = (q: any, timeLimit: number): QuizRoomQuestion => {
-    const correctAnswer = q.options[q.correctIndex];
-    const shuffledOptions = shuffleArray([...q.options]);
-    const newCorrectIndex = shuffledOptions.indexOf(correctAnswer);
-    return {
-      id: q.id,
-      question: q.question,
-      options: shuffledOptions,
-      correctIndex: newCorrectIndex,
-      category: q.category,
-      difficulty: q.difficulty,
-      timeLimit,
-    };
-  };
-
-  const round1 = pickRandom(easyPool, 10).map((q) => shuffleOptions(q, 10));
-  const round2 = pickRandom(mediumPool, 10).map((q) => shuffleOptions(q, 8));
-  const round3 = pickRandom(hardPool, 10).map((q) => shuffleOptions(q, 7));
+  const round1 = pickRandom(easyPool, 10)
+    .map((q) => normalizeQuestion(q, 10))
+    .filter(Boolean) as QuizRoomQuestion[];
+  const round2 = pickRandom(mediumPool, 10)
+    .map((q) => normalizeQuestion(q, 8))
+    .filter(Boolean) as QuizRoomQuestion[];
+  const round3 = pickRandom(hardPool, 10)
+    .map((q) => normalizeQuestion(q, 7))
+    .filter(Boolean) as QuizRoomQuestion[];
 
   return [round1, round2, round3];
+}
+
+function isCorrectAnswer(answerIndex: any, correctIndex: any): boolean {
+  const parsedAnswer = Number(answerIndex);
+  const parsedCorrect = Number(correctIndex);
+  if (!Number.isInteger(parsedAnswer) || !Number.isInteger(parsedCorrect)) return false;
+  return parsedAnswer === parsedCorrect;
 }
 
 export function useAiThongMinhHonGame(roomId: string, uid: string) {
@@ -124,7 +163,7 @@ export function useAiThongMinhHonGame(roomId: string, uid: string) {
     Object.entries(r.players || {}).forEach(([playerUid, player]: any) => {
       if (player.isEliminated) return;
       const answer = questionAnswers[playerUid];
-      const isCorrect = answer && answer.answerIndex === currentQ.correctIndex;
+      const isCorrect = answer && isCorrectAnswer(answer.answerIndex, currentQ.correctIndex);
       if (isCorrect) {
         correctSubmissions.push({ uid: playerUid, answerTime: answer.answerTime || Number.MAX_VALUE });
       }
@@ -160,7 +199,7 @@ export function useAiThongMinhHonGame(roomId: string, uid: string) {
       let gainedPoints = 0;
       let speedRank = 0;
 
-      if (answer && answer.answerIndex === currentQ.correctIndex) {
+      if (answer && isCorrectAnswer(answer.answerIndex, currentQ.correctIndex)) {
         const stats = pointsMap[playerUid];
         if (stats) {
           gainedPoints = stats.points;
