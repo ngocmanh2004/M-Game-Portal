@@ -5,6 +5,7 @@ import { doc, serverTimestamp, setDoc } from 'firebase/firestore';
 import { db } from '../firebase';
 import {
   clearAutoLoginInProgress,
+  isPopupCallbackWindow,
   mezonStorageKeys,
   persistAuthToken,
   setAutoLoginBlock,
@@ -17,7 +18,7 @@ interface MezonCallbackProps {
 
 export const MezonCallback: React.FC<MezonCallbackProps> = ({ onSuccess, onError }) => {
   useEffect(() => {
-    const isPopupFlow = !!window.opener && window.opener !== window;
+    const isPopupFlow = isPopupCallbackWindow();
 
     const finalizePopup = (payload: Record<string, string>) => {
       if (!isPopupFlow || !window.opener || window.opener.closed) return;

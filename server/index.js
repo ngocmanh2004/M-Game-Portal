@@ -75,10 +75,10 @@ app.use(express.urlencoded({ extended: true }));
 
 const PORT = process.env.PORT || 5000;
 
-const MEZON_CLIENT_ID = process.env.MEZON_CLIENT_ID || '2031726261864239104';
-const MEZON_CLIENT_SECRET = process.env.MEZON_CLIENT_SECRET || 'mGtQINbpnKyOcdSY';
-const MEZON_TOKEN_URL = 'https://oauth2.mezon.ai/oauth2/token';
-const MEZON_USER_INFO_URL = 'https://oauth2.mezon.ai/userinfo';
+const MEZON_CLIENT_ID = process.env.MEZON_CLIENT_ID;
+const MEZON_CLIENT_SECRET = process.env.MEZON_CLIENT_SECRET;
+const MEZON_TOKEN_URL = process.env.MEZON_TOKEN_URL || 'https://oauth2.mezon.ai/oauth2/token';
+const MEZON_USER_INFO_URL = process.env.MEZON_USER_INFO_URL || 'https://oauth2.mezon.ai/userinfo';
 const REDIRECT_URI = process.env.REDIRECT_URI || 'https://m-game-portal.vercel.app/mezon-callback';
 
 app.post('/api/mezon/exchange', async (req, res) => {
@@ -89,6 +89,13 @@ app.post('/api/mezon/exchange', async (req, res) => {
   }
 
   const finalRedirectUri = redirect_uri || REDIRECT_URI;
+
+  if (!MEZON_CLIENT_ID || !MEZON_CLIENT_SECRET) {
+    return res.status(500).json({
+      error: 'Server OAuth configuration is missing',
+      details: 'Set MEZON_CLIENT_ID and MEZON_CLIENT_SECRET environment variables.'
+    });
+  }
 
   try {
     ensureFirebaseInitialized();

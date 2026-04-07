@@ -5,6 +5,7 @@ const AUTO_LOGIN_IN_PROGRESS_KEY = 'mezon_auto_login_in_progress_at';
 const AUTO_LOGIN_BLOCK_UNTIL_KEY = 'mezon_auto_login_block_until';
 const AUTH_TOKEN_KEY = 'auth_token';
 const AUTO_LOGIN_IN_PROGRESS_TTL_MS = 5 * 60 * 1000;
+const MEZON_POPUP_WINDOW_NAME = 'mezon-oauth-login';
 
 type MezonOAuthConfig = {
   clientId: string;
@@ -13,11 +14,23 @@ type MezonOAuthConfig = {
   scope: string;
 };
 
+type MezonOAuthStartMode = 'auto' | 'popup' | 'redirect';
+
+type StartMezonOAuthLoginOptions = {
+  mode?: MezonOAuthStartMode;
+};
+
 export const mezonStorageKeys = {
   state: MEZON_AUTH_STATE_KEY,
   autoLoginInProgress: AUTO_LOGIN_IN_PROGRESS_KEY,
   autoLoginBlockUntil: AUTO_LOGIN_BLOCK_UNTIL_KEY,
   authToken: AUTH_TOKEN_KEY,
+};
+
+export const mezonPopupWindowName = MEZON_POPUP_WINDOW_NAME;
+
+export const isPopupCallbackWindow = (): boolean => {
+  return window.name === MEZON_POPUP_WINDOW_NAME && !!window.opener && window.opener !== window;
 };
 
 export const isMobileDevice = (userAgent: string = navigator.userAgent): boolean => {
@@ -135,8 +148,29 @@ export const isAutoLoginBlocked = (): boolean => {
   return true;
 };
 
-export const startMezonOAuthLogin = (): void => {
+const getPopupFeatures = (): string => {
+  const width = 520;
+  const height = 720;
+  const left = Math.max(0, Math.floor(window.screenX + (window.outerWidth - width) / 2));
+  const top = Math.max(0, Math.floor(window.screenY + (window.outerHeight - height) / 2));
+
+  return `popup=yes,width=${width},height=${height},left=${left},top=${top},resizable=yes,scrollbars=yes`;
+};
+
+export const startMezonOAuthLogin = (options: StartMezonOAuthLoginOptions = {}): Window | null => {
   markAutoLoginInProgress();
   const authorizeUrl = buildMezonAuthorizeUrl();
+  const mode = options.mode ?? 'auto';
+  const shouldUsePopup = mode === 'popup' || (mode === 'auto' && !isMobileDevice());
+
+  if (shouldUsePopup) {
+    const popup = window.open(authorizeUrl, MEZON_POPUP_WINDOW_NAME, getPopupFeatures());
+    if (popup && !popup.closed) {
+      popup.focus();
+      return popup;
+    }
+  }
+
   window.location.assign(authorizeUrl);
+  return null;
 };

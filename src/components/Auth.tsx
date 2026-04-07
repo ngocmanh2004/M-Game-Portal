@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Button } from './Button';
 import { useAuth } from '../hooks/useAuth';
 import {
+  clearAutoLoginInProgress,
   hasStoredAuthToken,
   isAutoLoginBlocked,
   isAutoLoginInProgress,
@@ -10,12 +11,17 @@ import {
 } from '../utils/mezonOAuth';
 
 export const Auth: React.FC = () => {
+  const POPUP_FLOW_TIMEOUT_MS = 2 * 60 * 1000;
+
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const autoLoginTriggeredRef = useRef(false);
+  const mezonPopupRef = useRef<Window | null>(null);
+  const popupMonitorRef = useRef<number | null>(null);
+  const popupTimeoutRef = useRef<number | null>(null);
 
   const { register, login, loginWithGoogle } = useAuth();
   const enableAutoMezonLogin = (process.env.REACT_APP_AUTO_MEZON_LOGIN ?? 'false') === 'true';
@@ -30,8 +36,51 @@ export const Auth: React.FC = () => {
 
     autoLoginTriggeredRef.current = true;
     setLoading(true);
-    startMezonOAuthLogin();
+    startMezonOAuthLogin({ mode: 'redirect' });
   }, [enableAutoMezonLogin]);
+
+  useEffect(() => {
+    const handleMezonMessage = (event: MessageEvent) => {
+      if (event.origin !== window.location.origin) return;
+
+      const data = event.data;
+      if (!data || data.source !== 'mezon-oauth') return;
+
+      if (popupMonitorRef.current) {
+        window.clearInterval(popupMonitorRef.current);
+        popupMonitorRef.current = null;
+      }
+      if (popupTimeoutRef.current) {
+        window.clearTimeout(popupTimeoutRef.current);
+        popupTimeoutRef.current = null;
+      }
+      mezonPopupRef.current = null;
+
+      if (data.status === 'success') {
+        setError('');
+        setLoading(false);
+        window.location.assign('/');
+        return;
+      }
+
+      setError(typeof data.message === 'string' ? data.message : 'Đăng nhập Mezon thất bại.');
+      setLoading(false);
+    };
+
+    window.addEventListener('message', handleMezonMessage);
+
+    return () => {
+      window.removeEventListener('message', handleMezonMessage);
+      if (popupMonitorRef.current) {
+        window.clearInterval(popupMonitorRef.current);
+        popupMonitorRef.current = null;
+      }
+      if (popupTimeoutRef.current) {
+        window.clearTimeout(popupTimeoutRef.current);
+        popupTimeoutRef.current = null;
+      }
+    };
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -73,8 +122,52 @@ export const Auth: React.FC = () => {
   };
 
   const handleMezonLogin = () => {
+    setError('');
     setLoading(true);
-    startMezonOAuthLogin();
+
+    const mode = isMobileDevice() ? 'redirect' : 'popup';
+    const popup = startMezonOAuthLogin({ mode });
+
+    if (mode === 'popup') {
+      if (!popup) {
+        clearAutoLoginInProgress();
+        setError('Trình duyệt đã chặn popup. Đang chuyển sang đăng nhập trực tiếp...');
+        return;
+      }
+
+      mezonPopupRef.current = popup;
+
+      if (popupMonitorRef.current) {
+        window.clearInterval(popupMonitorRef.current);
+      }
+      if (popupTimeoutRef.current) {
+        window.clearTimeout(popupTimeoutRef.current);
+      }
+
+      popupMonitorRef.current = window.setInterval(() => {
+        if (!mezonPopupRef.current || !mezonPopupRef.current.closed) return;
+
+        window.clearInterval(popupMonitorRef.current!);
+        popupMonitorRef.current = null;
+        mezonPopupRef.current = null;
+        setLoading(false);
+      }, 500);
+
+      popupTimeoutRef.current = window.setTimeout(() => {
+        if (!mezonPopupRef.current || mezonPopupRef.current.closed) return;
+
+        mezonPopupRef.current.close();
+        mezonPopupRef.current = null;
+
+        if (popupMonitorRef.current) {
+          window.clearInterval(popupMonitorRef.current);
+          popupMonitorRef.current = null;
+        }
+
+        setLoading(false);
+        setError('Đăng nhập Mezon quá thời gian chờ. Vui lòng thử lại.');
+      }, POPUP_FLOW_TIMEOUT_MS);
+    }
   };
 
   const handleGoogleLogin = async () => {
