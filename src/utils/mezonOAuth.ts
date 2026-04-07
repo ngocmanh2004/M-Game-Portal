@@ -149,8 +149,10 @@ export const isAutoLoginBlocked = (): boolean => {
 };
 
 const getPopupFeatures = (): string => {
-  const width = 520;
-  const height = 720;
+  const desiredWidth = 980;
+  const desiredHeight = 820;
+  const width = Math.max(720, Math.min(desiredWidth, window.screen.availWidth - 40));
+  const height = Math.max(700, Math.min(desiredHeight, window.screen.availHeight - 80));
   const left = Math.max(0, Math.floor(window.screenX + (window.outerWidth - width) / 2));
   const top = Math.max(0, Math.floor(window.screenY + (window.outerHeight - height) / 2));
 
