@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Trophy, TrendingDown, Info, X } from 'lucide-react';
 
 interface NotificationProps {
   message: string;
@@ -14,61 +15,63 @@ export const Notification: React.FC<NotificationProps> = ({ message, type, onClo
 
   const config = {
     win: {
-      bg: 'from-red-600 via-yellow-500 to-red-600',
-      border: 'border-yellow-400',
-      shadow: 'shadow-[0_0_30px_rgba(234,179,8,0.6)]'
+      icon: <Trophy className="w-5 h-5" />,
+      iconBg: 'bg-yellow-400/20 text-yellow-400',
+      bar: 'bg-yellow-400',
+      border: 'border-yellow-400/30',
+      glow: 'shadow-yellow-500/20',
     },
     loss: {
-      bg: 'from-gray-800 via-gray-700 to-gray-900',
-      border: 'border-gray-600',
-      shadow: 'shadow-[0_0_20px_rgba(107,114,128,0.4)]'
+      icon: <TrendingDown className="w-5 h-5" />,
+      iconBg: 'bg-gray-400/20 text-gray-400',
+      bar: 'bg-gray-500',
+      border: 'border-gray-600/30',
+      glow: 'shadow-black/20',
     },
     info: {
-      bg: 'from-orange-600 via-yellow-500 to-orange-600',
-      border: 'border-orange-400',
-      shadow: 'shadow-[0_0_25px_rgba(249,115,22,0.5)]'
-    }
+      icon: <Info className="w-5 h-5" />,
+      iconBg: 'bg-orange-400/20 text-orange-400',
+      bar: 'bg-orange-400',
+      border: 'border-orange-400/30',
+      glow: 'shadow-orange-500/20',
+    },
   };
 
-  const style = config[type];
+  const c = config[type];
 
   return (
-    <div className="fixed top-20 right-4 z-[60] max-w-[85vw] sm:max-w-sm animate-slide-in-right">
-      <div className="relative">
-        {/* Animated Glow */}
-        <div className={`absolute -inset-1 bg-gradient-to-r ${style.bg} blur-xl opacity-75 animate-pulse rounded-xl`}></div>
-        
-        {/* Main Card */}
-        <div className={`relative bg-gradient-to-r ${style.bg} rounded-xl border-4 ${style.border} ${style.shadow}`}>
-          
-          {/* Decorative corners - TẾT */}
-          <div className="absolute -top-1 -left-1 w-8 h-8 border-t-2 border-l-2 border-yellow-300 rounded-tl-lg"></div>
-          <div className="absolute -top-1 -right-1 w-8 h-8 border-t-2 border-r-2 border-yellow-300 rounded-tr-lg"></div>
-          <div className="absolute -bottom-1 -left-1 w-8 h-8 border-b-2 border-l-2 border-yellow-300 rounded-bl-lg"></div>
-          <div className="absolute -bottom-1 -right-1 w-8 h-8 border-b-2 border-r-2 border-yellow-300 rounded-br-lg"></div>
+    <div className="fixed top-20 right-4 z-[60] w-[90vw] max-w-sm animate-slide-in-right">
+      <div
+        className={`relative bg-[#0f0f1e] border ${c.border} rounded-2xl shadow-2xl ${c.glow} overflow-hidden`}
+      >
+        <div className={`absolute top-0 left-0 w-1 h-full ${c.bar} rounded-l-2xl`} />
 
-          {/* Content */}
-          <div className="relative px-6 py-4">
-            <div className="flex items-center justify-between gap-3">
-              <p className="text-white font-black text-lg sm:text-xl break-words flex-1 text-center drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
-                {message}
-              </p>
-              
-              <button 
-                onClick={onClose}
-                className="shrink-0 w-7 h-7 bg-white/30 hover:bg-white/40 rounded-full flex items-center justify-center transition-colors border-2 border-white/50"
-              >
-                <svg className="w-4 h-4 text-white font-bold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-            </div>
+        <div className="flex items-center gap-3 px-5 py-4 pl-6">
+          <div className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 ${c.iconBg}`}>
+            {c.icon}
           </div>
+          <p className="text-white font-semibold text-sm flex-1 leading-snug">{message}</p>
+          <button
+            onClick={onClose}
+            className="shrink-0 w-7 h-7 rounded-lg bg-white/5 hover:bg-white/10 text-gray-500 hover:text-white flex items-center justify-center transition-all"
+          >
+            <X className="w-3.5 h-3.5" />
+          </button>
+        </div>
 
-          {/* Bottom shine line */}
-          <div className="h-1 bg-gradient-to-r from-transparent via-white/50 to-transparent rounded-b-lg"></div>
+        <div className="h-0.5 bg-white/[0.04]">
+          <div
+            className={`h-full ${c.bar} opacity-60 animate-shrink-x`}
+            style={{ animation: 'shrink 3s linear forwards' }}
+          />
         </div>
       </div>
+
+      <style>{`
+        @keyframes shrink { from { width: 100%; } to { width: 0%; } }
+        @keyframes slide-in-right { from { opacity: 0; transform: translateX(100%); } to { opacity: 1; transform: translateX(0); } }
+        .animate-slide-in-right { animation: slide-in-right 0.3s ease-out; }
+      `}</style>
     </div>
   );
 };

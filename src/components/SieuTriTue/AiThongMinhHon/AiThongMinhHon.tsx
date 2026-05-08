@@ -7,10 +7,11 @@ import { getDatabase, onValue, ref, onDisconnect, update } from 'firebase/databa
 interface Props {
   user: { uid: string; username: string; email: string; balance: number; avatar?: string; background?: string };
   onGoHome?: () => void;
-  onSetPlayingInternalMusic?: (isPlaying: boolean) => void;
+  isMuted?: boolean;
+  toggleSound?: () => void;
 }
 
-export const AiThongMinhHon: React.FC<Props> = ({ user, onGoHome, onSetPlayingInternalMusic }) => {
+export const AiThongMinhHon: React.FC<Props> = ({ user, onGoHome, isMuted, toggleSound }) => {
   const [view, setView] = useState<'lobby' | 'waiting' | 'game'>('lobby');
   const [currentRoomId, setCurrentRoomId] = useState<string | null>(null);
 
@@ -26,13 +27,12 @@ export const AiThongMinhHon: React.FC<Props> = ({ user, onGoHome, onSetPlayingIn
   };
 
   useEffect(() => {
-    if (onSetPlayingInternalMusic) {
-      onSetPlayingInternalMusic(view === 'game');
-    }
+    document.body.style.overflow = 'hidden';
     return () => {
-      if (onSetPlayingInternalMusic) onSetPlayingInternalMusic(false);
+      document.body.style.overflow = 'unset';
     };
-  }, [view, onSetPlayingInternalMusic]);
+  }, []);
+
 
   useEffect(() => {
     if (view !== 'waiting' || !currentRoomId) return;
@@ -74,7 +74,7 @@ export const AiThongMinhHon: React.FC<Props> = ({ user, onGoHome, onSetPlayingIn
 
   return (
     <div
-      className="w-screen h-screen min-h-screen flex flex-col items-center justify-center overflow-hidden"
+      className="w-screen h-screen min-h-screen flex flex-col items-center justify-center overflow-hidden landscape:overflow-y-auto"
       style={{
         backgroundImage: `url(${process.env.PUBLIC_URL}/assets/image/background/sanh_gamesieutritue.png)`,
         backgroundSize: 'cover',
@@ -83,6 +83,19 @@ export const AiThongMinhHon: React.FC<Props> = ({ user, onGoHome, onSetPlayingIn
         fontFamily: "'Poppins', sans-serif",
       }}
     >
+      {toggleSound && (
+        <button
+          onClick={toggleSound}
+          className="fixed bottom-4 left-4 sm:bottom-6 sm:left-6 landscape:bottom-3 landscape:left-3 z-50 w-10 h-10 sm:w-12 sm:h-12 landscape:w-10 landscape:h-10 rounded-full flex items-center justify-center text-white shadow-lg transition-all hover:scale-110 active:scale-95"
+          style={{ background: 'rgba(0,0,0,0.7)', border: '2px solid rgba(255,255,255,0.3)' }}
+          title={isMuted ? 'Bật nhạc' : 'Tắt nhạc'}
+        >
+          {isMuted
+            ? <svg width="18" height="18" className="sm:w-5 sm:h-5 landscape:w-4 landscape:h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M16.5 12A4.5 4.5 0 0 0 14 7.97v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51A8.796 8.796 0 0 0 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06A8.99 8.99 0 0 0 17.73 19L19 20.27 20.27 19 5.27 4 4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg>
+            : <svg width="18" height="18" className="sm:w-5 sm:h-5 landscape:w-4 landscape:h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+          }
+        </button>
+      )}
       {view === 'lobby' && <LobbyList user={user} onJoinRoom={handleJoinRoom} onGoHome={onGoHome} />}
       {view === 'waiting' && currentRoomId && (
         <WaitingRoom user={user} roomId={currentRoomId} onLeaveRoom={handleLeaveRoom} />

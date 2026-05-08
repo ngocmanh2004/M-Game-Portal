@@ -81,23 +81,24 @@ export const GameBoard: React.FC<Props> = ({ user, roomId, onBackToLobby }) => {
   const clockStartedRef = useRef(false);
 
   useEffect(() => {
-    clockAudioRef.current = new Audio(`${process.env.PUBLIC_URL}/assets/audio/slow-clock.mp3`);
+    clockAudioRef.current = new Audio('/assets/audio/slow-clock.mp3');
     clockAudioRef.current.loop = false;
     clockAudioRef.current.volume = 0.5;
-    winAudioRef.current = new Audio(`${process.env.PUBLIC_URL}/assets/audio/win.mp3`);
+    winAudioRef.current = new Audio('/assets/audio/win.mp3');
     winAudioRef.current.volume = 0.7;
-    loseAudioRef.current = new Audio(`${process.env.PUBLIC_URL}/assets/audio/lose.mp3`);
+    loseAudioRef.current = new Audio('/assets/audio/lose.mp3');
     loseAudioRef.current.volume = 0.7;
-    clickAudioRef.current = new Audio(`${process.env.PUBLIC_URL}/assets/audio/effect.mp3`);
+    clickAudioRef.current = new Audio('/assets/audio/money.mp3');
     clickAudioRef.current.volume = 0.7;
-    wowAudioRef.current = new Audio(`${process.env.PUBLIC_URL}/assets/audio/wow.mp3`);
+    wowAudioRef.current = new Audio('/assets/audio/wow.mp3');
     wowAudioRef.current.volume = 0.7;
     return () => {
-      clockAudioRef.current?.pause();
-      winAudioRef.current?.pause();
-      loseAudioRef.current?.pause();
-      clickAudioRef.current?.pause();
-      wowAudioRef.current?.pause();
+      // Don't pause, just set to null to avoid AudioContext errors
+      clockAudioRef.current = null;
+      winAudioRef.current = null;
+      loseAudioRef.current = null;
+      clickAudioRef.current = null;
+      wowAudioRef.current = null;
     };
   }, []);
 
@@ -212,8 +213,10 @@ export const GameBoard: React.FC<Props> = ({ user, roomId, onBackToLobby }) => {
 
   const handleAnswer = async (index: number) => {
     if (room?.phase !== 'question') return;
-    clickAudioRef.current && (clickAudioRef.current.currentTime = 0);
-    clickAudioRef.current?.play().catch(() => { });
+    if (clickAudioRef.current) {
+      clickAudioRef.current.currentTime = 0;
+      clickAudioRef.current.play().catch(() => { });
+    }
     setSelectedAnswer(index);
     await submitAnswer(index);
   };
@@ -651,15 +654,37 @@ export const GameBoard: React.FC<Props> = ({ user, roomId, onBackToLobby }) => {
       )}
 
       <div className="flex items-center justify-between px-4 py-3 bg-[#0f172a] border-b border-white/10 flex-shrink-0">
-        <div className="bg-blue-600/20 border border-blue-500/40 rounded-xl px-3 py-1.5 flex-shrink-0">
-          <p className="text-blue-300 text-xs font-bold" style={{ fontFamily: 'Orbitron, sans-serif' }}>
-            {ROUND_LABELS[room.currentRound || 1] || `VÒNG ${room.currentRound}`}
-          </p>
-          <p className="text-white/60 text-[10px] text-center">
-            Câu {(room.currentQuestionIndex || 0) + 1}/{room.questionsPerRound || 10}
-          </p>
+        {/* Left side: Round info and Mic button */}
+        <div className="flex items-center gap-3 flex-shrink-0">
+          <div className="bg-blue-600/20 border border-blue-500/40 rounded-xl px-3 py-1.5">
+            <p className="text-blue-300 text-xs font-bold" style={{ fontFamily: 'Orbitron, sans-serif' }}>
+              {ROUND_LABELS[room.currentRound || 1] || `VÒNG ${room.currentRound}`}
+            </p>
+            <p className="text-white/60 text-[10px] text-center">
+              Câu {(room.currentQuestionIndex || 0) + 1}/{room.questionsPerRound || 10}
+            </p>
+          </div>
+
+          {/* Mic button on the left */}
+          <button
+            onClick={toggleMic}
+            className={`flex items-center justify-center w-10 h-10 md:w-auto md:px-3 md:py-2 rounded-lg border transition-colors ${isMicOn ? 'bg-green-500/20 text-green-400 border-green-500/40 hover:bg-green-500/30' : 'bg-red-500/20 text-red-400 border-red-500/40 hover:bg-red-500/30'}`}
+            title={isMicOn ? 'Tắt Mic' : 'Bật Mic'}
+          >
+            {isMicOn ? (
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
+              </svg>
+            ) : (
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
+                <line x1="4" y1="4" x2="20" y2="20" stroke="currentColor" strokeWidth={2} strokeLinecap="round" />
+              </svg>
+            )}
+          </button>
         </div>
 
+        {/* Center: Timer */}
         <div className="relative flex items-center justify-center flex-shrink-0">
           <svg width="88" height="88" className="-rotate-90">
             <circle
@@ -697,33 +722,21 @@ export const GameBoard: React.FC<Props> = ({ user, roomId, onBackToLobby }) => {
           </div>
         </div>
 
-        <div className="flex flex-col items-end gap-1 flex-shrink-0">
+        {/* Right side: Player count and Leave button */}
+        <div className="flex flex-col items-end gap-2 flex-shrink-0">
           <div className="bg-white/5 border border-white/10 rounded-xl px-2 py-1 md:px-3 md:py-1.5 text-right">
             <p className="text-white text-xs md:text-sm font-bold">👥 {activePlayers}</p>
             <p className="text-white/40 text-[10px]">đang chơi</p>
           </div>
-          <div className="flex items-center gap-2 mt-1">
-            <button
-              onClick={toggleMic}
-              className={`flex items-center justify-center w-8 h-8 md:w-auto md:px-3 md:py-1.5 rounded-lg border transition-colors ${isMicOn ? 'bg-green-500/20 text-green-400 border-green-500/40 hover:bg-green-500/30' : 'bg-red-500/20 text-red-400 border-red-500/40 hover:bg-red-500/30'}`}
-              title={isMicOn ? 'Tắt Mic' : 'Bật Mic'}
-            >
-              {isMicOn ? (
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" /></svg>
-              ) : (
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" clipRule="evenodd" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2" /></svg>
-              )}
-            </button>
-            <button
-              onClick={handleLeaveGame}
-              className="flex items-center gap-1 bg-red-500/10 hover:bg-red-500/30 text-red-400 text-xs font-bold transition-colors px-2.5 py-1.5 rounded-lg border border-red-500/20"
-            >
-              <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-              </svg>
-              <span>Rời</span>
-            </button>
-          </div>
+          <button
+            onClick={handleLeaveGame}
+            className="flex items-center gap-1 bg-red-500/10 hover:bg-red-500/30 text-red-400 text-xs font-bold transition-colors px-2.5 py-1.5 rounded-lg border border-red-500/20"
+          >
+            <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+            </svg>
+            <span>Rời</span>
+          </button>
         </div>
       </div>
 
@@ -740,7 +753,7 @@ export const GameBoard: React.FC<Props> = ({ user, roomId, onBackToLobby }) => {
                       : 'bg-red-500/20 text-red-400 border-red-500/50'
                 }`}
               >
-                {!hasMyAnswer ? '... CHUA TRA LOI' : isMyAnswerCorrect ? 'DUNG' : 'SAI'}
+                {!hasMyAnswer ? '... Chưa trả lời' : isMyAnswerCorrect ? 'Chính xác' : 'Sai'}
               </div>
             )}
             {currentQ.category && (

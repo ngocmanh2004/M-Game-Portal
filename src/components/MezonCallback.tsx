@@ -163,8 +163,75 @@ export const MezonCallback: React.FC<MezonCallbackProps> = ({ onSuccess, onError
   }, [onSuccess, onError]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-neutral-50">
-      <div className="w-8 h-8 border-2 border-neutral-300 border-t-neutral-600 rounded-full animate-spin" aria-label="Loading" />
+    <div
+      className="min-h-screen flex flex-col items-center justify-center"
+      style={{
+        background: 'linear-gradient(135deg, #0a0a14 0%, #13131f 50%, #0e0e1c 100%)',
+      }}
+    >
+      {/* Ambient glow */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: 'radial-gradient(ellipse 60% 40% at 50% 40%, rgba(139,92,246,0.12) 0%, transparent 70%)',
+        }}
+      />
+
+      <div className="relative flex flex-col items-center gap-6 px-8 text-center">
+        {/* Logo */}
+        <img
+          src="/assets/image/logos/logoWeb.png"
+          alt="M-GAME"
+          className="w-16 h-16 rounded-2xl object-contain"
+          style={{ boxShadow: '0 8px 30px rgba(139,92,246,0.4)' }}
+        />
+
+        {/* Spinner */}
+        <div className="relative w-14 h-14">
+          <div
+            className="absolute inset-0 rounded-full animate-spin"
+            style={{
+              border: '3px solid rgba(139,92,246,0.15)',
+              borderTopColor: '#8b5cf6',
+            }}
+          />
+          <div
+            className="absolute inset-2 rounded-full animate-spin"
+            style={{
+              border: '2px solid rgba(236,72,153,0.15)',
+              borderTopColor: '#ec4899',
+              animationDirection: 'reverse',
+              animationDuration: '0.7s',
+            }}
+          />
+        </div>
+
+        <div>
+          <p className="text-white font-bold text-lg tracking-wide">Đang xác thực Mezon</p>
+          <p className="text-white/40 text-sm mt-1">Vui lòng đợi trong giây lát...</p>
+        </div>
+
+        {/* Dots animation */}
+        <div className="flex gap-1.5">
+          {[0, 1, 2].map((i) => (
+            <div
+              key={i}
+              className="w-2 h-2 rounded-full"
+              style={{
+                background: '#8b5cf6',
+                animation: `bounce 1.2s ease-in-out ${i * 0.2}s infinite`,
+              }}
+            />
+          ))}
+        </div>
+      </div>
+
+      <style>{`
+        @keyframes bounce {
+          0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+          40% { transform: scale(1); opacity: 1; }
+        }
+      `}</style>
     </div>
   );
 };

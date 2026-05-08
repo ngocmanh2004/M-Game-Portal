@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { 
   doc, 
-  updateDoc, 
+  updateDoc,
+  setDoc,
   collection, 
   getDocs,
   writeBatch,
@@ -94,6 +95,8 @@ export const useInventory = (userId: string | undefined) => {
         batch.update(userRef, { avatar: shopItem.imageUrl });
       } else if (shopItem.type === ItemType.BACKGROUND) {
         batch.update(userRef, { background: shopItem.imageUrl });
+      } else if (shopItem.type === ItemType.MUSIC) {
+        batch.update(userRef, { activeMusic: shopItem.audioUrl });
       }
 
       await batch.commit();
@@ -112,15 +115,22 @@ export const useInventory = (userId: string | undefined) => {
         document.body.style.backgroundPosition = 'center';
         document.body.style.backgroundAttachment = 'fixed';
         document.body.style.backgroundRepeat = 'no-repeat';
-
-        window.dispatchEvent(new CustomEvent('background-updated', { 
-          detail: { backgroundUrl: shopItem.imageUrl } 
+        window.dispatchEvent(new CustomEvent('background-updated', {
+          detail: { backgroundUrl: shopItem.imageUrl }
+        }));
+      } else if (shopItem.type === ItemType.MUSIC) {
+        window.dispatchEvent(new CustomEvent('music-updated', {
+          detail: { audioUrl: shopItem.audioUrl }
         }));
       }
 
-      return { 
-        success: true, 
-        message: shopItem.type === ItemType.AVATAR ? '✅ Đã đổi Avatar!' : '✅ Đã đổi Background!' 
+      return {
+        success: true,
+        message: shopItem.type === ItemType.AVATAR
+          ? 'Đã đổi Avatar!'
+          : shopItem.type === ItemType.BACKGROUND
+          ? 'Đã đổi Background!'
+          : 'Đã bật nhạc nền!'
       };
     } catch (error) {
       console.error('Error applying item:', error);
@@ -142,30 +152,61 @@ export const useInventory = (userId: string | undefined) => {
         return { success: false, message: 'Vật phẩm không hợp lệ!' };
       }
 
-      const itemRef = doc(db, 'userItems', userId, 'items', itemId);
-      const now = Date.now();
-      
-      await updateDoc(itemRef, { 
-        used: true,
-        activatedAt: now,
-        expiresAt: now + (shopItem.expiresIn || 86400000)
+      // Kiểm tra xem có thẻ khác đang còn hiệu lực không
+      const activeCard = items.find(ui => {
+        if (ui.itemId === itemId) return false;
+        const si = SHOP_ITEMS.find(s => s.id === ui.itemId);
+        if (si?.type !== ItemType.BONUS_CARD || !ui.used) return false;
+        return ui.expiresAt ? ui.expiresAt > Date.now() : false;
       });
 
-      setItems(prev => prev.map(item => 
-        item.itemId === itemId 
-          ? { ...item, used: true, activatedAt: now, expiresAt: now + (shopItem.expiresIn || 86400000) }
+      if (activeCard) {
+        const activeShopItem = SHOP_ITEMS.find(si => si.id === activeCard.itemId);
+        const confirmed = window.confirm(
+          `⚠️ Hiệu lực của thẻ sẽ không cộng dồn!\n\nNếu dùng "${shopItem.name}" sẽ mất hiệu lực của "${activeShopItem?.name}".\n\nBạn có chắc muốn thay thế không?`
+        );
+        if (!confirmed) return { success: false, message: 'Đã hủy kích hoạt.' };
+
+        // Hủy thẻ cũ
+        const oldItemRef = doc(db, 'userItems', userId, 'items', activeCard.itemId);
+        await updateDoc(oldItemRef, { used: false, expiresAt: null });
+        setItems(prev => prev.map(item =>
+          item.itemId === activeCard.itemId
+            ? { ...item, used: false, expiresAt: undefined }
+            : item
+        ));
+      }
+
+      const now = Date.now();
+      const expiresAt = now + (shopItem.expiresIn || 86400000);
+
+      // Ghi vào subcollection item
+      const itemRef = doc(db, 'userItems', userId, 'items', itemId);
+      await updateDoc(itemRef, { used: true, activatedAt: now, expiresAt });
+
+      // Ghi activeBonus vào parent doc để getActiveBonus() đọc được
+      const parentRef = doc(db, 'userItems', userId);
+      await setDoc(parentRef, {
+        activeBonus: { bonusPercent: shopItem.bonusPercent, expiresAt }
+      }, { merge: true });
+
+      setItems(prev => prev.map(item =>
+        item.itemId === itemId
+          ? { ...item, used: true, activatedAt: now, expiresAt }
           : item
       ));
 
-      return { 
-        success: true, 
-        message: `✅ Kích hoạt +${shopItem.bonusPercent}% thành công!` 
+      const hours = shopItem.expiresIn === 172800000 ? '48' : '24';
+      return {
+        success: true,
+        message: `Kích hoạt +${shopItem.bonusPercent}% thành công! Hiệu lực ${hours} giờ`
       };
     } catch (error) {
       console.error('Error activating bonus:', error);
       return { success: false, message: 'Có lỗi xảy ra!' };
     }
   };
+
 
   // ⭐ CONSUME TET ITEM - ĐÃ FIX INCREMENT
   const consumeTetItem = async (itemId: string): Promise<TetItemUseResult> => {

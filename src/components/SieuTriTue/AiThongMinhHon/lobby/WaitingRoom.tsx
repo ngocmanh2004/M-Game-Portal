@@ -39,6 +39,34 @@ export const WaitingRoom: React.FC<Props> = ({ user, roomId, onLeaveRoom }) => {
     return () => unsub();
   }, [roomId]);
 
+  const countdownAudioRef = useRef<HTMLAudioElement | null>(null);
+
+  useEffect(() => {
+    if (room?.status === 'starting' && room?.startingIn === 5) {
+      const audio = new Audio('/assets/audio/âm thanh đếm ngược 10 giây.mp3');
+      audio.volume = 0.6;
+      audio.play().catch(e => console.log('Countdown sound error:', e));
+      countdownAudioRef.current = audio;
+
+      // Chỉ phát 5 giây
+      const stopTimer = setTimeout(() => {
+        audio.pause();
+        audio.currentTime = 0;
+      }, 5000);
+
+      return () => clearTimeout(stopTimer);
+    }
+  }, [room?.status, room?.startingIn]);
+
+  useEffect(() => {
+    return () => {
+      if (countdownAudioRef.current) {
+        countdownAudioRef.current.pause();
+        countdownAudioRef.current = null;
+      }
+    };
+  }, []);
+
   useEffect(() => {
     if (!room || room.status !== 'starting') return;
     if (!user || room.hostUid !== user.uid) return;

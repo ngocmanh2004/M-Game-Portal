@@ -9,6 +9,7 @@ import { Footer } from './Footer';
 import { SupportModal } from './SupportModal';
 import { LuckyWheelPopup } from './shared/LuckyWheelPopup';
 import { trackQuestProgress } from '../hooks/useDailyQuests';
+import { useBonusStatus } from '../hooks/useBonusStatus';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -52,7 +53,8 @@ export const Layout: React.FC<LayoutProps> = ({
   const [hasAutoOpened, setHasAutoOpened] = useState(false); // ⭐ Auto open logic
 
   const { userData } = useUserData(user.uid);
-  const { notifications, unreadCount } = useUserNotifications(user.uid); // ⭐ THÊM
+  const { notifications, unreadCount } = useUserNotifications(user.uid);
+  const bonusStatus = useBonusStatus(user.uid);
 
   // ⭐ CHECK ADMIN
   const isAdmin = userData?.isAdmin || false;
@@ -63,12 +65,10 @@ export const Layout: React.FC<LayoutProps> = ({
     }
   }, [user?.uid]);
 
-  // ⭐ AUTO OPEN LUCKY WHEEL
   useEffect(() => {
     if (userData && !hasAutoOpened) {
       const today = new Date().toISOString().split('T')[0];
-      // Nếu ngày quay cuối cùng khác hôm nay (nghĩa là đăng nhập lần đầu trong ngày mới)
-      if (userData.lastSpinDate !== today) {
+     if (userData.lastSpinDate !== today) {
         setShowLuckyWheel(true);
         setHasAutoOpened(true);
       }
@@ -154,7 +154,7 @@ export const Layout: React.FC<LayoutProps> = ({
     <div className={`min-h-screen flex flex-col ${isMobileLandscape ? 'bg-black' : ''}`}>
       {/* ============ NAVBAR ============ */}
       {!isMobileLandscape && (
-        <header className="sticky top-0 z-40 bg-black/70 backdrop-blur-xl border-b border-white/10 shadow-[0_4px_20px_rgba(0,0,0,0.5)]">
+        <header className="fixed top-0 left-0 right-0 z-40 bg-black/70 backdrop-blur-xl border-b border-white/10 shadow-[0_4px_20px_rgba(0,0,0,0.5)]">
           <div className="w-full max-w-[1400px] mx-auto px-6">
             <div className="flex items-center justify-between h-16 gap-4">
 
@@ -202,6 +202,23 @@ export const Layout: React.FC<LayoutProps> = ({
                 <div className="bg-yellow-400 text-black font-black text-sm px-4 py-1.5 rounded-full shadow-md select-none flex items-center gap-2">
                   <span>💰 {formatCurrency(user.balance)}</span>
                 </div>
+
+                {/* Bonus badge */}
+                {bonusStatus && (
+                  <div
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-black select-none"
+                    style={{
+                      background: 'linear-gradient(135deg, #f59e0b, #ef4444)',
+                      boxShadow: '0 0 12px rgba(245,158,11,0.5)',
+                      animation: 'pulse 2s infinite',
+                    }}
+                    title={`Thẻ Bonus +${bonusStatus.bonusPercent}% đang hoạt động`}
+                  >
+                    <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                    +{bonusStatus.bonusPercent}%
+                    <span className="opacity-80 font-mono">{bonusStatus.timeLeft}</span>
+                  </div>
+                )}
 
                 {/* Notification bell */}
                 <button
@@ -360,7 +377,7 @@ export const Layout: React.FC<LayoutProps> = ({
         />
       )}
 
-      <main className={`flex-1 overflow-auto ${isMobileLandscape ? 'p-0 m-0' : ''}`}>
+      <main className={`flex-1 overflow-auto ${isMobileLandscape ? 'p-0 m-0' : 'pt-16'}`}>
         <div className={`${isMobileLandscape ? 'p-0 m-0 w-screen h-screen flex items-center justify-center bg-black' : 'container mx-auto px-2 sm:px-4 py-4 pb-20 sm:pb-24'}`}>
           {children}
         </div>

@@ -17,6 +17,7 @@ export interface UserData {
   dailyQuests?: Record<string, any>;
   avatar?: string;
   background?: string;
+  activeMusic?: string;
   lastCheckin: string;
   tasks: {
     followTiktok: boolean;
@@ -158,7 +159,8 @@ export enum ItemType {
   AVATAR = 'AVATAR',
   BACKGROUND = 'BACKGROUND',
   BONUS_CARD = 'BONUS_CARD',
-  TET_INTERACTIVE = 'TET_INTERACTIVE'  // ⭐ Vật phẩm Tết có tương tác
+  TET_INTERACTIVE = 'TET_INTERACTIVE',
+  MUSIC = 'MUSIC'
 }
 
 // ⭐ Loại tương tác của vật phẩm Tết
@@ -188,6 +190,9 @@ export interface ShopItem {
   maxReward?: number;      // Tiền thưởng tối đa
   maxUses?: number;        // Số lần dùng tối đa (-1 = vô hạn)
   cooldown?: number;       // Thời gian chờ giữa các lần dùng (ms)
+
+  // Cho MUSIC
+  audioUrl?: string;
 
   stock?: number;
 }

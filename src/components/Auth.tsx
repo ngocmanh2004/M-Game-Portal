@@ -335,7 +335,7 @@ export const Auth: React.FC = () => {
           <div className="bg-white/5 backdrop-blur-md inline-block px-6 py-2.5 rounded-full border border-white/10 hover:bg-white/10 transition-colors">
             <p className="text-gray-300 text-xs sm:text-sm flex items-center gap-2 justify-center flex-wrap tracking-wide">
               <span>Developed by</span>
-              <span className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400 text-base sm:text-lg">Mạnh</span>
+              <span className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400 text-base sm:text-lg">Mạnh Mơ Màng</span>
               <span className="animate-pulse">👾</span>
             </p>
           </div>

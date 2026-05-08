@@ -32,11 +32,16 @@ function App() {
   const { userData, loading: userLoading, updateMoney, updateTask, checkin } = useUserData(user?.uid);
 
   const [currentGame, setCurrentGame] = useState<GameType>(GameType.HOME);
-  const [isMuted, setIsMuted] = useState(false);
+  const [isMuted, setIsMuted] = useState<boolean>(() => localStorage.getItem('mgame_muted') === 'true');
   const [bgIndex, setBgIndex] = useState(0);
   const [notification, setNotification] = useState<{ message: string; type: 'win' | 'loss' } | null>(null);
   const [selectedUser, setSelectedUser] = useState<string | null>(null);
   const [isPlayingInternalMusic, setIsPlayingInternalMusic] = useState(false);
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [currentGame]);
+
 
   const authProviderLabel = (() => {
     if (!user) return 'Tài khoản';
@@ -59,35 +64,165 @@ function App() {
 
   const soundRefs = useRef<{ [key in SoundType]?: HTMLAudioElement }>({});
   const bgMusicRef = useRef<HTMLAudioElement | null>(null);
+  const loginMusicRef = useRef<HTMLAudioElement | null>(null);
+  const gameMusicRef = useRef<HTMLAudioElement | null>(null);
+  const musicLoopTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const DEFAULT_MUSIC = '/assets/audio/tet-music.mp3';
+  const LOGIN_MUSIC = '/assets/audio/login-music.mp3';
+  const GAME_MUSIC_STT = '/assets/audio/ai-thong-minh-hon-music.mp3';
+  const BASE_VOLUME = 0.45;
 
-  // Initialize sounds
   useEffect(() => {
     Object.entries(SOUNDS).forEach(([key, path]) => {
       if (key === 'bgMusic') {
         bgMusicRef.current = new Audio(path);
-        bgMusicRef.current.loop = true;
-        bgMusicRef.current.volume = 0.3;
+        bgMusicRef.current.loop = false;
+        bgMusicRef.current.volume = BASE_VOLUME;
       } else {
         soundRefs.current[key as SoundType] = new Audio(path);
       }
     });
+    loginMusicRef.current = new Audio(LOGIN_MUSIC);
+    loginMusicRef.current.loop = true;
+    loginMusicRef.current.volume = BASE_VOLUME;
+    gameMusicRef.current = new Audio(GAME_MUSIC_STT);
+    gameMusicRef.current.loop = true;
+    gameMusicRef.current.volume = BASE_VOLUME * 0.5;
 
     return () => {
-      if (bgMusicRef.current) {
-        bgMusicRef.current.pause();
-      }
+      bgMusicRef.current?.pause();
+      loginMusicRef.current?.pause();
+      gameMusicRef.current?.pause();
+      if (musicLoopTimerRef.current) clearTimeout(musicLoopTimerRef.current);
     };
   }, []);
 
-  // Control background music
+  const playWithUnlockFallback = (audio: HTMLAudioElement) => {
+    audio.play().catch(() => {
+      const unlock = () => audio.play().catch(() => {});
+      window.addEventListener('click', unlock, { once: true });
+      window.addEventListener('touchstart', unlock, { once: true });
+    });
+  };
+
   useEffect(() => {
-    // Stop BG music if muted, logged out, or if the current game is playing its own music
-    if (user && !isMuted && !isPlayingInternalMusic && bgMusicRef.current) {
-      bgMusicRef.current.play().catch(err => console.log('Auto-play prevented:', err));
-    } else if (bgMusicRef.current) {
-      bgMusicRef.current.pause();
+    if (authLoading) return;
+
+    if (isMuted) {
+      loginMusicRef.current?.pause();
+      bgMusicRef.current?.pause();
+      gameMusicRef.current?.pause();
+      if (musicLoopTimerRef.current) clearTimeout(musicLoopTimerRef.current);
+      return;
     }
-  }, [user, isMuted, isPlayingInternalMusic]);
+
+    if (!user) {
+      bgMusicRef.current?.pause();
+      gameMusicRef.current?.pause();
+      if (musicLoopTimerRef.current) clearTimeout(musicLoopTimerRef.current);
+      if (loginMusicRef.current?.paused) {
+        playWithUnlockFallback(loginMusicRef.current);
+      }
+    } else {
+      loginMusicRef.current?.pause();
+    }
+  }, [authLoading, user, isMuted]);
+
+  useEffect(() => {
+    if (!bgMusicRef.current) return;
+    const targetSrc = userData?.activeMusic || DEFAULT_MUSIC;
+    const currentPath = bgMusicRef.current.src
+      ? new URL(bgMusicRef.current.src).pathname : '';
+    const targetPath = new URL(targetSrc, window.location.origin).pathname;
+    if (currentPath !== targetPath) {
+      if (musicLoopTimerRef.current) clearTimeout(musicLoopTimerRef.current);
+      bgMusicRef.current.pause();
+      bgMusicRef.current.src = targetSrc;
+      bgMusicRef.current.load();
+      if (user && !isMuted && !isPlayingInternalMusic) {
+        playWithUnlockFallback(bgMusicRef.current);
+      }
+    }
+  }, [userData?.activeMusic]);
+
+  useEffect(() => {
+    if (!user || !bgMusicRef.current) return;
+    if (musicLoopTimerRef.current) clearTimeout(musicLoopTimerRef.current);
+    bgMusicRef.current.currentTime = 0;
+  }, [user?.uid]);
+
+  useEffect(() => {
+    const handler = (e: Event) => {
+      const { audioUrl } = (e as CustomEvent).detail;
+      if (!bgMusicRef.current || isMuted || isPlayingInternalMusic) return;
+      if (musicLoopTimerRef.current) clearTimeout(musicLoopTimerRef.current);
+      loginMusicRef.current?.pause();
+      gameMusicRef.current?.pause();
+      bgMusicRef.current.pause();
+      bgMusicRef.current.src = audioUrl;
+      bgMusicRef.current.load();
+      playWithUnlockFallback(bgMusicRef.current);
+    };
+    window.addEventListener('music-updated', handler);
+    return () => window.removeEventListener('music-updated', handler);
+  }, [isMuted, isPlayingInternalMusic]);
+
+  useEffect(() => {
+    const audio = bgMusicRef.current;
+    if (!audio || authLoading) return;
+
+    if (musicLoopTimerRef.current) clearTimeout(musicLoopTimerRef.current);
+
+    const handleEnded = () => {
+      musicLoopTimerRef.current = setTimeout(() => {
+        if (!isMuted && !isPlayingInternalMusic && user) {
+          audio.currentTime = 0;
+          playWithUnlockFallback(audio);
+        }
+      }, 3000);
+    };
+
+    audio.removeEventListener('ended', handleEnded);
+    audio.addEventListener('ended', handleEnded);
+
+    if (user && !isMuted && !isPlayingInternalMusic && currentGame !== GameType.SIEU_TRI_TUE) {
+      if (!audio.src || audio.src === window.location.href) {
+        audio.src = DEFAULT_MUSIC;
+        audio.load();
+      }
+      playWithUnlockFallback(audio);
+    } else {
+      audio.pause();
+    }
+
+    return () => {
+      audio.removeEventListener('ended', handleEnded);
+      if (musicLoopTimerRef.current) clearTimeout(musicLoopTimerRef.current);
+    };
+  }, [user?.uid, isMuted, isPlayingInternalMusic, currentGame]);
+
+  useEffect(() => {
+    const bg = bgMusicRef.current;
+    const gm = gameMusicRef.current;
+    if (!bg || !user) return;
+
+    const inCardGame = currentGame === GameType.TIEN_LEN || currentGame === GameType.XI_DACH;
+    const inSTT = currentGame === GameType.SIEU_TRI_TUE;
+
+    if (isMuted) {
+      gm?.pause();
+      return;
+    }
+
+    if (inSTT) {
+      bg.pause();
+      if (gm?.paused) playWithUnlockFallback(gm);
+    } else {
+      gm?.pause();
+      bg.volume = inCardGame ? BASE_VOLUME * 0.7 : BASE_VOLUME;
+      if (bg.paused && !isPlayingInternalMusic) playWithUnlockFallback(bg);
+    }
+  }, [currentGame, user, isMuted]);
 
   const playSound = (type: SoundType) => {
     if (isMuted) return;
@@ -98,7 +233,11 @@ function App() {
     }
   };
 
-  const toggleSound = () => setIsMuted(!isMuted);
+  const toggleSound = () => {
+    const next = !isMuted;
+    setIsMuted(next);
+    localStorage.setItem('mgame_muted', String(next));
+  };
 
   const handleShowNotification = (message: string, type: 'win' | 'loss') => {
     setNotification({ message, type });
@@ -288,7 +427,9 @@ function App() {
               avatar: userData.avatar,
               background: userData.background,
             }}
-            onSetPlayingInternalMusic={handleSetPlayingInternalMusic}
+            onGoHome={() => setCurrentGame(GameType.HOME)}
+            isMuted={isMuted}
+            toggleSound={toggleSound}
           />
         );
 
@@ -303,7 +444,9 @@ function App() {
               avatar: userData.avatar,
               background: userData.background,
             }}
-            onSetPlayingInternalMusic={handleSetPlayingInternalMusic}
+            onGoHome={() => setCurrentGame(GameType.HOME)}
+            isMuted={isMuted}
+            toggleSound={toggleSound}
           />
         );
 
@@ -318,7 +461,7 @@ function App() {
               avatar: userData.avatar,
               background: userData.background,
             }}
-            onSetPlayingInternalMusic={handleSetPlayingInternalMusic}
+            onGoHome={() => setCurrentGame(GameType.HOME)}
           />
         );
 
@@ -333,7 +476,9 @@ function App() {
               avatar: userData.avatar,
               background: userData.background,
             }}
-            onSetPlayingInternalMusic={handleSetPlayingInternalMusic}
+            onGoHome={() => setCurrentGame(GameType.HOME)}
+            isMuted={isMuted}
+            toggleSound={toggleSound}
           />
         );
 
@@ -374,7 +519,8 @@ function App() {
           background: userData.background,
         }}
         onGoHome={() => setCurrentGame(GameType.HOME)}
-        onSetPlayingInternalMusic={handleSetPlayingInternalMusic}
+        isMuted={isMuted}
+        toggleSound={toggleSound}
       />
     );
   }
@@ -392,7 +538,8 @@ function App() {
           background: userData.background,
         }}
         onGoHome={() => setCurrentGame(GameType.HOME)}
-        onSetPlayingInternalMusic={handleSetPlayingInternalMusic}
+        isMuted={isMuted}
+        toggleSound={toggleSound}
       />
     );
   }
@@ -409,7 +556,6 @@ function App() {
           background: userData.background,
         }}
         onGoHome={() => setCurrentGame(GameType.HOME)}
-        onSetPlayingInternalMusic={handleSetPlayingInternalMusic}
       />
     );
   }
@@ -426,7 +572,8 @@ function App() {
           background: userData.background,
         }}
         onGoHome={() => setCurrentGame(GameType.HOME)}
-        onSetPlayingInternalMusic={handleSetPlayingInternalMusic}
+        isMuted={isMuted}
+        toggleSound={toggleSound}
       />
     );
   }

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Check, X, UserCheck, Loader2 } from 'lucide-react';
 import { useFriends } from '../hooks/useFriends';
 import { useAuth } from '../hooks/useAuth';
 import { db } from '../firebase';
@@ -7,7 +8,7 @@ import { doc, getDoc } from 'firebase/firestore';
 export const FriendRequests: React.FC = () => {
   const { user } = useAuth();
   const { friendRequests, acceptFriendRequest, rejectFriendRequest, loading } = useFriends(user?.uid);
-  const [requestUsers, setRequestUsers] = useState<{ uid: string, email: string }[]>([]);
+  const [requestUsers, setRequestUsers] = useState<{ uid: string; email: string }[]>([]);
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -16,7 +17,7 @@ export const FriendRequests: React.FC = () => {
           const docSnap = await getDoc(doc(db, 'users', req.from));
           return {
             uid: req.from,
-            email: docSnap.exists() ? docSnap.data().email : req.from
+            email: docSnap.exists() ? docSnap.data().email : req.from,
           };
         })
       );
@@ -26,28 +27,49 @@ export const FriendRequests: React.FC = () => {
     else setRequestUsers([]);
   }, [friendRequests]);
 
-  if (loading) return <div className="text-white text-center py-8">Đang tải lời mời...</div>;
-
-  if (requestUsers.length === 0) {
-    return <div className="text-white text-center py-8">Không có lời mời kết bạn nào.</div>;
-  }
+  if (loading || requestUsers.length === 0) return null;
 
   return (
-    <div className="max-w-lg mx-auto py-4">
-      <h2 className="text-xl text-yellow-400 font-bold mb-3">Lời mời kết bạn</h2>
-      <ul className="space-y-3">
+    <div className="mb-8 bg-white/[0.03] border border-white/[0.08] rounded-2xl p-5">
+      <div className="flex items-center gap-2.5 mb-4">
+        <UserCheck className="w-4 h-4 text-yellow-400" />
+        <h2 className="text-sm font-bold text-white uppercase tracking-widest">
+          Lời mời kết bạn
+        </h2>
+        <span className="ml-auto flex items-center justify-center w-5 h-5 rounded-full bg-yellow-400 text-black text-[10px] font-black">
+          {requestUsers.length}
+        </span>
+      </div>
+
+      <ul className="space-y-2">
         {friendRequests.map((req, i) => (
-          <li key={req.id} className="bg-white/10 rounded-lg p-3 flex items-center justify-between">
-            <span className="text-white text-sm">{requestUsers[i]?.email || req.from}</span>
-            <div className="flex gap-2">
+          <li
+            key={req.id}
+            className="flex items-center gap-3 bg-white/[0.04] hover:bg-white/[0.07] border border-white/[0.06] rounded-xl px-4 py-3 transition-all"
+          >
+            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-yellow-400/20 to-orange-500/20 flex items-center justify-center shrink-0">
+              <span className="text-yellow-400 text-xs font-black">
+                {(requestUsers[i]?.email || req.from).charAt(0).toUpperCase()}
+              </span>
+            </div>
+            <span className="text-gray-300 text-sm font-medium flex-1 truncate">
+              {requestUsers[i]?.email || req.from}
+            </span>
+            <div className="flex gap-2 shrink-0">
               <button
-                className="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600"
                 onClick={() => acceptFriendRequest(req.id, req.from)}
-              >Chấp nhận</button>
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/30 text-emerald-400 text-xs font-bold transition-all active:scale-95"
+              >
+                <Check className="w-3.5 h-3.5" />
+                Chấp nhận
+              </button>
               <button
-                className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
                 onClick={() => rejectFriendRequest(req.id)}
-              >Từ chối</button>
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-red-500/15 hover:bg-red-500/25 border border-red-500/30 text-red-400 text-xs font-bold transition-all active:scale-95"
+              >
+                <X className="w-3.5 h-3.5" />
+                Từ chối
+              </button>
             </div>
           </li>
         ))}

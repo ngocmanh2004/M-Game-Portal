@@ -20,7 +20,6 @@ export const PigDisplay: React.FC<PigDisplayProps> = ({ pig, isSmashing }) => {
     );
   }
 
-  // ⭐ Border animation theo loại heo
   const getBorderClass = () => {
     if (isSmashing) return 'border-red-500 animate-ping';
     switch(pig.id) {

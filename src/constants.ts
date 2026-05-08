@@ -259,8 +259,8 @@ export const SHOP_ITEMS: ShopItem[] = [
   },
   {
     id: 'avatar_manh_soai_ca',
-    name: '👑 Mạnh Soái Ca - VIP',
-    price: 100000000,
+    name: '👑 Anh Long - VIP',
+    price: 10000000,
     type: ItemType.AVATAR,
     description: 'Avatar đặc biệt dành riêng cho chủ nhân! Giới hạn 1 người',
     imageUrl: '/assets/image/items/avt-hiendai-nam.jpg',
@@ -268,7 +268,7 @@ export const SHOP_ITEMS: ShopItem[] = [
   },
   {
     id: 'avatar_chi_dai',
-    name: '💎 Chị Đại Sông Cầu',
+    name: '💎 Chị Đại Chợ Lớn',
     price: 3000000,
     type: ItemType.AVATAR,
     description: 'Avatar phong cách hiện đại - Nữ',
@@ -277,7 +277,7 @@ export const SHOP_ITEMS: ShopItem[] = [
   },
   {
     id: 'avatar_noel1_nam',
-    name: 'Noel Ấm Áp - Nam',
+    name: 'Trần Sở Sinh',
     price: 1000000,
     type: ItemType.AVATAR,
     description: 'Avatar noel phong cách hiện đại - Nam',
@@ -287,7 +287,7 @@ export const SHOP_ITEMS: ShopItem[] = [
 
   {
     id: 'avatar_noel1_nu',
-    name: 'Noel Ấm Áp - Nữ',
+    name: 'Bạch Nguyệt Quang',
     price: 1000000,
     type: ItemType.AVATAR,
     description: 'Avatar noel phong cách hiện đại - Nữ',
@@ -297,20 +297,113 @@ export const SHOP_ITEMS: ShopItem[] = [
 
   {
     id: 'avatar_noel2_nam',
-    name: '👑 Mạnh Không Lạnh',
-    price: 1000000000,
+    name: '👑 Tổng Tài',
+    price: 10000000,
     type: ItemType.AVATAR,
     description: 'Avatar noel siêu hiếm - Nam',
     imageUrl: '/assets/image/items/avt-noel2-nam.jpg',
     stock: 999
   },
   {
-    id: 'avatar_noel1_nu',
-    name: '💎 Noel An Lành VIP',
+    id: 'avatar_noel2_nu',
+    name: '💎 Liễu Như Yên',
     price: 10000000,
     type: ItemType.AVATAR,
     description: 'Avatar noel phong cách hiện đại - Nữ',
     imageUrl: '/assets/image/items/avt-noel2-nu.jpg',
+    stock: 999
+  },
+
+  
+  // ========== NHẠC NỀN ==========
+  {
+    id: 'music_50_nam_ve_sau',
+    name: '50 Năm Về Sau',
+    price: 3000000,
+    type: ItemType.MUSIC,
+    description: 'Nhạc nền lãng mạn - 50 Năm Về Sau',
+    imageUrl: '/assets/image/items/music-img/50-nam-ve-sau.png',
+    audioUrl: '/assets/audio/nhac-nen/50-nam-ve-sau.mp3',
+    stock: 999
+  },
+  {
+    id: 'music_anh_da_khong_biet',
+    name: 'Anh Đã Không Biết Cách Yêu Em',
+    price: 3000000,
+    type: ItemType.MUSIC,
+    description: 'Nhạc nền tâm trạng - Anh Đã Không Biết Cách Yêu Em',
+    imageUrl: '/assets/image/items/music-img/anh-da-khong-biet-cach-yeu-em.png',
+    audioUrl: '/assets/audio/nhac-nen/anh-da-khong-biet-cach-yeu-em.mp3',
+    stock: 999
+  },
+  {
+    id: 'music_hat_mua_remix',
+    name: 'Hạt Mưa Vương Vấn (Remix)',
+    price: 3000000,
+    type: ItemType.MUSIC,
+    description: 'Nhạc nền sôi động - Hạt Mưa Vương Vấn Remix',
+    imageUrl: '/assets/image/items/music-img/hat-mua-vuong-van-remix.png',
+    audioUrl: '/assets/audio/nhac-nen/hat-mua-vuong-van-remix.mp3',
+    stock: 999
+  },
+  {
+    id: 'music_hon_le_cua_em',
+    name: 'Hôn Lễ Của Em',
+    price: 3000000,
+    type: ItemType.MUSIC,
+    description: 'Nhạc nền buồn - Hôn Lễ Của Em',
+    imageUrl: '/assets/image/items/music-img/hon-le-cua-em.png',
+    audioUrl: '/assets/audio/nhac-nen/hon-le-cua-em.mp3',
+    stock: 999
+  },
+  {
+    id: 'music_muon_roi_ma_sao_con',
+    name: 'Muộn Rồi Mà Sao Còn',
+    price: 7000000,
+    type: ItemType.MUSIC,
+    description: 'Nhạc nền vui tươi của Sếp - Muộn Rồi Mà Sao Còn',
+    imageUrl: '/assets/image/items/music-img/muon-roi-ma-sao-con.png',
+    audioUrl: '/assets/audio/nhac-nen/muon-roi-ma-sao-con.mp3',
+    stock: 999
+  },
+  {
+    id: 'music_thien_ly_oi_remix',
+    name: 'Thiên Lý Ơi (Remix)',
+    price: 5000000,
+    type: ItemType.MUSIC,
+    description: 'Nhạc nền remix của anh Dắc 5 củ - Thiên Lý Ơi',
+    imageUrl: '/assets/image/items/music-img/thien-ly-oi-remix.png',
+    audioUrl: '/assets/audio/nhac-nen/thien-ly-oi-remix.mp3',
+    stock: 999
+  },
+  {
+    id: 'music_thien_ly_oi',
+    name: 'Thiên Lý Ơi',
+    price: 5000000,
+    type: ItemType.MUSIC,
+    description: 'Nhạc nền Dắc 5 củ - Thiên Lý Ơi (bản gốc)',
+    imageUrl: '/assets/image/items/music-img/thien-ly-oi.png',
+    audioUrl: '/assets/audio/nhac-nen/thien-ly-oi.mp3',
+    stock: 999
+  },
+  {
+    id: 'music_thiep_hong_sai_ten',
+    name: 'Thiệp Hồng Sai Tên (Remix)',
+    price: 3000000,
+    type: ItemType.MUSIC,
+    description: 'Nhạc nền remix - Thiệp Hồng Sai Tên',
+    imageUrl: '/assets/image/items/music-img/thiep-hong-sai-ten-remix.png',
+    audioUrl: '/assets/audio/nhac-nen/thiep-hong-sai-ten-remix.mp3',
+    stock: 999
+  },
+    {
+    id: 'music_noel',
+    name: 'Nhạc Giáng Sinh',
+    price: 2000000,
+    type: ItemType.MUSIC,
+    description: 'Nhạc nền giáng sinh',
+    imageUrl: '/assets/image/items/music-img/noel.png',
+    audioUrl: '/assets/audio/nhac-nen/noel.mp3',
     stock: 999
   },
 
@@ -377,7 +470,7 @@ export const SHOP_ITEMS: ShopItem[] = [
   {
     id: 'bonus_10',
     name: 'Thẻ Lộc +10%',
-    price: 3000000,
+    price: 1000000,
     type: ItemType.BONUS_CARD,
     description: 'Tăng 10% tiền thắng trong 24 giờ',
     imageUrl: '/assets/image/items/theloc10.jpg',
@@ -388,7 +481,7 @@ export const SHOP_ITEMS: ShopItem[] = [
   {
     id: 'bonus_20',
     name: 'Thẻ Lộc +20%',
-    price: 10000000,
+    price: 5000000,
     type: ItemType.BONUS_CARD,
     description: 'Tăng 20% tiền thắng trong 24 giờ',
     imageUrl: '/assets/image/items/theloc20.jpg',
@@ -399,7 +492,7 @@ export const SHOP_ITEMS: ShopItem[] = [
   {
     id: 'bonus_50',
     name: 'Thẻ Lộc VIP +50%',
-    price: 30000000,
+    price: 20000000,
     type: ItemType.BONUS_CARD,
     description: 'Tăng 50% tiền thắng trong 48 giờ',
     imageUrl: '/assets/image/items/thelocvip50.jpg',
@@ -501,8 +594,9 @@ export const SHOP_ITEMS: ShopItem[] = [
     tetAction: TetItemAction.DECORATION,
     maxUses: -1,
     stock: 999
-  }
+  },
 ];
+
 
 // ⭐ Avatar & Background mặc định
 export const DEFAULT_AVATAR = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNq2dnEsfUtG9oo4bSvx2TNBGlfrOm1olCPQ&s';

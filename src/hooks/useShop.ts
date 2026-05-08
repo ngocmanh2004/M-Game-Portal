@@ -125,7 +125,7 @@ export const useShop = (userId: string | undefined) => {
 
       return { 
         success: true, 
-        message: `✅ Mua thành công ${item.name}!` 
+        message: `Mua thành công ${item.name}!` 
       };
     } catch (error: any) {
       console.error('❌ Error buying item:', error);

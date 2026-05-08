@@ -112,6 +112,24 @@ export const formatCurrency = (amount: number): string => {
   return `${amount}đ`;
 };
 
+export const formatPrice = (amount: number): string => {
+  if (amount === 0) return 'FREE';
+  if (amount >= 1_000_000_000) {
+    const v = amount / 1_000_000_000;
+    return `${Number.isInteger(v) ? v : v.toFixed(1)}B`;
+  }
+  if (amount >= 1_000_000) {
+    const v = amount / 1_000_000;
+    return `${Number.isInteger(v) ? v : v.toFixed(1)}M`;
+  }
+  if (amount >= 10_000) {
+    const v = amount / 1_000;
+    return `${Number.isInteger(v) ? v : v.toFixed(1)}K`;
+  }
+  return amount.toLocaleString('vi-VN');
+};
+
+
 // Hàm reset tài khoản admin (gọi khi cần)
 export const resetAdminAccount = () => {
   const users = getStoredUsers();
