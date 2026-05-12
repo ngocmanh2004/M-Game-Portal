@@ -5,6 +5,7 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
   signInWithRedirect,
+  getRedirectResult,
   onAuthStateChanged,
   signOut,
   User as FirebaseUser
@@ -72,6 +73,17 @@ export const useAuth = () => {
   };
 
   useEffect(() => {
+    // Xử lý kết quả Google redirect login trên mobile
+    getRedirectResult(auth)
+      .then(async (result) => {
+        if (result?.user) {
+          await ensureUserProfile(result.user);
+        }
+      })
+      .catch((err) => {
+        console.warn('getRedirectResult:', err?.code);
+      });
+
     const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
       setUser(firebaseUser);
       setLoading(false);
