@@ -106,7 +106,8 @@ export const Home: React.FC<HomeProps> = ({
 
       {/* 1. HERO SECTION */}
       <div className="w-full relative rounded-[2.5rem] overflow-hidden bg-gradient-to-br from-blue-900 via-[#111827] to-[#312e81] shadow-[0_20px_50px_rgba(0,0,0,0.5)] p-8 sm:p-12 md:p-16 flex flex-col md:flex-row items-center justify-between border border-white/10 group">
-        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-20 mix-blend-overlay"></div>
+
+
         <div className="absolute top-[-50%] right-[-10%] w-[50%] h-[150%] bg-blue-500/20 blur-[120px] rounded-full group-hover:bg-blue-400/30 transition-colors duration-1000"></div>
 
         <div className="relative z-10 text-center md:text-left max-w-2xl flex flex-col items-center md:items-start space-y-5">

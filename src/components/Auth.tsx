@@ -202,7 +202,8 @@ export const Auth: React.FC = () => {
         style={{ animationDelay: '4s' }}
       ></div>
 
-      <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-20"></div>
+
+
 
       <div className="relative z-10 w-full max-w-md">
         <div className="text-center mb-6 sm:mb-8 animate-fade-in-down">
